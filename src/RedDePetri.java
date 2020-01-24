@@ -45,14 +45,18 @@ public class RedDePetri {
      * Disparo de transicion en red de Petri, modificando la marca de la red
      * La transicion debe estar sensibilizada
      * @param transicion transicion a disparar
+     * @return true si la transicion se disparo, de lo contrario false
      */
-    public void disparar(int transicion) {
+    public boolean disparar(int transicion) {
         if (this.isSensibilizada(transicion)) {
             for (int i = 0; i < marcaActual.length; i++) {
                 marcaActual[i] = marcaActual[i] + matrizDeIncidencia[i][transicion];
             }
             actualizarSensibilizadas();
+            return true;
         }
+        else
+            return false;
     }
 
     /**

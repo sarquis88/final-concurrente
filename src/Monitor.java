@@ -26,8 +26,9 @@ public class Monitor {
      * Entrada al monitor
      * Dispara transicion de entrada tomando el mutex y sin devolverlo
      * @param transicion transicion a disparar
+     * @return true si la transicion se disparo, de lo contrario false
      */
-    public void entrar(int transicion) {
+    public boolean entrar(int transicion) {
         try {
             mutex.acquire();
         } catch (InterruptedException e) {
@@ -36,7 +37,7 @@ public class Monitor {
         while(!(RdP.isSensibilizada(transicion))){
             VariablesDeCondicion[transicion].delay();
         }
-        this.RdP.disparar(transicion);
+        return this.RdP.disparar(transicion);
     }
 
     /**

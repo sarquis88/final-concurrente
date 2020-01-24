@@ -24,13 +24,17 @@ public class Semaforo {
         mutex.release();
         try {
             condicion.acquire();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            if(e instanceof InterruptedException)
+                return;
+            else
+                e.printStackTrace();
         }
         try {
             mutex.acquire();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            if(!(e instanceof InterruptedException))
+                e.printStackTrace();
         }
     }
 

@@ -1,72 +1,58 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 public class Main {
 
-	private static final int PRODUCTORES = 5;
-    private static final int CONSUMIDORES = 8;
-    private static final int DISPAROSPRODUCTORES = 10000;
-    private static final int DISPAROSCONSUMIDORES = 6250;
-    private static final int TIEMPOPRODUCCION = 0;      // ambos tiempos en milisegundos
-    private static final int TIEMPOCONSUMICION = 0;
+    private static final int CANTIDADPROCESOS = 500;
+    private static final int ARRIVALRATE = 3;
     
     public static void main(String[] args) throws InterruptedException {
 
-        int[] marcadoInicial = {0,10,0,5,8,0,0,15,0,0};
-        int[][] incidencia = {                          // TRANSICIONES
-                                                        { 1,-1, 0, 0, 0, 0, 0, 0}, // P
-                                                        { 0, 0, 0, 0,-1, 0, 0, 1}, // L
-                                                        { 0, 0, 0, 0, 0, 1,-1, 0}, // A
-                                                        {-1, 1, 0, 0,-1, 1, 0, 0}, // Z
-                                                        { 0, 0,-1, 1, 0, 0,-1, 1}, // A
-                                                        { 0, 0, 1,-1, 0, 0, 0, 0}, // S
-                                                        { 0, 0, 0, 0, 1,-1, 0, 0},  
-                                                        {-1, 0, 0, 1, 0, 0, 0, 0},  
-                                                        { 0, 1,-1, 0, 0, 0, 0, 0},  
-                                                        { 0, 0, 0, 0, 0, 0, 1,-1}   
-                                                                                    };
+                                //  0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15
+        int[] marcadoInicial = {    1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1  };
 
-        Politicas politicas = new Politicas(incidencia.length
-        );
+        int[][] incidencia = {          // TRANSICIONES     0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14
+                                                        {   1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,-1, 0, 0    }, // 0  P
+                                                        {  -1, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 1, 0, 0    }, // 1  L
+                                                        {   1, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0    }, // 2  A
+                                                        {   1, 0,-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0    }, // 3  Z
+                                                        {   0, 1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0    }, // 4  A
+                                                        {   0,-1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0    }, // 5  S
+                                                        {   0, 0, 1, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0    }, // 6
+                                                        {   0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,-1, 0    }, // 7
+                                                        {   0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0    }, // 8
+                                                        {   0, 0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 1, 0, 0, 0    }, // 9
+                                                        {   0, 0, 0, 0, 0, 0, 1, 0, 0, 0,-1, 0, 0, 0, 0    }, // 10
+                                                        {   0, 0, 0, 0, 0, 0, 0, 1,-1, 0, 0, 0, 0, 0, 0    }, // 11
+                                                        {   0, 0, 0, 0, 0, 0, 1, 0,-1,-1, 0, 0, 0, 0, 0    }, // 12
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,-1, 0, 0, 0    }, // 13
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,-1    }, // 14
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 1    }, // 15
+        };
 
-        Productor[] productores = new Productor[PRODUCTORES];
-        Consumidor[] consumidores = new Consumidor[CONSUMIDORES];
+        RedDePetri redDePetri = new RedDePetri(marcadoInicial, incidencia);
+        Politicas politicas = new Politicas(incidencia.length);
+        Monitor monitor = new Monitor(redDePetri, politicas);
 
-        Monitor monitor = new Monitor(new RedDePetri(marcadoInicial, incidencia), politicas);
+        CPUPower cpuPowerA = new CPUPower(monitor, "A");
+        CPUProcessing cpuProcessingA = new CPUProcessing(cpuPowerA);
+        CPUPower cpuPowerB = new CPUPower(monitor, "B");
+        CPUProcessing cpuProcessingB = new CPUProcessing(cpuPowerB);
 
-        ArrayList<LinkedList<Object>> buffers = new ArrayList<>();
-        buffers.add(new LinkedList<>());
-        buffers.add(new LinkedList<>());
+        GeneradorProcesos generadorProcesos = new GeneradorProcesos(monitor, CANTIDADPROCESOS, ARRIVALRATE);
 
-        long inicio = System.currentTimeMillis();
+        cpuPowerA.start();
+        cpuPowerB.start();
+        cpuProcessingA.start();
+        cpuProcessingB.start();
+        generadorProcesos.start();
 
-        for (int i = 0; i < PRODUCTORES; i++) {
-			productores[i] = new Productor(monitor, DISPAROSPRODUCTORES, buffers);
-			productores[i].start();
-		}
-        for (int i = 0; i < CONSUMIDORES; i++) {
-			consumidores[i] = new Consumidor(monitor, DISPAROSCONSUMIDORES, buffers);
-			consumidores[i].start();
-		}
+        generadorProcesos.join();
 
-		for (int i = 0; i < PRODUCTORES; i++)
-			productores[i].join();
-		for (int i = 0; i < CONSUMIDORES; i++)
-			consumidores[i].join();
+        cpuProcessingA.interrupt();
+        cpuProcessingB.interrupt();
 
-        long fin = System.currentTimeMillis();
-        double tiempo = (fin - inicio) / (1000.00);
+        cpuPowerA.apagar();
+        cpuPowerB.apagar();
 
 		System.out.println("\nFIN DE EJECUCION");
-		System.out.println("TIEMPO: " + tiempo + " SEGUNDOS");
-    }
-
-    static public int getTiempoproduccion() {
-        return TIEMPOPRODUCCION;
-    }
-
-    static public int getTiempoconsumicion() {
-        return TIEMPOCONSUMICION;
     }
 }
 
