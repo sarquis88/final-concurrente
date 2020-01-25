@@ -7,23 +7,28 @@ public class GeneradorProcesos extends Thread {
     private int cantidadAGenerar;
     private Monitor monitor;
     private int arrivalRate;
+    private CPUBuffer cpuBufferA;
+    private CPUBuffer cpuBufferB;
 
     /**
      * Constructor de clase
      * @param monitor monitor del productor
      * @param cantidadAGenerar cantidad de procesos a generar
      */
-    public GeneradorProcesos(Monitor monitor, int cantidadAGenerar, int arrivalRate) {
+    public GeneradorProcesos(Monitor monitor, int cantidadAGenerar, int arrivalRate,
+                             CPUBuffer cpuBufferA, CPUBuffer cpuBufferB) {
         this.monitor = monitor;
         this.cantidadAGenerar = cantidadAGenerar;
         this.arrivalRate = arrivalRate;
+        this.cpuBufferA = cpuBufferA;
+        this.cpuBufferB = cpuBufferB;
     }
 
     /**
      * Accion de generar procesos
      * Ingreso a monitor, disparo de red, salida de monitor
      */
-    private void generarProceso(int i) {
+    private void generarProceso() {
         boolean disparo = false;
         try {
             disparo = monitor.entrar(12);
@@ -35,19 +40,25 @@ public class GeneradorProcesos extends Thread {
             Random random = new Random();
             int ran = random.nextInt(2);
             String cpu = "A";
+            CPUBuffer cpuBuffer = cpuBufferA;
 
             if(ran == 1) {
                 ran = 6;
                 cpu = "B";
+                cpuBuffer = cpuBufferB;
             }
 
+            CPUProcess cpuProcess = null;
             try {
                 monitor.entrar(ran);
+                cpuProcess = new CPUProcess();
+                cpuBuffer.addProceso(cpuProcess);
                 monitor.salir();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println("NUEVO PROCESO NUMERO               " + i + " EN CPU " + cpu);
+            if(cpuProcess != null)
+                System.out.println("NUEVO PROCESO NUMERO:              " + cpuProcess.getIdLocal() + " EN CPU " + cpu);
         }
         dormir();
     }
@@ -76,9 +87,7 @@ public class GeneradorProcesos extends Thread {
      */
     @Override
     public void run() {
-        System.out.println("COMIENZO:                          GENERADOR");
         for (int i = 0; i < cantidadAGenerar; i++)
-            this.generarProceso(i);
-        System.out.println("FIN:                               GENERADOR");
+            this.generarProceso();
     }
 }

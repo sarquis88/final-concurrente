@@ -1,6 +1,8 @@
 public class CPUProcessing extends Thread {
 
     private CPUPower cpuPower;
+    private Monitor monitor;
+    private CPUBuffer cpuBuffer;
 
     /**
      * Constructor de clase
@@ -8,6 +10,8 @@ public class CPUProcessing extends Thread {
      */
     public CPUProcessing(CPUPower cpuPower) {
         this.cpuPower = cpuPower;
+        this.monitor = cpuPower.getMonitor();
+        this.cpuBuffer = cpuPower.getCpuBuffer();
     }
 
     /**
@@ -30,24 +34,31 @@ public class CPUProcessing extends Thread {
         else
             return;                             // error
 
-        while( !(currentThread().isInterrupted()) ) {
-            if(cpuPower.isOn()) {
-                try {
-                    cpuPower.getMonitor().entrar(secuencia[0]);    // mantener CPU encendido
-                    cpuPower.getMonitor().salir();
+        while(!cpuPower.isOn()) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
-                    cpuPower.getMonitor().entrar(secuencia[1]);    // tomar proceso del buffer y procesar
-                    Thread.sleep(1);
-                    cpuPower.getMonitor().salir();
+        while(cpuPower.isOn()) {
+            try {
+                monitor.entrar(secuencia[0]);    // mantener CPU encendido
+                monitor.salir();
 
-                    cpuPower.getMonitor().entrar(secuencia[2]);   // fin proceso
-                    cpuPower.getMonitor().salir();
-                } catch (Exception e) {
-                    if (e instanceof InterruptedException)
-                        this.cpuPower.apagar();
-                    else
-                        e.printStackTrace();
-                }
+                monitor.entrar(secuencia[1]);    // tomar proceso del buffer y procesar
+                this.cpuPower.setActive(true);
+                Thread.sleep(3);
+                System.out.println("TERMINADO PROCESO NUMERO:          " + this.cpuBuffer.procesar().getIdLocal());
+                monitor.salir();
+
+                monitor.entrar(secuencia[2]);   // fin proceso
+                this.cpuPower.setActive(false);
+                monitor.salir();
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

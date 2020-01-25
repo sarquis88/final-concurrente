@@ -31,26 +31,29 @@ public class Main {
         Politicas politicas = new Politicas(incidencia.length);
         Monitor monitor = new Monitor(redDePetri, politicas);
 
-        CPUPower cpuPowerA = new CPUPower(monitor, "A");
+        CPUBuffer cpuBufferA = new CPUBuffer();
+        CPUBuffer cpuBufferB = new CPUBuffer();
+
+        CPUPower cpuPowerA = new CPUPower(monitor, "A", cpuBufferA);
         CPUProcessing cpuProcessingA = new CPUProcessing(cpuPowerA);
-        CPUPower cpuPowerB = new CPUPower(monitor, "B");
+        CPUPower cpuPowerB = new CPUPower(monitor, "B", cpuBufferB);
         CPUProcessing cpuProcessingB = new CPUProcessing(cpuPowerB);
 
-        GeneradorProcesos generadorProcesos = new GeneradorProcesos(monitor, CANTIDADPROCESOS, ARRIVALRATE);
+        GeneradorProcesos generadorProcesos = new GeneradorProcesos(monitor, CANTIDADPROCESOS,
+                ARRIVALRATE, cpuBufferA, cpuBufferB);
 
         cpuPowerA.start();
         cpuPowerB.start();
+
         cpuProcessingA.start();
         cpuProcessingB.start();
+
         generadorProcesos.start();
-
         generadorProcesos.join();
-
-        cpuProcessingA.interrupt();
-        cpuProcessingB.interrupt();
-
-        cpuPowerA.apagar();
-        cpuPowerB.apagar();
+        cpuProcessingA.join();
+        cpuProcessingB.join();
+        cpuPowerA.join();
+        cpuPowerB.join();
 
 		System.out.println("\nFIN DE EJECUCION");
     }

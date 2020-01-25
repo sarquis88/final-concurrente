@@ -52,7 +52,7 @@ public class Monitor {
     /**
      * Desbloquea un hilo de las colas de condicion cuya transicion esté sensibilizada
      */
-    private void desbloquearUno(){
+    public void desbloquearUno(){
         ArrayList<Integer> desbloqueables = colasAndSensibilizadas();
         if(!desbloqueables.isEmpty())
             VariablesDeCondicion[politicas.decidir(desbloqueables)].resume();

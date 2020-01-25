@@ -3,16 +3,20 @@ public class CPUPower extends Thread {
     private Monitor monitor;
     private String CPUId;
     private boolean isOn;
+    private boolean isActive;
+    private CPUBuffer cpuBuffer;
 
     /**
      * Constructor de clase
      * @param monitor monitor del CPUProcessing
      * @param CPUId id del CPU a controlar (A o B)
      */
-    public CPUPower(Monitor monitor, String CPUId){
+    public CPUPower(Monitor monitor, String CPUId, CPUBuffer cpuBuffer){
         this.monitor = monitor;
         this.CPUId = CPUId;
         this.isOn = false;
+        this.isActive = false;
+        this.cpuBuffer = cpuBuffer;
     }
 
     /**
@@ -33,19 +37,27 @@ public class CPUPower extends Thread {
         else
             return;                             // error
 
-        while( !(currentThread().isInterrupted()) ) {
-            try {
-                monitor.entrar(secuencia[0]);    // pasar de stand by a encendido
-                Thread.sleep(1);
-                monitor.salir();
+        try {
+            monitor.entrar(secuencia[0]);    // pasar de stand by a encendido
+            Thread.sleep(1);
+            monitor.salir();
 
-                monitor.entrar(secuencia[1]);    // encender CPU
-                this.isOn = true;
-                monitor.salir();
+            monitor.entrar(secuencia[1]);    // encender CPU
+            this.isOn = true;
+            monitor.salir();
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            while(this.cpuBuffer.getSize() > 0 || this.isActive) {
+                try {                       // dormir hasta que este inactivo y el buffer este vacio
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
+            apagar();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -55,7 +67,7 @@ public class CPUPower extends Thread {
      */
     public void apagar() {
 
-        int transicion = 99;
+        int transicion;
         if(this.CPUId.equalsIgnoreCase("A"))
             transicion = 5;
         else if(this.CPUId.equalsIgnoreCase("B"))
@@ -97,5 +109,21 @@ public class CPUPower extends Thread {
      */
     public Monitor getMonitor() {
         return this.monitor;
+    }
+
+    /**
+     * Getter del CPUBuffer
+     * @return objeto CPUBuffer relativo al buffer de instancia
+     */
+    public CPUBuffer getCpuBuffer() {
+        return this.cpuBuffer;
+    }
+
+    /**
+     * Cambiar el estado del procesador por activo o no
+     * @param isActive booleano indicando el nuevo estado
+     */
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
     }
 }
