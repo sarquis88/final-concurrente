@@ -17,7 +17,7 @@ public class GeneradorProcesos extends Thread {
      */
     public GeneradorProcesos(Monitor monitor, int cantidadAGenerar, int arrivalRate,
                              CPUBuffer cpuBufferA, CPUBuffer cpuBufferB) {
-        Thread.currentThread().setName("GeneradorProcesos");
+        setName("GeneradorProcesos");
         this.monitor = monitor;
         this.cantidadAGenerar = cantidadAGenerar;
         this.arrivalRate = arrivalRate;
@@ -32,8 +32,7 @@ public class GeneradorProcesos extends Thread {
     private void generarProceso() {
         boolean disparo = false;
         try {
-            disparo = monitor.entrar(12);
-            monitor.salir();
+            disparo = monitor.disparo(12);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,10 +50,9 @@ public class GeneradorProcesos extends Thread {
 
             CPUProcess cpuProcess = null;
             try {
-                monitor.entrar(ran);
+                monitor.disparo(ran);
                 cpuProcess = new CPUProcess();
                 cpuBuffer.addProceso(cpuProcess);
-                monitor.salir();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -90,5 +88,6 @@ public class GeneradorProcesos extends Thread {
     public void run() {
         for (int i = 0; i < cantidadAGenerar; i++)
             this.generarProceso();
+        System.out.println("FIN 				   GENERADOR");
     }
 }

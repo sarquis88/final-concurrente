@@ -1,73 +1,41 @@
-import java.util.ArrayList;
-import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Monitor {
 
-    private Semaphore mutex = new Semaphore(1);
-    private Semaforo[] VariablesDeCondicion;            //condiciones de sincronizacion de cada transicion
+    private ReentrantLock mutex;
+    private Condition waitingQueue;
     private RedDePetri RdP;
-    private Politicas politicas;
 
     /**
      * Constructor de clase
      * @param red red de petri asociada al monitor
-     * @param politicas politicas asociadas al monitor
      */
-    public Monitor(RedDePetri red, Politicas politicas){
+    public Monitor(RedDePetri red){
         this.RdP = red;
-        this.VariablesDeCondicion = new Semaforo[RdP.getTransiciones().length];
-        this.politicas = politicas;
-
-        for(int i = 0; i < this.VariablesDeCondicion.length; i++)
-            this.VariablesDeCondicion[i] = new Semaforo(this.mutex);
+        this.mutex = new ReentrantLock(true);
+        this.waitingQueue = mutex.newCondition();
     }
 
     /**
-     * Entrada al monitor
-     * Dispara transicion de entrada tomando el mutex y sin devolverlo
+     * Entrada al monitor y disparo de transicion
      * @param transicion transicion a disparar
      * @return true si la transicion se disparo, de lo contrario false
      */
-    public boolean entrar(int transicion) {
+    public boolean disparo(int transicion) throws InterruptedException {
+        boolean exito;
         try {
-            mutex.acquire();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        while(!(RdP.isSensibilizada(transicion))){
-            VariablesDeCondicion[transicion].delay();
-        }
-        return this.RdP.disparar(transicion);
-    }
+            mutex.lock();
 
-    /**
-     * Salida del monitor
-     * Devuelve el mutex y desbloquea un hilo
-     */
-    public void salir(){
-        desbloquearUno();
-        mutex.release();
-    }
+            while (!RdP.isSensibilizada(transicion))
+                waitingQueue.await();
 
-    /**
-     * Desbloquea un hilo de las colas de condicion cuya transicion esté sensibilizada
-     */
-    public void desbloquearUno(){
-        ArrayList<Integer> desbloqueables = colasAndSensibilizadas();
-        if(!desbloqueables.isEmpty())
-            VariablesDeCondicion[politicas.decidir(desbloqueables)].resume();
-    }
-
-    /**
-     * Devuelve una lista de las transiciones sensibilizadas que tienen hilos queriendo dispararlas
-     * @return arraylist de enteros correspondiente a la lista de transiciones sensibilizadas
-     */
-    private ArrayList<Integer> colasAndSensibilizadas() {
-        ArrayList<Integer> desbloqueables = new ArrayList<>();
-        for(int i = 0; i < this.VariablesDeCondicion.length; i++) {
-            if( !(VariablesDeCondicion[i].isEmpty()) && RdP.isSensibilizada(i))
-                desbloqueables.add(i);
+            exito = this.RdP.disparar(transicion);
+            waitingQueue.signalAll();
         }
-        return desbloqueables;
+        finally {
+            mutex.unlock();
+        }
+        return exito;
     }
 }

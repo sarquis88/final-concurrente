@@ -1,30 +1,23 @@
 public class RedDePetri {
 
     private int[] marcaActual;
-    private int[][] matrizDeIncidencia;
+    private int[][] incidenciaFront;
+    private int[][] incidenciaBack;
     private boolean[] transiciones;
 
     /**
      * Constructor de clase
      * @param marcaInicial marca inicial de la red
-     * @param matrizDeIncidencia matriz de incidencia de la red
+     * @param incidenciaFront matriz de incidencia frontal
+     * @param incidenciaBack matriz de incidencia trasera
      */
-    public RedDePetri(int[] marcaInicial, int[][] matrizDeIncidencia) {
+    public RedDePetri(int[] marcaInicial, int[][] incidenciaFront, int[][] incidenciaBack) {
 
         this.marcaActual = marcaInicial;
-        this.matrizDeIncidencia = matrizDeIncidencia;
-
-        //TRUE = SENSIBILIZADA, FALSE = NO SENSIBILIZDA
-        this.transiciones = new boolean[matrizDeIncidencia[0].length];
+        this.incidenciaFront = incidenciaFront;
+        this.incidenciaBack = incidenciaBack;
+        this.transiciones = new boolean[incidenciaBack[0].length];
         actualizarSensibilizadas();
-    }
-
-    /**
-     * Getter de transiciones
-     * @return boolean con las transiciones
-     */
-    public boolean[] getTransiciones() {
-        return transiciones;
     }
 
     /**
@@ -35,7 +28,7 @@ public class RedDePetri {
      */
     private boolean isSensibilizadaInterno(int transicion) {
         for(int i = 0; i < marcaActual.length; i++) {
-            if((marcaActual[i] + matrizDeIncidencia[i][transicion]) < 0)
+            if((marcaActual[i] - incidenciaBack[i][transicion]) < 0)
                 return false;
         }
         return true;
@@ -49,11 +42,14 @@ public class RedDePetri {
      */
     public boolean disparar(int transicion) {
         if (this.isSensibilizada(transicion)) {
+
             for (int i = 0; i < marcaActual.length; i++) {
-                marcaActual[i] = marcaActual[i] + matrizDeIncidencia[i][transicion];
+                marcaActual[i] = marcaActual[i] + incidenciaFront[i][transicion];
+                marcaActual[i] = marcaActual[i] - incidenciaBack[i][transicion];
             }
             actualizarSensibilizadas();
             return true;
+
         }
         else
             return false;

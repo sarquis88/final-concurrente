@@ -13,10 +13,6 @@ public class Politicas {
 
         for(int i = 0; i < cantidadPrioridades; i++)
             addPrioridad(i , 0);                // prioridades por defecto
-
-        // addPrioridad(6, 1);      // prioridad de produccion en buffer 1
-        // addPrioridad(0, 1);      // prioridad de consumicion en buffer 0
-        // asi, se deberia notar mas productor en buffer 0
     }
 
     /**

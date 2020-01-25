@@ -9,7 +9,7 @@ public class CPUProcessing extends Thread {
      * @param cpuPower controlador de encendido del CPU
      */
     public CPUProcessing(CPUPower cpuPower) {
-        Thread.currentThread().setName("CPUProcessing" + cpuPower.getCPUId());
+        setName("CPUProcessing" + cpuPower.getCPUId());
         this.cpuPower = cpuPower;
         this.monitor = cpuPower.getMonitor();
         this.cpuBuffer = cpuPower.getCpuBuffer();
@@ -35,30 +35,31 @@ public class CPUProcessing extends Thread {
         else
             return;                             // error
 
-        while(!cpuPower.isOn()) {
+        while(!currentThread().isInterrupted()) {
             try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
+                monitor.disparo(secuencia[0]);    // mantener CPU encendido
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
 
-        while(cpuPower.isOn()) {
             try {
-                monitor.entrar(secuencia[0]);    // mantener CPU encendido
-                monitor.salir();
-
-                monitor.entrar(secuencia[1]);    // tomar proceso del buffer y procesar
+                monitor.disparo(secuencia[1]);    // tomar proceso del buffer y procesar
                 this.cpuPower.setActive(true);
+                this.cpuBuffer.procesar();
                 Thread.sleep(3);
-                System.out.println("TERMINADO PROCESO NUMERO:          " + this.cpuBuffer.procesar().getIdLocal());
-                monitor.salir();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
 
-                monitor.entrar(secuencia[2]);   // fin proceso
+            try {
+                monitor.disparo(secuencia[2]);   // fin proceso
                 this.cpuPower.setActive(false);
-                monitor.salir();
-
-            } catch (Exception e) {
+                CPUProcess cpuProcess = this.cpuBuffer.procesar();
+                if(cpuProcess != null)
+                    System.out.println("TERMINADO PROCESO NUMERO:          " + cpuProcess.getIdLocal());
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }
