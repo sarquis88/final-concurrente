@@ -17,6 +17,7 @@ public class GeneradorProcesos extends Thread {
      */
     public GeneradorProcesos(Monitor monitor, int cantidadAGenerar, int arrivalRate,
                              CPUBuffer cpuBufferA, CPUBuffer cpuBufferB) {
+        Thread.currentThread().setName("GeneradorProcesos");
         this.monitor = monitor;
         this.cantidadAGenerar = cantidadAGenerar;
         this.arrivalRate = arrivalRate;

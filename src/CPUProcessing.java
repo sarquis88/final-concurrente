@@ -9,6 +9,7 @@ public class CPUProcessing extends Thread {
      * @param cpuPower controlador de encendido del CPU
      */
     public CPUProcessing(CPUPower cpuPower) {
+        Thread.currentThread().setName("CPUProcessing" + cpuPower.getCPUId());
         this.cpuPower = cpuPower;
         this.monitor = cpuPower.getMonitor();
         this.cpuBuffer = cpuPower.getCpuBuffer();

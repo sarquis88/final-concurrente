@@ -11,7 +11,8 @@ public class CPUPower extends Thread {
      * @param monitor monitor del CPUProcessing
      * @param CPUId id del CPU a controlar (A o B)
      */
-    public CPUPower(Monitor monitor, String CPUId, CPUBuffer cpuBuffer){
+    public CPUPower(Monitor monitor, String CPUId, CPUBuffer cpuBuffer) {
+        Thread.currentThread().setName("CPUPower" + CPUId);
         this.monitor = monitor;
         this.CPUId = CPUId;
         this.isOn = false;
@@ -38,6 +39,7 @@ public class CPUPower extends Thread {
             return;                             // error
 
         try {
+            /*
             monitor.entrar(secuencia[0]);    // pasar de stand by a encendido
             Thread.sleep(1);
             monitor.salir();
@@ -46,6 +48,9 @@ public class CPUPower extends Thread {
             this.isOn = true;
             monitor.salir();
 
+             */
+
+            /*
             while(this.cpuBuffer.getSize() > 0 || this.isActive) {
                 try {                       // dormir hasta que este inactivo y el buffer este vacio
                     Thread.sleep(10);
@@ -55,6 +60,8 @@ public class CPUPower extends Thread {
             }
 
             apagar();
+
+             */
 
         } catch (Exception e) {
             e.printStackTrace();
