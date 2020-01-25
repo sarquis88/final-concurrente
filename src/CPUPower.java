@@ -49,16 +49,16 @@ public class CPUPower extends Thread {
             try {
                 monitor.disparo(secuencia[0]);    // pasar de stand by a encendido
                 Thread.sleep(1);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (InterruptedException e) {
+                interruptedReaccion();
             }
 
             try {
                 monitor.disparo(secuencia[1]);    // encender CPU
                 this.isOn = true;
             }
-            catch (Exception e) {
-                e.printStackTrace();
+            catch (InterruptedException e) {
+                interruptedReaccion();
             }
 
             try {
@@ -67,8 +67,8 @@ public class CPUPower extends Thread {
                 cpuBuffer.procesar();
                 Thread.sleep(3);
             }
-            catch (Exception e) {
-                e.printStackTrace();
+            catch (InterruptedException e) {
+                interruptedReaccion();
             }
 
             try {
@@ -79,16 +79,16 @@ public class CPUPower extends Thread {
                 if(cpuProcess != null)
                     System.out.println("TERMINADO PROCESO NUMERO:          " + cpuProcess.getIdLocal());
             }
-            catch (Exception e) {
-                e.printStackTrace();
+            catch (InterruptedException e) {
+                interruptedReaccion();
             }
 
             try {
                 monitor.disparo(secuencia[4]);   // apagado
                 this.isOn = false;
             }
-            catch (Exception e) {
-                e.printStackTrace();
+            catch (InterruptedException e) {
+                interruptedReaccion();
             }
         }
     }
@@ -123,5 +123,12 @@ public class CPUPower extends Thread {
      */
     public void setActive(boolean isActive) {
         this.isActive = isActive;
+    }
+
+    /**
+     * Reaccion cuando el hilo se ve interrumpido
+     */
+    private void interruptedReaccion() {
+        System.out.println("FIN CPUPower                       " + this.CPUId);
     }
 }

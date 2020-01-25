@@ -1,6 +1,6 @@
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 1000;
+    private static final int CANTIDADPROCESOS = 100;
     private static final int ARRIVALRATE = 3;
     
     public static void main(String[] args) throws InterruptedException {
@@ -62,14 +62,16 @@ public class Main {
         GeneradorProcesos generadorProcesos = new GeneradorProcesos(monitor, CANTIDADPROCESOS,
                 ARRIVALRATE, cpuBufferA, cpuBufferB);
 
+        Thread[] threads = {generadorProcesos, cpuPowerA, cpuPowerB, cpuProcessingA, cpuProcessingB};
 
-        generadorProcesos.start();
+        for(Thread thread : threads)
+            thread.start();
 
-        cpuPowerA.start();
-        cpuPowerB.start();
+        generadorProcesos.join();
+        Thread.sleep(100);
 
-        cpuProcessingA.start();
-        cpuProcessingB.start();
+        for(Thread thread : threads)
+            thread.interrupt();
 
     }
 }

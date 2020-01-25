@@ -1,6 +1,6 @@
 public class CPUProcess {
 
-    private static int idGlobal = 0;
+    private static int idGlobal = 1;
 
     private int idLocal;
 

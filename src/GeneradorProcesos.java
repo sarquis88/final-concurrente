@@ -88,6 +88,6 @@ public class GeneradorProcesos extends Thread {
     public void run() {
         for (int i = 0; i < cantidadAGenerar; i++)
             this.generarProceso();
-        System.out.println("FIN 				   GENERADOR");
+        System.out.println("FIN 				               GENERADOR");
     }
 }

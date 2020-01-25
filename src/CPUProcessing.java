@@ -38,8 +38,8 @@ public class CPUProcessing extends Thread {
         while(!currentThread().isInterrupted()) {
             try {
                 monitor.disparo(secuencia[0]);    // mantener CPU encendido
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (InterruptedException e) {
+                interruptedReaccion();
             }
 
             try {
@@ -48,8 +48,8 @@ public class CPUProcessing extends Thread {
                 this.cpuBuffer.procesar();
                 Thread.sleep(3);
             }
-            catch (Exception e) {
-                e.printStackTrace();
+            catch (InterruptedException e) {
+                interruptedReaccion();
             }
 
             try {
@@ -59,9 +59,16 @@ public class CPUProcessing extends Thread {
                 if(cpuProcess != null)
                     System.out.println("TERMINADO PROCESO NUMERO:          " + cpuProcess.getIdLocal());
             }
-            catch (Exception e) {
-                e.printStackTrace();
+            catch (InterruptedException e) {
+                interruptedReaccion();
             }
         }
+    }
+
+    /**
+     * Reaccion cuando el hilo se ve interrumpido
+     */
+    private void interruptedReaccion() {
+        System.out.println("FIN CPUProcessing                  " + this.cpuPower.getCPUId());
     }
 }
