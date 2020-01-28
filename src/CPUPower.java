@@ -4,8 +4,11 @@ public class CPUPower extends Thread {
     private CPUBuffer cpuBuffer;
     private int standByDelay;
     private boolean isActive;
+    private boolean isOn;
     private int[] secuencia = {99, 99, 99};
     private String cpuId;
+
+    private static int sleep = 50;
 
     /**
      * Constructor de clase
@@ -17,6 +20,7 @@ public class CPUPower extends Thread {
         this.cpuBuffer = cpuBuffer;
         this.standByDelay = standbyDelay;
         this.isActive = false;
+        this.isOn = false;
         this.cpuId = cpuID;
 
         if(cpuID.equalsIgnoreCase("A")) {
@@ -41,30 +45,40 @@ public class CPUPower extends Thread {
 
         while(!currentThread().isInterrupted()) {
 
-            try {
-                monitor.entrar(secuencia[0]);    // pasar de stand by a encendido
-                monitor.salir();
-                Thread.sleep(this.standByDelay);
-            } catch (InterruptedException e) {
-                interruptedReaccion();
-            }
-
-            try {
-                monitor.entrar(secuencia[1]);    // encender CPU
-                monitor.salir();
-                System.out.println("ENCENDIDO:                         CPU " + this.cpuId);
-            } catch (InterruptedException e) {
-                interruptedReaccion();
-            }
-
-            if(this.cpuBuffer.getSize() <= 0 && !this.isActive) {
+            if(this.cpuBuffer.getSize() > 0 && !this.isOn) {
                 try {
-                    monitor.entrar(secuencia[2]);   // apagado
+                    monitor.entrar(secuencia[0]);    // pasar de stand by a encendido
                     monitor.salir();
-                    System.out.println("APAGADO:                         CPU" + this.cpuId);
+                    Thread.sleep(this.standByDelay);
                 } catch (InterruptedException e) {
                     interruptedReaccion();
                 }
+
+                try {
+                    monitor.entrar(secuencia[1]);    // encender CPU
+                    this.isOn = true;
+                    monitor.salir();
+                    System.out.println(Colors.RED_BOLD + "ENCENDIDO:                         CPU " + this.cpuId + Colors.RESET);
+                } catch (InterruptedException e) {
+                    interruptedReaccion();
+                }
+            }
+            else if(this.cpuBuffer.getSize() <= 0 && this.isOn && !this.isActive) {
+                try {
+                    monitor.entrar(secuencia[2]);   // apagado
+                    this.isOn = false;
+                    monitor.salir();
+                    System.out.println(Colors.RED_BOLD + "APAGADO:                           CPU " + this.cpuId + Colors.RESET);
+                } catch (InterruptedException e) {
+                    interruptedReaccion();
+                }
+            }
+
+            try {
+                sleep(sleep);
+            }
+            catch (InterruptedException e) {
+                interruptedReaccion();
             }
         }
     }

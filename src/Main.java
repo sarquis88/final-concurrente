@@ -1,9 +1,9 @@
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 1000;
-    private static final int ARRIVALRATE = 5;
-    private static final int SERVICERATE = 2;
-    private static final int STANDBYDELAY = 100;
+    private static final int CANTIDADPROCESOS = 5000;
+    private static final int ARRIVALRATE = 10;
+    private static final int SERVICERATE = 0;
+    private static final int STANDBYDELAY = 0;
 
     private static final boolean PRINTMARCADO = false;
 
@@ -106,6 +106,12 @@ public class Main {
     }
 
     public static void exit() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         double tiempo = (fin - inicio) / 1000.00;
         System.out.println(Colors.BLUE_BOLD + "\n          --> TIEMPO: " + tiempo + " [seg] <--" + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "      --> TRANSICIONES DISPARADAS: " + redDePetri.getTransicionesDisparadas() + " <--" + Colors.RESET);
