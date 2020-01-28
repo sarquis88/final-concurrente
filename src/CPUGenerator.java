@@ -7,19 +7,26 @@ public class CPUGenerator extends Thread {
     private int cantidadAGenerar;
     private Monitor monitor;
     private int arrivalRate;
-    private CPUBuffer cpuBuffer;
+    private CPUBuffer cpuBufferA;
+    private CPUBuffer cpuBufferB;
+    private int[] secuencia = {99, 99, 99};
 
     /**
      * Constructor de clase
      * @param monitor monitor del productor
      * @param cantidadAGenerar cantidad de procesos a generar
      */
-    public CPUGenerator(Monitor monitor, int cantidadAGenerar, int arrivalRate, CPUBuffer cpuBuffer) {
+    public CPUGenerator(Monitor monitor, int cantidadAGenerar, int arrivalRate, CPUBuffer cpuBufferA, CPUBuffer cpuBufferB) {
         setName("CPUGenerator");
         this.monitor = monitor;
         this.cantidadAGenerar = cantidadAGenerar;
         this.arrivalRate = arrivalRate;
-        this.cpuBuffer = cpuBuffer;
+        this.cpuBufferA = cpuBufferA;
+        this.cpuBufferB = cpuBufferB;
+
+        this.secuencia[0] = 0;
+        this.secuencia[1] = 1;
+        this.secuencia[2] = 8;
     }
 
     /**
@@ -28,15 +35,25 @@ public class CPUGenerator extends Thread {
      */
     private void generarProceso() {
         try {
-            monitor.entrar(0);
+            monitor.entrar(this.secuencia[0]);      // arrival rate
             monitor.salir();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        Random random = new Random();           // numero random para crear proceso en un buffer o en el otro
         CPUProcess cpuProcess = null;
+
+        CPUBuffer cpuBuffer = cpuBufferA;
+        int transicion = this.secuencia[1];
+
+        if(random.nextInt(2) == 1) {
+            cpuBuffer = this.cpuBufferB;
+            transicion = this.secuencia[2];
+        }
+
         try {
-            monitor.entrar(1);
+            monitor.entrar(transicion);                 // creacion de proceso
             cpuProcess = new CPUProcess();
             cpuBuffer.addProceso(cpuProcess);
             monitor.salir();
@@ -63,7 +80,6 @@ public class CPUGenerator extends Thread {
         try {
             sleep(sleep);
         } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
@@ -78,7 +94,5 @@ public class CPUGenerator extends Thread {
             this.generarProceso();
             dormir();
         }
-
-        System.out.println(Colors.RED_BOLD + "FIN CPUGenerator" + Colors.RESET);
     }
 }
