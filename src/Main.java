@@ -1,9 +1,9 @@
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 5000;
+    private static final int CANTIDADPROCESOS = 100;
     private static final int ARRIVALRATE = 10;
-    private static final int SERVICERATE = 0;
-    private static final int STANDBYDELAY = 0;
+    private static final int SERVICERATE = 3;
+    private static final int STANDBYDELAY = 30;
 
     private static final boolean PRINTMARCADO = false;
 
@@ -15,6 +15,8 @@ public class Main {
     private static RedDePetri redDePetri;
     private static CPUProcessing cpuProcessingA;
     private static CPUProcessing cpuProcessingB;
+    private static CPUPower cpuPowerA;
+    private static CPUPower cpuPowerB;
 
     public static void main(String[] args) {
 
@@ -65,11 +67,11 @@ public class Main {
         Monitor monitor = new Monitor(redDePetri);
 
         CPUBuffer cpuBufferA = new CPUBuffer();
-        CPUPower cpuPowerA = new CPUPower(monitor, cpuBufferA, STANDBYDELAY, "A");
+        cpuPowerA = new CPUPower(monitor, cpuBufferA, STANDBYDELAY, "A");
         cpuProcessingA = new CPUProcessing(cpuPowerA, SERVICERATE, "A");
 
         CPUBuffer cpuBufferB = new CPUBuffer();
-        CPUPower cpuPowerB = new CPUPower(monitor, cpuBufferB, STANDBYDELAY, "B");
+        cpuPowerB = new CPUPower(monitor, cpuBufferB, STANDBYDELAY, "B");
         cpuProcessingB = new CPUProcessing(cpuPowerB, SERVICERATE, "B");
 
         CPUGenerator cpuGenerator = new CPUGenerator(monitor, CANTIDADPROCESOS, ARRIVALRATE, cpuBufferA, cpuBufferB);
@@ -113,10 +115,12 @@ public class Main {
         }
 
         double tiempo = (fin - inicio) / 1000.00;
-        System.out.println(Colors.BLUE_BOLD + "\n          --> TIEMPO: " + tiempo + " [seg] <--" + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "      --> TRANSICIONES DISPARADAS: " + redDePetri.getTransicionesDisparadas() + " <--" + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "--> PROCESOS TERMINADOS: CPU A: " + cpuProcessingA.getProcesados() +
-                " - CPU B: " + cpuProcessingB.getProcesados() + " <--" + Colors.RESET);
+        System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + tiempo + " [seg]" + Colors.RESET);
+        System.out.println(Colors.BLUE_BOLD + "--> TIEMPO EN OFF DE CPU A: " + cpuPowerA.getTiempoSleep() + " [seg]" + Colors.RESET);
+        System.out.println(Colors.BLUE_BOLD + "--> TIEMPO EN OFF DE CPU B: " + cpuPowerB.getTiempoSleep() + " [seg]" + Colors.RESET);
+        System.out.println(Colors.BLUE_BOLD + "\n--> TRANSICIONES DISPARADAS: " + redDePetri.getTransicionesDisparadas() + Colors.RESET);
+        System.out.println(Colors.BLUE_BOLD + "\n--> PROCESOS TERMINADOS POR CPU A: " + cpuProcessingA.getProcesados() + Colors.RESET);
+        System.out.println(Colors.BLUE_BOLD + "--> PROCESOS TERMINADOS POR CPU B: " + cpuProcessingB.getProcesados() + Colors.RESET);
 
         System.exit(0);
     }

@@ -7,6 +7,8 @@ public class CPUPower extends Thread {
     private boolean isOn;
     private int[] secuencia = {99, 99, 99};
     private String cpuId;
+    private long inicioSleep;
+    private long tiempoSleep;
 
     private static int sleep = 50;
 
@@ -22,6 +24,7 @@ public class CPUPower extends Thread {
         this.isActive = false;
         this.isOn = false;
         this.cpuId = cpuID;
+        this.tiempoSleep = 0;
 
         if(cpuID.equalsIgnoreCase("A")) {
             this.secuencia[0] = 2;
@@ -42,6 +45,7 @@ public class CPUPower extends Thread {
     @Override
     public void run() {
         System.out.println(Colors.RED_BOLD + "INICIO CPUPower " + this.cpuId + Colors.RESET);
+        boolean flag = false;
 
         while(!currentThread().isInterrupted()) {
 
@@ -57,6 +61,12 @@ public class CPUPower extends Thread {
                 try {
                     monitor.entrar(secuencia[1]);    // encender CPU
                     this.isOn = true;
+
+                    if(flag)
+                        this.tiempoSleep = this.tiempoSleep + (System.currentTimeMillis() - this.inicioSleep);
+                    else
+                        flag = true;
+
                     monitor.salir();
                     System.out.println(Colors.RED_BOLD + "ENCENDIDO:                         CPU " + this.cpuId + Colors.RESET);
                 } catch (InterruptedException e) {
@@ -67,6 +77,7 @@ public class CPUPower extends Thread {
                 try {
                     monitor.entrar(secuencia[2]);   // apagado
                     this.isOn = false;
+                    this.inicioSleep = System.currentTimeMillis();
                     monitor.salir();
                     System.out.println(Colors.RED_BOLD + "APAGADO:                           CPU " + this.cpuId + Colors.RESET);
                 } catch (InterruptedException e) {
@@ -112,4 +123,12 @@ public class CPUPower extends Thread {
      * VACIO
      */
     private void interruptedReaccion() {}
+
+    /**
+     * Getter del tiempo total en estado Off
+     * @return tiempo de double
+     */
+    public double getTiempoSleep() {
+        return (this.tiempoSleep / 1000.00);
+    }
 }
