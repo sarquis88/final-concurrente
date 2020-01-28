@@ -3,16 +3,18 @@ public class CPUProcessing extends Thread {
     private CPUPower cpuPower;
     private Monitor monitor;
     private CPUBuffer cpuBuffer;
+    private int serviceRate;
 
     /**
      * Constructor de clase
      * @param cpuPower controlador de encendido del CPU
      */
-    public CPUProcessing(CPUPower cpuPower) {
-        setName("CPUProcessing" + cpuPower.getCPUId());
+    public CPUProcessing(CPUPower cpuPower, int serviceRate) {
+        setName("CPUProcessing");
         this.cpuPower = cpuPower;
         this.monitor = cpuPower.getMonitor();
         this.cpuBuffer = cpuPower.getCpuBuffer();
+        this.serviceRate = serviceRate;
     }
 
     /**
@@ -21,46 +23,44 @@ public class CPUProcessing extends Thread {
      */
     @Override
     public void run() {
-        int[] secuencia = {99, 99, 99};
-        if(this.cpuPower.getCPUId().equalsIgnoreCase("A")) {      // secuencia de transiciones de CPU A
-            secuencia[0] = 3;
-            secuencia[1] = 4;
-            secuencia[2] = 13;
-        }
-        else if(this.cpuPower.getCPUId().equalsIgnoreCase("B")) {
-            secuencia[0] = 9;                                       // secuencia de transiciones de CPU B
-            secuencia[1] = 10;
-            secuencia[2] = 14;
-        }
-        else
-            return;                             // error
+        System.out.println(Colors.RED_BOLD + "INICIO CPUProcessing" + Colors.RESET);
+
+        int[] secuencia = {5, 6};
 
         while(!currentThread().isInterrupted()) {
-            try {
-                monitor.disparo(secuencia[0]);    // mantener CPU encendido
-            } catch (InterruptedException e) {
-                interruptedReaccion();
-            }
 
             try {
-                monitor.disparo(secuencia[1]);    // tomar proceso del buffer y procesar
-                this.cpuPower.setActive(true);
-                this.cpuBuffer.procesar();
-                Thread.sleep(3);
+                monitor.entrar(secuencia[0]);    // tomar proceso del buffer y procesar
+                this.cpuPower.setIsActive(true);
+                monitor.salir();
+
+                Thread.sleep(this.serviceRate);
             }
             catch (InterruptedException e) {
                 interruptedReaccion();
+                return;
             }
 
             try {
-                monitor.disparo(secuencia[2]);   // fin proceso
-                this.cpuPower.setActive(false);
+                monitor.entrar(secuencia[1]);   // fin proceso
+                this.cpuPower.setIsActive(false);
                 CPUProcess cpuProcess = this.cpuBuffer.procesar();
-                if(cpuProcess != null)
-                    System.out.println("TERMINADO PROCESO NUMERO:          " + cpuProcess.getIdLocal());
+                monitor.salir();
+
+                if(cpuProcess != null) {
+                    this.cpuPower.setIsActive(false);
+                    if(!Main.isPrintMarcado())
+                        System.out.println("TERMINADO PROCESO NUMERO:          " + cpuProcess.getIdLocal());
+                    if (cpuProcess.getIdLocal() == Main.getCantidadProcesos()) {
+                        Main.setFin();
+                        this.cpuPower.interrupt();
+                        throw new InterruptedException();
+                    }
+                }
             }
             catch (InterruptedException e) {
                 interruptedReaccion();
+                return;
             }
         }
     }
@@ -69,6 +69,6 @@ public class CPUProcessing extends Thread {
      * Reaccion cuando el hilo se ve interrumpido
      */
     private void interruptedReaccion() {
-        System.out.println("FIN CPUProcessing                  " + this.cpuPower.getCPUId());
+        System.out.println(Colors.RED_BOLD + "FIN CPUProcessing");
     }
 }

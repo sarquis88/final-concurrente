@@ -24,7 +24,7 @@ public class CPUBuffer {
      * @return proceso procesado
      */
     public CPUProcess procesar() {
-        return this.buffer.poll();
+        return this.buffer.pollFirst();
     }
 
     /**

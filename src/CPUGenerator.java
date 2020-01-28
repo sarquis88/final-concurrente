@@ -2,27 +2,24 @@ import java.util.Random;
 
 import static java.lang.Math.round;
 
-public class GeneradorProcesos extends Thread {
+public class CPUGenerator extends Thread {
 
     private int cantidadAGenerar;
     private Monitor monitor;
     private int arrivalRate;
-    private CPUBuffer cpuBufferA;
-    private CPUBuffer cpuBufferB;
+    private CPUBuffer cpuBuffer;
 
     /**
      * Constructor de clase
      * @param monitor monitor del productor
      * @param cantidadAGenerar cantidad de procesos a generar
      */
-    public GeneradorProcesos(Monitor monitor, int cantidadAGenerar, int arrivalRate,
-                             CPUBuffer cpuBufferA, CPUBuffer cpuBufferB) {
-        setName("GeneradorProcesos");
+    public CPUGenerator(Monitor monitor, int cantidadAGenerar, int arrivalRate, CPUBuffer cpuBuffer) {
+        setName("CPUGenerator");
         this.monitor = monitor;
         this.cantidadAGenerar = cantidadAGenerar;
         this.arrivalRate = arrivalRate;
-        this.cpuBufferA = cpuBufferA;
-        this.cpuBufferB = cpuBufferB;
+        this.cpuBuffer = cpuBuffer;
     }
 
     /**
@@ -30,36 +27,24 @@ public class GeneradorProcesos extends Thread {
      * Ingreso a monitor, disparo de red, salida de monitor
      */
     private void generarProceso() {
-        boolean disparo = false;
         try {
-            disparo = monitor.disparo(12);
+            monitor.entrar(0);
+            monitor.salir();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(disparo) {
-            Random random = new Random();
-            int ran = random.nextInt(2);
-            String cpu = "A";
-            CPUBuffer cpuBuffer = cpuBufferA;
 
-            if(ran == 1) {
-                ran = 6;
-                cpu = "B";
-                cpuBuffer = cpuBufferB;
-            }
-
-            CPUProcess cpuProcess = null;
-            try {
-                monitor.disparo(ran);
-                cpuProcess = new CPUProcess();
-                cpuBuffer.addProceso(cpuProcess);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if(cpuProcess != null)
-                System.out.println("NUEVO PROCESO NUMERO:              " + cpuProcess.getIdLocal() + " EN CPU " + cpu);
+        CPUProcess cpuProcess = null;
+        try {
+            monitor.entrar(1);
+            cpuProcess = new CPUProcess();
+            cpuBuffer.addProceso(cpuProcess);
+            monitor.salir();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        dormir();
+        if(!Main.isPrintMarcado() && cpuProcess != null)
+            System.out.println("NUEVO PROCESO NUMERO:              " + cpuProcess.getIdLocal());
     }
 
     /**
@@ -74,6 +59,7 @@ public class GeneradorProcesos extends Thread {
             sleep = round(random.nextGaussian() + arrivalRate);
         else
             sleep = arrivalRate;
+
         try {
             sleep(sleep);
         } catch (InterruptedException e) {
@@ -86,8 +72,13 @@ public class GeneradorProcesos extends Thread {
      */
     @Override
     public void run() {
-        for (int i = 0; i < cantidadAGenerar; i++)
+        System.out.println(Colors.RED_BOLD + "INICIO CPUGenerator" + Colors.RESET);
+        Main.setInicio();
+        for (int i = 0; i < cantidadAGenerar; i++) {
             this.generarProceso();
-        System.out.println("FIN 				               GENERADOR");
+            dormir();
+        }
+
+        System.out.println(Colors.RED_BOLD + "FIN CPUGenerator" + Colors.RESET);
     }
 }

@@ -4,6 +4,7 @@ public class RedDePetri {
     private int[][] incidenciaFront;
     private int[][] incidenciaBack;
     private boolean[] transiciones;
+    private int transicionesDisparadas;
 
     /**
      * Constructor de clase
@@ -17,6 +18,7 @@ public class RedDePetri {
         this.incidenciaFront = incidenciaFront;
         this.incidenciaBack = incidenciaBack;
         this.transiciones = new boolean[incidenciaBack[0].length];
+        this.transicionesDisparadas = 0;
         actualizarSensibilizadas();
     }
 
@@ -38,21 +40,16 @@ public class RedDePetri {
      * Disparo de transicion en red de Petri, modificando la marca de la red
      * La transicion debe estar sensibilizada
      * @param transicion transicion a disparar
-     * @return true si la transicion se disparo, de lo contrario false
      */
-    public boolean disparar(int transicion) {
+    public void disparar(int transicion) {
         if (this.isSensibilizada(transicion)) {
-
             for (int i = 0; i < marcaActual.length; i++) {
                 marcaActual[i] = marcaActual[i] + incidenciaFront[i][transicion];
                 marcaActual[i] = marcaActual[i] - incidenciaBack[i][transicion];
             }
+            this.transicionesDisparadas++;
             actualizarSensibilizadas();
-            return true;
-
         }
-        else
-            return false;
     }
 
     /**
@@ -72,5 +69,29 @@ public class RedDePetri {
      */
     public boolean isSensibilizada(int transicion) {
         return (this.transiciones[transicion]);
+    }
+
+    /**
+     * Getter del marcado actual
+     * @return vector de enteros del marcado
+     */
+    public int[] getMarcaActual() {
+        return this.marcaActual;
+    }
+
+    /**
+     * Getter de situacion de transiciones
+     * @return lista de booleanos, true para sensibilizada
+     */
+    public boolean[] getTransiciones() {
+        return this.transiciones;
+    }
+
+    /**
+     * Getter de transiciones disparadas
+     * @return transiciones disparadas en int
+     */
+    public int getTransicionesDisparadas() {
+        return this.transicionesDisparadas;
     }
 }
