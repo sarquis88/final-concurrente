@@ -1,40 +1,42 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Politicas {
     
-    private HashMap<Integer, Integer> prioridades;
+    private LinkedList<Integer> prioridades;
 
     /**
      * Constructor de clase
      */
-    public Politicas(int cantidadPrioridades) {
-        this.prioridades = new HashMap<>(cantidadPrioridades);
+    public Politicas(int cantidadTransiciones) {
+        this.prioridades = new LinkedList<>();
 
-        for(int i = 0; i < cantidadPrioridades; i++)
-            addPrioridad(i , 0);                // prioridades por defecto
+        for(int i = 0; i < cantidadTransiciones; i++)
+            this.prioridades.add(i);                // prioridades por defecto
     }
 
     /**
-     * Agregar prioridad a la politica
+     * Agregar prioridad a la transicion
      * @param transicion numero de transicion
      * @param prioridad numero de prioridad
      */
     public void addPrioridad(int transicion, int prioridad){
-        this.prioridades.put(transicion, prioridad);
+        this.prioridades.add(transicion, prioridad);
     }
 
     /**
      * Devuelve la transicion de mayor prioridad entre las sensibilizadas
+     * MAYOR PRIORIDAD == 0
      * @param sensibilizadas lista de transiciones sensibilizadas
      * @return int correspondiente a la transicion con mayor prioridad
      */
     public int decidir(ArrayList<Integer> sensibilizadas) {
-        int eleccion = sensibilizadas.get(0);
+        int prior = sensibilizadas.get(0);
         for (int transicion : sensibilizadas) {
-            if (prioridades.get(transicion) > prioridades.get(eleccion))
-                eleccion = transicion;
+            if (prioridades.get(transicion) < prioridades.get(prior))
+                prior = transicion;
         }
-        return eleccion;
+        return prior;
     }
 }
