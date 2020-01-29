@@ -2,8 +2,8 @@ public class Main {
 
     private static final int CANTIDADPROCESOS = 500;       // cantidad de procesos a generar
 
-    private static final double ARRIVALRATEMIN = 5.00;      // tiempo minimo entre generacion de procesos
-    private static final double ARRIVALRATEMAX = 20.00;     // tiempo maximo entre generacion de procesos
+    private static final double ARRIVALRATEMIN = 2.00;      // tiempo minimo entre generacion de procesos
+    private static final double ARRIVALRATEMAX = 6.00;     // tiempo maximo entre generacion de procesos
 
     private static final double SERVICERATEMIN = 6.00;      // tiempo minimo de procesamiento
     private static final double SERVICERATEMAX = 10.00;     // tiempo maximo de procesamiento

@@ -6,14 +6,16 @@ public class CPUPower extends Thread {
 
     private Monitor monitor;
     private CPUBuffer cpuBuffer;
+    private String cpuId;
+
     private double standByDelayMax;
     private double standByDelayMin;
     private boolean isActive;
     private boolean isOn;
-    private int[] secuencia = {99, 99, 99};
-    private String cpuId;
     private long inicioSleep;
     private long tiempoSleep;
+
+    private int[] secuencia = {99, 99, 99};
 
     /**
      * Constructor de clase

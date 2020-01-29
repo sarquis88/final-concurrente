@@ -4,12 +4,14 @@ import static java.lang.Math.round;
 
 public class CPUGenerator extends Thread {
 
-    private int cantidadAGenerar;
     private Monitor monitor;
-    private double arrivalRateMax;
-    private double arrivalRateMin;
     private CPUBuffer cpuBufferA;
     private CPUBuffer cpuBufferB;
+
+    private double arrivalRateMax;
+    private double arrivalRateMin;
+    private int cantidadAGenerar;
+
     private int[] secuencia = {99, 99, 99};
 
     /**
@@ -44,15 +46,20 @@ public class CPUGenerator extends Thread {
             e.printStackTrace();
         }
 
-        Random random = new Random();           // numero random para crear proceso en un buffer o en el otro
         CPUProcess cpuProcess = null;
+        CPUBuffer cpuBuffer;
+        int transicion;
+        String id;
 
-        CPUBuffer cpuBuffer = cpuBufferA;
-        int transicion = this.secuencia[1];
-
-        if(random.nextInt(2) == 1) {
-            cpuBuffer = this.cpuBufferB;
-            transicion = this.secuencia[2];
+        if(cpuBufferA.getSize() < cpuBufferB.getSize()) {       // politica
+            cpuBuffer = cpuBufferA;
+            transicion = secuencia[1];
+            id = "A";
+        }
+        else {
+            cpuBuffer = cpuBufferB;
+            transicion = secuencia[2];
+            id = "B";
         }
 
         try {
@@ -64,7 +71,8 @@ public class CPUGenerator extends Thread {
             e.printStackTrace();
         }
         if(!Main.isPrintMarcado() && cpuProcess != null)
-            System.out.println("NUEVO PROCESO NUMERO:              " + cpuProcess.getIdLocal());
+            System.out.println("NUEVO PROCESO NUMERO:              " + cpuProcess.getIdLocal() + " - TAMAÑO BUFFER "
+                    + id + " = " + cpuBuffer.getSize());
     }
 
     /**

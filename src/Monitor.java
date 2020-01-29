@@ -9,9 +9,6 @@ public class Monitor {
     private LinkedList<Condition> waitingQueue;
     private RedDePetri RdP;
 
-    private LinkedList<LinkedList<Integer>> debugMarcas = new LinkedList<>();
-    private LinkedList<Integer> debugTransiciones = new LinkedList<>();
-
     /**
      * Constructor de clase
      * @param red red de petri asociada al monitor
@@ -27,6 +24,7 @@ public class Monitor {
 
     /**
      * Entrada al monitor y disparo de transicion
+     * ATENCION: se debe liberar el mutex con salir() si o si despues de entrar()
      * @param transicion transicion a disparar
      */
     public void entrar(int transicion) throws InterruptedException {
@@ -66,35 +64,4 @@ public class Monitor {
     public void printMarcaActual() {
         System.out.println(Arrays.toString(this.RdP.getMarcaActual()));
     }
-
-    /**
-     * Impresion de todas las transiciones disparadas y variacion de marcado
-     */
-    public void printRegistro() {
-        System.out.println("\n");
-
-        for(int i=0; i < this.debugTransiciones.size(); i++) {
-            System.out.println(this.debugTransiciones.get(i));
-            System.out.println(this.debugMarcas.get(i));
-            System.out.println("\n");
-        }
-    }
-
-    // DEBUG ============================================================
-    /*
-    this.debugTransiciones.add(transicion);
-    LinkedList<Integer> aux = new LinkedList<>();
-    for(int i = 0; i < this.RdP.getMarcaActual().length; i++)
-        aux.add(this.RdP.getMarcaActual()[i]);
-    this.debugMarcas.add(aux);
-    */
-    // REGISTRO DE MOVIMIENTOS EN RED ===================================
-
-    // DEBUG ============================================================
-    /*
-    System.out.println(transicion);
-    printMarcaActual();
-    System.out.println("");
-    */
-    // PLOTEO DE MOVIMIENTOS EN RED =====================================
 }

@@ -4,6 +4,7 @@ public class RedDePetri {
     private int[][] incidenciaFront;
     private int[][] incidenciaBack;
     private boolean[] transiciones;
+
     private int transicionesDisparadas;
 
     /**

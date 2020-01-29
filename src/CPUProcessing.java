@@ -7,11 +7,13 @@ public class CPUProcessing extends Thread {
     private CPUPower cpuPower;
     private Monitor monitor;
     private CPUBuffer cpuBuffer;
+    private String cpuId;
+
     private double serviceRateMax;
     private double serviceRateMin;
-    private int[] secuencia = {99, 99};
-    private String cpuId;
     private int procesados;
+
+    private int[] secuencia = {99, 99};
 
     /**
      * Constructor de clase
@@ -68,7 +70,7 @@ public class CPUProcessing extends Thread {
                 if(cpuProcess != null) {
                     this.cpuPower.setIsActive(false);
                     if(!Main.isPrintMarcado())
-                        System.out.println("TERMINADO PROCESO NUMERO:          " + cpuProcess.getIdLocal() + " " + this.cpuId);
+                        System.out.println("TERMINADO PROCESO NUMERO:          " + cpuProcess.getIdLocal() + " EN " + this.cpuId);
                     if (cpuProcess.getIdLocal() == Main.getCantidadProcesos()) {
                         Main.setFin(this.cpuId);                                                  // marca tiempo final
                         Main.exit();
