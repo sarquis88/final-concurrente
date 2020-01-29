@@ -1,12 +1,14 @@
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 500;       // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 1000;       // cantidad de procesos a generar
 
     private static final double ARRIVALRATEMIN = 2.00;      // tiempo minimo entre generacion de procesos
     private static final double ARRIVALRATEMAX = 6.00;     // tiempo maximo entre generacion de procesos
 
     private static final double SERVICERATEMIN = 6.00;      // tiempo minimo de procesamiento
     private static final double SERVICERATEMAX = 10.00;     // tiempo maximo de procesamiento
+    private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
+    private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
 
     private static final double STANDBYDELAYMIN = 30;       // tiempo minimo de encendido
     private static final double STANDBYDELAYMAX = 35;       // tiempo maximo de encendido
@@ -74,11 +76,11 @@ public class Main {
 
         CPUBuffer cpuBufferA = new CPUBuffer();
         cpuPowerA = new CPUPower(monitor, cpuBufferA, STANDBYDELAYMAX, STANDBYDELAYMIN, "A");
-        cpuProcessingA = new CPUProcessing(cpuPowerA, SERVICERATEMAX, SERVICERATEMIN, "A");
+        cpuProcessingA = new CPUProcessing(cpuPowerA, SERVICERATEMAX * FACTORA, SERVICERATEMIN * FACTORA, "A");
 
         CPUBuffer cpuBufferB = new CPUBuffer();
         cpuPowerB = new CPUPower(monitor, cpuBufferB, STANDBYDELAYMAX, STANDBYDELAYMIN, "B");
-        cpuProcessingB = new CPUProcessing(cpuPowerB, SERVICERATEMAX, SERVICERATEMIN, "B");
+        cpuProcessingB = new CPUProcessing(cpuPowerB, SERVICERATEMAX * FACTORB, SERVICERATEMIN * FACTORB, "B");
 
         CPUGenerator cpuGenerator = new CPUGenerator(monitor, CANTIDADPROCESOS, ARRIVALRATEMAX, ARRIVALRATEMIN, cpuBufferA, cpuBufferB);
 
