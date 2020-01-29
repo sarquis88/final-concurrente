@@ -1,8 +1,13 @@
+import java.util.Random;
+
+import static java.lang.Math.round;
+
 public class CPUPower extends Thread {
 
     private Monitor monitor;
     private CPUBuffer cpuBuffer;
-    private int standByDelay;
+    private double standByDelayMax;
+    private double standByDelayMin;
     private boolean isActive;
     private boolean isOn;
     private int[] secuencia = {99, 99, 99};
@@ -10,17 +15,16 @@ public class CPUPower extends Thread {
     private long inicioSleep;
     private long tiempoSleep;
 
-    private static int sleep = 50;
-
     /**
      * Constructor de clase
      * @param monitor monitor del CPUProcessing
      */
-    public CPUPower(Monitor monitor, CPUBuffer cpuBuffer, int standbyDelay, String cpuID) {
+    public CPUPower(Monitor monitor, CPUBuffer cpuBuffer, double standByDelayMax, double standByDelayMin, String cpuID) {
         setName("CPUPower " + cpuID);
         this.monitor = monitor;
         this.cpuBuffer = cpuBuffer;
-        this.standByDelay = standbyDelay;
+        this.standByDelayMax = standByDelayMax;
+        this.standByDelayMin = standByDelayMin;
         this.isActive = false;
         this.isOn = false;
         this.cpuId = cpuID;
@@ -53,13 +57,13 @@ public class CPUPower extends Thread {
                 try {
                     monitor.entrar(secuencia[0]);    // pasar de stand by a encendido
                     monitor.salir();
-                    Thread.sleep(this.standByDelay);
                 } catch (InterruptedException e) {
                     interruptedReaccion();
                 }
 
                 try {
                     monitor.entrar(secuencia[1]);    // encender CPU
+                    dormir();
                     this.isOn = true;
 
                     if(flag)
@@ -85,8 +89,10 @@ public class CPUPower extends Thread {
                 }
             }
 
+            // duerme el hilo para volver a chequear, dentro de un tiempo, el encendido/apagado
+            // si no se duerme acá, el programa se vuelve mas lento y sobrecargado
             try {
-                sleep(sleep);
+                dormir();
             }
             catch (InterruptedException e) {
                 interruptedReaccion();
@@ -130,5 +136,15 @@ public class CPUPower extends Thread {
      */
     public double getTiempoSleep() {
         return (this.tiempoSleep / 1000.00);
+    }
+
+    /**
+     * Dormida del Thread durante un tiempo minimo de standByDelayMin y maximo de standByDelayMax
+     */
+    private void dormir() throws InterruptedException {
+        Random random = new Random();
+        double sleepTimeDouble = standByDelayMin + (standByDelayMax - standByDelayMin) * random.nextDouble();
+        long sleepTime = round(sleepTimeDouble);
+        sleep(sleepTime);
     }
 }

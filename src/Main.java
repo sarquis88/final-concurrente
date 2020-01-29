@@ -1,11 +1,17 @@
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 100;
-    private static final int ARRIVALRATE = 10;
-    private static final int SERVICERATE = 3;
-    private static final int STANDBYDELAY = 30;
+    private static final int CANTIDADPROCESOS = 500;       // cantidad de procesos a generar
 
-    private static final boolean PRINTMARCADO = false;
+    private static final double ARRIVALRATEMIN = 5.00;      // tiempo minimo entre generacion de procesos
+    private static final double ARRIVALRATEMAX = 20.00;     // tiempo maximo entre generacion de procesos
+
+    private static final double SERVICERATEMIN = 6.00;      // tiempo minimo de procesamiento
+    private static final double SERVICERATEMAX = 10.00;     // tiempo maximo de procesamiento
+
+    private static final double STANDBYDELAYMIN = 30;       // tiempo minimo de encendido
+    private static final double STANDBYDELAYMAX = 35;       // tiempo maximo de encendido
+
+    private static final boolean PRINTMARCADO = false;      // true: se imprimen los disparos y los marcados de forma dinamica
 
     private static long inicio;
     private static long fin;
@@ -67,14 +73,14 @@ public class Main {
         Monitor monitor = new Monitor(redDePetri);
 
         CPUBuffer cpuBufferA = new CPUBuffer();
-        cpuPowerA = new CPUPower(monitor, cpuBufferA, STANDBYDELAY, "A");
-        cpuProcessingA = new CPUProcessing(cpuPowerA, SERVICERATE, "A");
+        cpuPowerA = new CPUPower(monitor, cpuBufferA, STANDBYDELAYMAX, STANDBYDELAYMIN, "A");
+        cpuProcessingA = new CPUProcessing(cpuPowerA, SERVICERATEMAX, SERVICERATEMIN, "A");
 
         CPUBuffer cpuBufferB = new CPUBuffer();
-        cpuPowerB = new CPUPower(monitor, cpuBufferB, STANDBYDELAY, "B");
-        cpuProcessingB = new CPUProcessing(cpuPowerB, SERVICERATE, "B");
+        cpuPowerB = new CPUPower(monitor, cpuBufferB, STANDBYDELAYMAX, STANDBYDELAYMIN, "B");
+        cpuProcessingB = new CPUProcessing(cpuPowerB, SERVICERATEMAX, SERVICERATEMIN, "B");
 
-        CPUGenerator cpuGenerator = new CPUGenerator(monitor, CANTIDADPROCESOS, ARRIVALRATE, cpuBufferA, cpuBufferB);
+        CPUGenerator cpuGenerator = new CPUGenerator(monitor, CANTIDADPROCESOS, ARRIVALRATEMAX, ARRIVALRATEMIN, cpuBufferA, cpuBufferB);
 
         threads[0] = cpuGenerator;
         threads[1] = cpuPowerA;
@@ -114,10 +120,16 @@ public class Main {
             e.printStackTrace();
         }
 
-        double tiempo = (fin - inicio) / 1000.00;
-        System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + tiempo + " [seg]" + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "--> TIEMPO EN OFF DE CPU A: " + cpuPowerA.getTiempoSleep() + " [seg]" + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "--> TIEMPO EN OFF DE CPU B: " + cpuPowerB.getTiempoSleep() + " [seg]" + Colors.RESET);
+        double tiempoEjecucion = (fin - inicio) / 1000.00;
+
+        double tiempoSleepA = cpuPowerA.getTiempoSleep();
+        double tiempoSleepB = cpuPowerB.getTiempoSleep();
+        double tiempoSleepRelA = (tiempoSleepA / tiempoEjecucion) * 100.00;
+        double tiempoSleepRelB = (tiempoSleepB / tiempoEjecucion) * 100.00;
+
+        System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + String.format("%.2f", tiempoEjecucion) + " [seg]" + Colors.RESET);
+        System.out.println(Colors.BLUE_BOLD + "--> TIEMPO EN OFF DE CPU A: " + String.format("%.2f", tiempoSleepA) + " [seg] (%" + String.format("%.2f", tiempoSleepRelA) + ")" + Colors.RESET);
+        System.out.println(Colors.BLUE_BOLD + "--> TIEMPO EN OFF DE CPU B: " + String.format("%.2f", tiempoSleepB) + " [seg] (%" + String.format("%.2f", tiempoSleepRelB) + ")" + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "\n--> TRANSICIONES DISPARADAS: " + redDePetri.getTransicionesDisparadas() + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "\n--> PROCESOS TERMINADOS POR CPU A: " + cpuProcessingA.getProcesados() + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "--> PROCESOS TERMINADOS POR CPU B: " + cpuProcessingB.getProcesados() + Colors.RESET);

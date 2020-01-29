@@ -6,7 +6,8 @@ public class CPUGenerator extends Thread {
 
     private int cantidadAGenerar;
     private Monitor monitor;
-    private int arrivalRate;
+    private double arrivalRateMax;
+    private double arrivalRateMin;
     private CPUBuffer cpuBufferA;
     private CPUBuffer cpuBufferB;
     private int[] secuencia = {99, 99, 99};
@@ -16,11 +17,13 @@ public class CPUGenerator extends Thread {
      * @param monitor monitor del productor
      * @param cantidadAGenerar cantidad de procesos a generar
      */
-    public CPUGenerator(Monitor monitor, int cantidadAGenerar, int arrivalRate, CPUBuffer cpuBufferA, CPUBuffer cpuBufferB) {
+    public CPUGenerator(Monitor monitor, int cantidadAGenerar, double arrivalRateMax, double arrivalRateMin,
+                        CPUBuffer cpuBufferA, CPUBuffer cpuBufferB) {
         setName("CPUGenerator");
         this.monitor = monitor;
         this.cantidadAGenerar = cantidadAGenerar;
-        this.arrivalRate = arrivalRate;
+        this.arrivalRateMax = arrivalRateMax;
+        this.arrivalRateMin = arrivalRateMin;
         this.cpuBufferA = cpuBufferA;
         this.cpuBufferB = cpuBufferB;
 
@@ -65,22 +68,13 @@ public class CPUGenerator extends Thread {
     }
 
     /**
-     * Dormida del Thread durante un tiempo
-     * Si arrivalRate > 3, el tiempo tiene distribucion gaussiana centrada en arrivalRate con desvio unitario
-     * De lo contrario, el tiempo es igual a arrivalRate
+     * Dormida del Thread durante un tiempo minimo de arrivalRateMin y maximo de arrivalRateMax
      */
-    private void dormir() {
+    private void dormir() throws InterruptedException {
         Random random = new Random();
-        long sleep;
-        if(arrivalRate > 3)
-            sleep = round(random.nextGaussian() + arrivalRate);
-        else
-            sleep = arrivalRate;
-
-        try {
-            sleep(sleep);
-        } catch (InterruptedException e) {
-        }
+        double sleepTimeDouble = arrivalRateMin + (arrivalRateMax - arrivalRateMin) * random.nextDouble();
+        long sleepTime = round(sleepTimeDouble);
+        sleep(sleepTime);
     }
 
     /**
@@ -92,7 +86,20 @@ public class CPUGenerator extends Thread {
         Main.setInicio();
         for (int i = 0; i < cantidadAGenerar; i++) {
             this.generarProceso();
-            dormir();
+            try {
+                dormir();
+            }
+            catch (InterruptedException e) {
+                interruptedReaccion();
+            }
         }
+    }
+
+    /**
+     * Reaccion a interrupcion
+     * VACIO
+     */
+    private void interruptedReaccion() {
+
     }
 }

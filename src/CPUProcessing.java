@@ -1,9 +1,14 @@
+import java.util.Random;
+
+import static java.lang.Math.round;
+
 public class CPUProcessing extends Thread {
 
     private CPUPower cpuPower;
     private Monitor monitor;
     private CPUBuffer cpuBuffer;
-    private int serviceRate;
+    private double serviceRateMax;
+    private double serviceRateMin;
     private int[] secuencia = {99, 99};
     private String cpuId;
     private int procesados;
@@ -12,12 +17,13 @@ public class CPUProcessing extends Thread {
      * Constructor de clase
      * @param cpuPower controlador de encendido del CPU
      */
-    public CPUProcessing(CPUPower cpuPower, int serviceRate, String cpuId) {
+    public CPUProcessing(CPUPower cpuPower, double serviceRateMax, double serviceRateMin, String cpuId) {
         setName("CPUProcessing " + cpuId);
         this.cpuPower = cpuPower;
         this.monitor = cpuPower.getMonitor();
         this.cpuBuffer = cpuPower.getCpuBuffer();
-        this.serviceRate = serviceRate;
+        this.serviceRateMax = serviceRateMax;
+        this.serviceRateMin = serviceRateMin;
         this.cpuId = cpuId;
         this.procesados = 0;
 
@@ -45,8 +51,7 @@ public class CPUProcessing extends Thread {
                 monitor.entrar(secuencia[0]);    // tomar proceso del buffer y procesar
                 this.cpuPower.setIsActive(true);
                 monitor.salir();
-
-                Thread.sleep(this.serviceRate);
+                dormir();
             }
             catch (InterruptedException e) {
                 interruptedReaccion();
@@ -88,5 +93,15 @@ public class CPUProcessing extends Thread {
      */
     public int getProcesados() {
         return this.procesados;
+    }
+
+    /**
+     * Dormida del Thread durante un tiempo minimo de serviceRateMin y maximo de serviceRateMax
+     */
+    private void dormir() throws InterruptedException {
+        Random random = new Random();
+        double sleepTimeDouble = serviceRateMin + (serviceRateMax - serviceRateMin) * random.nextDouble();
+        long sleepTime = round(sleepTimeDouble);
+        sleep(sleepTime);
     }
 }
