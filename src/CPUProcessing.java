@@ -15,6 +15,8 @@ public class CPUProcessing extends Thread {
 
     private int[] secuencia = {99, 99};
 
+    private static int procesadosGlobal = 0;
+
     /**
      * Constructor de clase
      * @param cpuPower controlador de encendido del CPU
@@ -65,13 +67,14 @@ public class CPUProcessing extends Thread {
                 this.cpuPower.setIsActive(false);
                 CPUProcess cpuProcess = this.cpuBuffer.procesar();
                 this.procesados++;
+                procesadosGlobal++;
                 monitor.salir();
 
                 if(cpuProcess != null) {
                     this.cpuPower.setIsActive(false);
                     if(!Main.isPrintMarcado())
                         System.out.println("TERMINADO PROCESO NUMERO:          " + cpuProcess.getIdLocal() + " EN " + this.cpuId);
-                    if (cpuProcess.getIdLocal() == Main.getCantidadProcesos()) {
+                    if (procesadosGlobal == Main.getCantidadProcesos()) {
                         Main.setFin(this.cpuId);                                                  // marca tiempo final
                         Main.exit();
                     }

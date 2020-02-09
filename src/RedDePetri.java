@@ -5,7 +5,9 @@ public class RedDePetri {
     private int[][] incidenciaBack;
     private boolean[] transiciones;
 
-    private int transicionesDisparadas;
+    private int cantidadTransicionesDisparadas;
+    private boolean isPInvariantesCorrecto;
+    private String ordenTransicionesDisparadas;
 
     /**
      * Constructor de clase
@@ -19,7 +21,9 @@ public class RedDePetri {
         this.incidenciaFront = incidenciaFront;
         this.incidenciaBack = incidenciaBack;
         this.transiciones = new boolean[incidenciaBack[0].length];
-        this.transicionesDisparadas = 0;
+        this.cantidadTransicionesDisparadas = 0;
+        this.ordenTransicionesDisparadas = "";
+        this.isPInvariantesCorrecto = true;
         actualizarSensibilizadas();
     }
 
@@ -48,7 +52,13 @@ public class RedDePetri {
                 marcaActual[i] = marcaActual[i] + incidenciaFront[i][transicion];
                 marcaActual[i] = marcaActual[i] - incidenciaBack[i][transicion];
             }
-            this.transicionesDisparadas++;
+            this.cantidadTransicionesDisparadas++;
+
+            if(this.isPInvariantesCorrecto)
+                this.isPInvariantesCorrecto = isPInvariantesCorrecto();
+
+            this.ordenTransicionesDisparadas = this.ordenTransicionesDisparadas.concat(transicion + "-");
+
             actualizarSensibilizadas();
         }
     }
@@ -92,7 +102,35 @@ public class RedDePetri {
      * Getter de transiciones disparadas
      * @return transiciones disparadas en int
      */
-    public int getTransicionesDisparadas() {
-        return this.transicionesDisparadas;
+    public int getCantidadTransicionesDisparadas() {
+        return this.cantidadTransicionesDisparadas;
+    }
+
+    /**
+     * Chequea el estado de las P-Invariantes
+     * @return true en caso de estado correcto, de lo contrario false
+     */
+    private boolean isPInvariantesCorrecto() {
+        return (    this.marcaActual[0] + this.marcaActual[1] == 1                          &&
+                    this.marcaActual[2] + this.marcaActual[3] + this.marcaActual[5] == 1    &&
+                    this.marcaActual[7] + this.marcaActual[8] == 1                          &&
+                    this.marcaActual[9] + this.marcaActual[10] + this.marcaActual[12] == 1  &&
+                    this.marcaActual[14] + this.marcaActual[15] == 1                        );
+    }
+
+    /**
+     * Getter del estado de las p-invariantes
+     * @return false si en algun momento las p-invariantes no se cumplieron, de lo contrario true
+     */
+    public boolean getIsPInvariantesCorrecto() {
+        return this.isPInvariantesCorrecto;
+    }
+
+    /**
+     * Getter del orden de las transiciones disparadas
+     * @return string que posee dicho orden
+     */
+    public String getOrdenTransicionesDisparadas() {
+        return this.ordenTransicionesDisparadas;
     }
 }

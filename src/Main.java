@@ -1,13 +1,18 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 1000;       // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 1000;        // cantidad de procesos a generar
 
     private static final double ARRIVALRATEMIN = 2.00;      // tiempo minimo entre generacion de procesos
-    private static final double ARRIVALRATEMAX = 6.00;     // tiempo maximo entre generacion de procesos
+    private static final double ARRIVALRATEMAX = 6.00;      // tiempo maximo entre generacion de procesos
 
     private static final double SERVICERATEMIN = 6.00;      // tiempo minimo de procesamiento
     private static final double SERVICERATEMAX = 10.00;     // tiempo maximo de procesamiento
-    private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
+    private static final int FACTORA = 3;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
 
     private static final double STANDBYDELAYMIN = 30;       // tiempo minimo de encendido
@@ -123,18 +128,39 @@ public class Main {
         }
 
         double tiempoEjecucion = (fin - inicio) / 1000.00;
-
         double tiempoSleepA = cpuPowerA.getTiempoSleep();
         double tiempoSleepB = cpuPowerB.getTiempoSleep();
         double tiempoSleepRelA = (tiempoSleepA / tiempoEjecucion) * 100.00;
         double tiempoSleepRelB = (tiempoSleepB / tiempoEjecucion) * 100.00;
 
+        String pInvariantes;
+        if(redDePetri.getIsPInvariantesCorrecto())
+            pInvariantes = Colors.GREEN_BOLD + "CORRECTO" + Colors.RESET;
+        else
+            pInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
+
         System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + String.format("%.2f", tiempoEjecucion) + " [seg]" + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "--> TIEMPO EN OFF DE CPU A: " + String.format("%.2f", tiempoSleepA) + " [seg] (%" + String.format("%.2f", tiempoSleepRelA) + ")" + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "--> TIEMPO EN OFF DE CPU B: " + String.format("%.2f", tiempoSleepB) + " [seg] (%" + String.format("%.2f", tiempoSleepRelB) + ")" + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "\n--> TRANSICIONES DISPARADAS: " + redDePetri.getTransicionesDisparadas() + Colors.RESET);
+        System.out.println(Colors.BLUE_BOLD + "\n--> TRANSICIONES DISPARADAS: " + redDePetri.getCantidadTransicionesDisparadas() + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "\n--> PROCESOS TERMINADOS POR CPU A: " + cpuProcessingA.getProcesados() + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "--> PROCESOS TERMINADOS POR CPU B: " + cpuProcessingB.getProcesados() + Colors.RESET);
+        System.out.println(Colors.BLUE_BOLD + "\n--> ANALISIS DE P-INVARIANTES: " + pInvariantes + Colors.RESET);
+        System.out.println("\n");
+
+        try {
+            File TInvariantesFile = new File("./src/T-Invariantes.txt");
+
+            TInvariantesFile.delete();
+            TInvariantesFile.createNewFile();
+
+            BufferedWriter bufferedWriter;
+            bufferedWriter = new BufferedWriter(new FileWriter(TInvariantesFile, false));
+            bufferedWriter.write(redDePetri.getOrdenTransicionesDisparadas());
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         System.exit(0);
     }
