@@ -12,7 +12,7 @@ public class Main {
 
     private static final double SERVICERATEMIN = 6.00;      // tiempo minimo de procesamiento
     private static final double SERVICERATEMAX = 10.00;     // tiempo maximo de procesamiento
-    private static final int FACTORA = 3;                   // factor de multiplicacion para serviceRate de A
+    private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
 
     private static final double STANDBYDELAYMIN = 30;       // tiempo minimo de encendido
@@ -23,7 +23,7 @@ public class Main {
     private static long inicio;
     private static long fin;
 
-    private static Thread[] threads = {null, null, null, null, null};
+    private static Thread[] threads = {null, null, null, null, null, null};
 
     private static RedDePetri redDePetri;
     private static CPUProcessing cpuProcessingA;
@@ -79,6 +79,8 @@ public class Main {
         redDePetri = new RedDePetri(marcadoInicial, incidenciaFrontward, incidenciaBackward);
         Monitor monitor = new Monitor(redDePetri);
 
+        GarbageCollector garbageCollector = new GarbageCollector(redDePetri, monitor, SERVICERATEMIN);
+
         CPUBuffer cpuBufferA = new CPUBuffer();
         cpuPowerA = new CPUPower(monitor, cpuBufferA, STANDBYDELAYMAX, STANDBYDELAYMIN, "A");
         cpuProcessingA = new CPUProcessing(cpuPowerA, SERVICERATEMAX * FACTORA, SERVICERATEMIN * FACTORA, "A");
@@ -94,6 +96,7 @@ public class Main {
         threads[2] = cpuProcessingA;
         threads[3] = cpuPowerB;
         threads[4] = cpuProcessingB;
+        threads[5] = garbageCollector;
 
         for(Thread thread : threads)
             thread.start();
@@ -105,6 +108,8 @@ public class Main {
 
     public static void setFin(String interrupter) {
         fin = System.currentTimeMillis();
+
+        threads[5].interrupt();
 
         if(interrupter.equalsIgnoreCase("A"))
             threads[4].interrupt();
