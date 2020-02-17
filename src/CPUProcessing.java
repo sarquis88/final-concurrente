@@ -55,7 +55,6 @@ public class CPUProcessing extends Thread {
                 monitor.entrar(secuencia[0]);    // tomar proceso del buffer y procesar
                 this.cpuPower.setIsActive(true);
                 monitor.salir();
-                dormir();
             }
             catch (InterruptedException e) {
                 interruptedReaccion();
@@ -68,12 +67,12 @@ public class CPUProcessing extends Thread {
                 CPUProcess cpuProcess = this.cpuBuffer.procesar();
                 this.procesados++;
                 procesadosGlobal++;
+                dormir();
                 monitor.salir();
 
                 if(cpuProcess != null) {
                     this.cpuPower.setIsActive(false);
-                    if(!Main.isPrintMarcado())
-                        System.out.println("TERMINADO PROCESO NUMERO:          " + cpuProcess.getIdLocal() + " EN " + this.cpuId);
+                    System.out.println("TERMINADO PROCESO NUMERO:          " + cpuProcess.getIdLocal() + " EN " + this.cpuId);
                     if (procesadosGlobal == Main.getCantidadProcesos()) {
                         Main.setFin(this.cpuId);                                                  // marca tiempo final
                         Main.exit();

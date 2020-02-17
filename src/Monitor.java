@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -7,18 +6,18 @@ public class Monitor {
 
     private ReentrantLock mutex;
     private LinkedList<Condition> waitingQueue;
-    private RedDePetri RdP;
+    private RedDePetri redDePetri;
 
     /**
      * Constructor de clase
      * @param red red de petri asociada al monitor
      */
     public Monitor(RedDePetri red){
-        this.RdP = red;
+        this.redDePetri = red;
         this.mutex = new ReentrantLock(true);
 
         this.waitingQueue = new LinkedList<>();
-        for(int i = 0; i < RdP.getTransiciones().length; i++)
+        for(int i = 0; i < redDePetri.getTransiciones().length; i++)
             this.waitingQueue.add(mutex.newCondition());
     }
 
@@ -31,15 +30,10 @@ public class Monitor {
 
         mutex.lock();
 
-        while (!RdP.isSensibilizada(transicion))
+        while (!redDePetri.isSensibilizada(transicion))
             waitingQueue.get(transicion).await();
 
-        this.RdP.disparar(transicion);
-
-        if(Main.isPrintMarcado()) {
-            System.out.println("\nTransicion: " + transicion);
-            printMarcaActual();
-        }
+        this.redDePetri.disparar(transicion);
     }
 
     /**
@@ -47,7 +41,8 @@ public class Monitor {
      */
     public void salir() {
         signalAll();
-        mutex.unlock();
+        if(mutex.isLocked())
+            mutex.unlock();
     }
 
     /**
@@ -56,12 +51,5 @@ public class Monitor {
     private void signalAll() {
         for(Condition condition : this.waitingQueue)
             condition.signalAll();
-    }
-
-    /**
-     * Impresion de marca actual
-     */
-    public void printMarcaActual() {
-        System.out.println(Arrays.toString(this.RdP.getMarcaActual()));
     }
 }

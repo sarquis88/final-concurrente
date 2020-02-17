@@ -70,7 +70,7 @@ public class CPUGenerator extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(!Main.isPrintMarcado() && cpuProcess != null)
+        if(cpuProcess != null)
             System.out.println("NUEVO PROCESO NUMERO:              " + cpuProcess.getIdLocal() + " - TAMAÑO BUFFER "
                     + id + " = " + cpuBuffer.getSize());
     }

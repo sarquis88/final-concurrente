@@ -2,19 +2,16 @@ import static java.lang.Math.round;
 
 public class GarbageCollector extends Thread {
 
-    private RedDePetri redDePetri;
     private Monitor monitor;
 
     private long serviceRate;
 
     /**
      * Constructor de clase
-     * @param redDePetri red de petri a disparar
      * @param monitor monitor asociado a la red
      * @param serviceRate tiempo entre limpiezas
      */
-    public GarbageCollector(RedDePetri redDePetri, Monitor monitor, double serviceRate) {
-        this.redDePetri = redDePetri;
+    public GarbageCollector(Monitor monitor, double serviceRate) {
         this.monitor = monitor;
         this.serviceRate = round(serviceRate);
     }

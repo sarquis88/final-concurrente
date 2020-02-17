@@ -55,6 +55,7 @@ public class CPUPower extends Thread {
 
         while(!currentThread().isInterrupted()) {
 
+            // intento de encendido
             if(this.cpuBuffer.getSize() > 0 && !this.isOn) {
                 try {
                     monitor.entrar(secuencia[0]);    // pasar de stand by a encendido
@@ -79,6 +80,7 @@ public class CPUPower extends Thread {
                     interruptedReaccion();
                 }
             }
+            // intento de apagado
             else if(this.cpuBuffer.getSize() <= 0 && this.isOn && !this.isActive) {
                 try {
                     monitor.entrar(secuencia[2]);   // apagado

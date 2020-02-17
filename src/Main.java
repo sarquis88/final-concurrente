@@ -3,9 +3,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import static java.lang.Math.round;
+
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 1000;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 100;        // cantidad de procesos a generar
 
     private static final double ARRIVALRATEMIN = 2.00;      // tiempo minimo entre generacion de procesos
     private static final double ARRIVALRATEMAX = 6.00;      // tiempo maximo entre generacion de procesos
@@ -17,8 +19,6 @@ public class Main {
 
     private static final double STANDBYDELAYMIN = 30;       // tiempo minimo de encendido
     private static final double STANDBYDELAYMAX = 35;       // tiempo maximo de encendido
-
-    private static final boolean PRINTMARCADO = false;      // true: se imprimen los disparos y los marcados de forma dinamica
 
     private static long inicio;
     private static long fin;
@@ -79,7 +79,7 @@ public class Main {
         redDePetri = new RedDePetri(marcadoInicial, incidenciaFrontward, incidenciaBackward);
         Monitor monitor = new Monitor(redDePetri);
 
-        GarbageCollector garbageCollector = new GarbageCollector(redDePetri, monitor, SERVICERATEMIN);
+        GarbageCollector garbageCollector = new GarbageCollector(monitor, SERVICERATEMIN);
 
         CPUBuffer cpuBufferA = new CPUBuffer();
         cpuPowerA = new CPUPower(monitor, cpuBufferA, STANDBYDELAYMAX, STANDBYDELAYMIN, "A");
@@ -121,13 +121,11 @@ public class Main {
         return CANTIDADPROCESOS;
     }
 
-    public static boolean isPrintMarcado() {
-        return PRINTMARCADO;
-    }
-
     public static void exit() {
+        // se duerme el hilo para darle tiempo a los CPUs para que se apaguen
+        // de lo contrario, el programa puede terminar con los CPUs en modo On
         try {
-            Thread.sleep(100);
+            Thread.sleep(round(STANDBYDELAYMAX * 3));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
