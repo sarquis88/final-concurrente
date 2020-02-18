@@ -7,7 +7,7 @@ import static java.lang.Math.round;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 100;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 1000;        // cantidad de procesos a generar
 
     private static final double ARRIVALRATEMIN = 2.00;      // tiempo minimo entre generacion de procesos
     private static final double ARRIVALRATEMAX = 6.00;      // tiempo maximo entre generacion de procesos
@@ -20,10 +20,12 @@ public class Main {
     private static final double STANDBYDELAYMIN = 30;       // tiempo minimo de encendido
     private static final double STANDBYDELAYMAX = 35;       // tiempo maximo de encendido
 
+    private static final boolean GARBAGECOLLECTION = true;
+
     private static long inicio;
     private static long fin;
 
-    private static Thread[] threads = {null, null, null, null, null, null};
+    private static Thread[] threads = {null, null, null, null, null, null, null};
 
     private static RedDePetri redDePetri;
     private static CPUProcessing cpuProcessingA;
@@ -79,8 +81,6 @@ public class Main {
         redDePetri = new RedDePetri(marcadoInicial, incidenciaFrontward, incidenciaBackward);
         Monitor monitor = new Monitor(redDePetri);
 
-        GarbageCollector garbageCollector = new GarbageCollector(monitor, SERVICERATEMIN);
-
         CPUBuffer cpuBufferA = new CPUBuffer();
         cpuPowerA = new CPUPower(monitor, cpuBufferA, STANDBYDELAYMAX, STANDBYDELAYMIN, "A");
         cpuProcessingA = new CPUProcessing(cpuPowerA, SERVICERATEMAX * FACTORA, SERVICERATEMIN * FACTORA, "A");
@@ -96,10 +96,18 @@ public class Main {
         threads[2] = cpuProcessingA;
         threads[3] = cpuPowerB;
         threads[4] = cpuProcessingB;
-        threads[5] = garbageCollector;
 
-        for(Thread thread : threads)
-            thread.start();
+        if(GARBAGECOLLECTION) {
+            GarbageCollector garbageCollectorA = new GarbageCollector(monitor, SERVICERATEMAX * 1.5, "A");
+            GarbageCollector garbageCollectorB = new GarbageCollector(monitor, SERVICERATEMAX * 1.5, "B");
+            threads[5] = garbageCollectorA;
+            threads[6] = garbageCollectorB;
+        }
+
+        for(Thread thread : threads) {
+            if(thread != null)
+                thread.start();
+        }
     }
 
     public static void setInicio() {
@@ -109,7 +117,10 @@ public class Main {
     public static void setFin(String interrupter) {
         fin = System.currentTimeMillis();
 
-        threads[5].interrupt();
+        if(GARBAGECOLLECTION) {
+            threads[5].interrupt();
+            threads[6].interrupt();
+        }
 
         if(interrupter.equalsIgnoreCase("A"))
             threads[4].interrupt();

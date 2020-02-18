@@ -61,17 +61,15 @@ public class CPUProcessing extends Thread {
             }
 
             try {
-
                 monitor.entrar(secuencia[1]);   // fin proceso
-                this.cpuPower.setIsActive(false);
                 CPUProcess cpuProcess = this.cpuBuffer.procesar();
                 this.procesados++;
                 procesadosGlobal++;
                 dormir();
+                this.cpuPower.setIsActive(false);
                 monitor.salir();
 
                 if(cpuProcess != null) {
-                    this.cpuPower.setIsActive(false);
                     System.out.println("TERMINADO PROCESO NUMERO:          " + cpuProcess.getIdLocal() + " EN " + this.cpuId);
                     if (procesadosGlobal == Main.getCantidadProcesos()) {
                         Main.setFin(this.cpuId);                                                  // marca tiempo final

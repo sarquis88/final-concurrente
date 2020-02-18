@@ -66,14 +66,13 @@ public class CPUPower extends Thread {
 
                 try {
                     monitor.entrar(secuencia[1]);    // encender CPU
+
                     dormir();
                     this.isOn = true;
-
                     if(flag)
                         this.tiempoSleep = this.tiempoSleep + (System.currentTimeMillis() - this.inicioSleep);
                     else
                         flag = true;
-
                     monitor.salir();
                     System.out.println(Colors.RED_BOLD + "ENCENDIDO:                         CPU " + this.cpuId + Colors.RESET);
                 } catch (InterruptedException e) {

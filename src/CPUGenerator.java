@@ -39,19 +39,31 @@ public class CPUGenerator extends Thread {
      * Ingreso a monitor, disparo de red, salida de monitor
      */
     private void generarProceso() {
+        CPUProcess cpuProcess = null;
+
         try {
             monitor.entrar(this.secuencia[0]);      // arrival rate
+            cpuProcess = new CPUProcess();
             monitor.salir();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        CPUProcess cpuProcess = null;
         CPUBuffer cpuBuffer;
         int transicion;
         String id;
 
-        if(cpuBufferA.getSize() < cpuBufferB.getSize()) {       // politica
+        int politica;       // 0 para A, 1 para B
+        if(cpuBufferA.getSize() < cpuBufferB.getSize())
+            politica = 0;
+        else if(cpuBufferA.getSize() > cpuBufferB.getSize())
+            politica = 1;
+        else {
+            Random random = new Random();
+            politica = random.nextInt(2);
+        }
+
+        if(politica == 0) {
             cpuBuffer = cpuBufferA;
             transicion = secuencia[1];
             id = "A";
@@ -64,7 +76,6 @@ public class CPUGenerator extends Thread {
 
         try {
             monitor.entrar(transicion);                 // creacion de proceso
-            cpuProcess = new CPUProcess();
             cpuBuffer.addProceso(cpuProcess);
             monitor.salir();
         } catch (Exception e) {
