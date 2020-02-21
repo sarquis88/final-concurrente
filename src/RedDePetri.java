@@ -1,12 +1,15 @@
 public class RedDePetri {
 
     private int[] marcaActual;
+    private int[] vectorDesInhibidor;
+    private int[] transiciones;
     private int[][] incidenciaFront;
     private int[][] incidenciaBack;
-    private boolean[] transiciones;
+    private int[][] matrizInhibidora;
 
     private int cantidadTransicionesDisparadas;
     private boolean isPInvariantesCorrecto;
+
     private String ordenTransicionesDisparadas;
 
     /**
@@ -15,60 +18,79 @@ public class RedDePetri {
      * @param incidenciaFront matriz de incidencia frontal
      * @param incidenciaBack matriz de incidencia trasera
      */
-    public RedDePetri(int[] marcaInicial, int[][] incidenciaFront, int[][] incidenciaBack) {
+    public RedDePetri(int[] marcaInicial, int[][] incidenciaFront, int[][] incidenciaBack, int[][] matrizInhibidora) {
 
         this.marcaActual = marcaInicial;
         this.incidenciaFront = incidenciaFront;
         this.incidenciaBack = incidenciaBack;
-        this.transiciones = new boolean[incidenciaBack[0].length];
+        this.matrizInhibidora = matrizInhibidora;
+        this.transiciones = new int[incidenciaBack[0].length];
+        this.vectorDesInhibidor = new int[this.transiciones.length];
         this.cantidadTransicionesDisparadas = 0;
         this.ordenTransicionesDisparadas = "";
         this.isPInvariantesCorrecto = true;
         actualizarSensibilizadas();
+        actualizarVectorDesInhibidor();
     }
 
     /**
      * Indica si la transicion esta sensibilizada
      * Metodo PRIVADO
      * @param transicion transicion a analizar
-     * @return true si la transicion esta sensibilizada
+     * @return '1' si la transicion esta sensibilizada
      */
-    private boolean isSensibilizadaInterno(int transicion) {
+    private int isSensibilizadaInterno(int transicion) {
         for(int i = 0; i < marcaActual.length; i++) {
             if((marcaActual[i] - incidenciaBack[i][transicion]) < 0)
-                return false;
+                return 0;
         }
-        return true;
+        return 1;
     }
 
     /**
      * Disparo de transicion en red de Petri, modificando la marca de la red
-     * La transicion debe estar sensibilizada
      * @param transicion transicion a disparar
      */
     public void disparar(int transicion) {
-        if (this.isSensibilizada(transicion)) {
-            for (int i = 0; i < marcaActual.length; i++) {
-                marcaActual[i] = marcaActual[i] + incidenciaFront[i][transicion];
-                marcaActual[i] = marcaActual[i] - incidenciaBack[i][transicion];
-            }
-            this.cantidadTransicionesDisparadas++;
-
-            if(this.isPInvariantesCorrecto)
-                this.isPInvariantesCorrecto = isPInvariantesCorrecto();
-
-            this.ordenTransicionesDisparadas = this.ordenTransicionesDisparadas.concat(transicion + "-");
-
-            actualizarSensibilizadas();
+        for (int i = 0; i < marcaActual.length; i++) {
+            marcaActual[i] = marcaActual[i] + incidenciaFront[i][transicion];
+            marcaActual[i] = marcaActual[i] - incidenciaBack[i][transicion];
         }
+        this.cantidadTransicionesDisparadas++;
+
+        if(this.isPInvariantesCorrecto)
+            this.isPInvariantesCorrecto = isPInvariantesCorrecto();
+
+        this.ordenTransicionesDisparadas = this.ordenTransicionesDisparadas.concat(transicion + "-");
+
+        actualizarSensibilizadas();
     }
 
     /**
      * Actualizacion de transiciones sensibilizadas
      */
     public void actualizarSensibilizadas() {
+        actualizarVectorDesInhibidor();
         for (int i = 0; i < transiciones.length ; i++) {
-            this.transiciones[i] = isSensibilizadaInterno(i);
+            this.transiciones[i] = isSensibilizadaInterno(i) * this.vectorDesInhibidor[i];
+        }
+    }
+
+    /**
+     * Actualiza el vector desinhibidor (para arcos inhibidores)
+     * '1' para transiciones deshinibidas
+     */
+    private void actualizarVectorDesInhibidor() {
+        for(int i = 0; i < this.matrizInhibidora.length; i++) {
+            for(int j = 0; j < this.matrizInhibidora[i].length; j++) {
+                if(this.matrizInhibidora[i][j] == 1) {
+                    if(this.marcaActual[j] > 0) {
+                        this.vectorDesInhibidor[i] = 0;
+                        break;
+                    }
+                }
+                this.vectorDesInhibidor[i] = 1;
+            }
         }
     }
 
@@ -76,25 +98,17 @@ public class RedDePetri {
      * Indica si la transicion esta sensibilizada
      * Metodo PUBLICO llamado por monitor
      * @param transicion transicion a analizar
-     * @return true si la transicion esta sensibilizada
+     * @return '1' si la transicion esta sensibilizada
      */
-    public boolean isSensibilizada(int transicion) {
+    public int isSensibilizada(int transicion) {
         return (this.transiciones[transicion]);
     }
 
     /**
-     * Getter del marcado actual
-     * @return vector de enteros del marcado
-     */
-    public int[] getMarcaActual() {
-        return this.marcaActual;
-    }
-
-    /**
      * Getter de situacion de transiciones
-     * @return lista de booleanos, true para sensibilizada
+     * @return lista de ints, '1' para sensibilizada
      */
-    public boolean[] getTransiciones() {
+    public int[] getTransiciones() {
         return this.transiciones;
     }
 

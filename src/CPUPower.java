@@ -56,40 +56,40 @@ public class CPUPower extends Thread {
         while(!currentThread().isInterrupted()) {
 
             // intento de encendido
-            if(this.cpuBuffer.getSize() > 0 && !this.isOn) {
-                try {
-                    monitor.entrar(secuencia[0]);    // pasar de stand by a encendido
-                    monitor.salir();
-                } catch (InterruptedException e) {
-                    interruptedReaccion();
-                }
-
-                try {
-                    monitor.entrar(secuencia[1]);    // encender CPU
-
-                    dormir();
-                    this.isOn = true;
-                    if(flag)
-                        this.tiempoSleep = this.tiempoSleep + (System.currentTimeMillis() - this.inicioSleep);
-                    else
-                        flag = true;
-                    monitor.salir();
-                    System.out.println(Colors.RED_BOLD + "ENCENDIDO:                         CPU " + this.cpuId + Colors.RESET);
-                } catch (InterruptedException e) {
-                    interruptedReaccion();
-                }
+            try {
+                monitor.entrar(secuencia[0]);    // pasar de stand by a encendido
+                monitor.salir();
+            } catch (InterruptedException e) {
+                interruptedReaccion();
             }
+
+            try {
+                monitor.entrar(secuencia[1]);    // encender CPU
+
+                dormir();
+                this.isOn = true;
+                if(flag)
+                    this.tiempoSleep = this.tiempoSleep + (System.currentTimeMillis() - this.inicioSleep);
+                else
+                    flag = true;
+
+                monitor.salir();
+                System.out.println(Colors.RED_BOLD + "ENCENDIDO:                         CPU " + this.cpuId + Colors.RESET);
+            } catch (InterruptedException e) {
+                interruptedReaccion();
+            }
+
             // intento de apagado
-            else if(this.cpuBuffer.getSize() <= 0 && this.isOn && !this.isActive) {
-                try {
-                    monitor.entrar(secuencia[2]);   // apagado
-                    this.isOn = false;
-                    this.inicioSleep = System.currentTimeMillis();
-                    monitor.salir();
-                    System.out.println(Colors.RED_BOLD + "APAGADO:                           CPU " + this.cpuId + Colors.RESET);
-                } catch (InterruptedException e) {
-                    interruptedReaccion();
-                }
+            try {
+                monitor.entrar(secuencia[2]);   // apagado
+
+                this.isOn = false;
+                this.inicioSleep = System.currentTimeMillis();
+
+                monitor.salir();
+                System.out.println(Colors.RED_BOLD + "APAGADO:                           CPU " + this.cpuId + Colors.RESET);
+            } catch (InterruptedException e) {
+                interruptedReaccion();
             }
 
             // duerme el hilo para volver a chequear, dentro de un tiempo, el encendido/apagado

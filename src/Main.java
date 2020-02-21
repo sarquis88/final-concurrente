@@ -7,13 +7,13 @@ import static java.lang.Math.round;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 1000;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 400;        // cantidad de procesos a generar
 
-    private static final double ARRIVALRATEMIN = 2.00;      // tiempo minimo entre generacion de procesos
-    private static final double ARRIVALRATEMAX = 6.00;      // tiempo maximo entre generacion de procesos
+    private static final double ARRIVALRATEMIN = 1.00;      // tiempo minimo entre generacion de procesos
+    private static final double ARRIVALRATEMAX = 2.00;      // tiempo maximo entre generacion de procesos
 
-    private static final double SERVICERATEMIN = 6.00;      // tiempo minimo de procesamiento
-    private static final double SERVICERATEMAX = 10.00;     // tiempo maximo de procesamiento
+    private static final double SERVICERATEMIN = 15.00;      // tiempo minimo de procesamiento
+    private static final double SERVICERATEMAX = 25.00;     // tiempo maximo de procesamiento
     private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
 
@@ -78,7 +78,25 @@ public class Main {
                                                         {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0  }, // 15
         };
 
-        redDePetri = new RedDePetri(marcadoInicial, incidenciaFrontward, incidenciaBackward);
+        int[][] matrizInhibidora = { // PLAZAS              0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 0  T
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 1  R
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 2  A
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 3  N
+                                                        {   0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0  }, // 4  S
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 5  I
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 6  C
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 7  I
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 8  O
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 9  N
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 10 E
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0  }, // 11 S
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 12
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 13
+                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 14
+        };
+
+        redDePetri = new RedDePetri(marcadoInicial, incidenciaFrontward, incidenciaBackward, matrizInhibidora);
         Monitor monitor = new Monitor(redDePetri);
 
         CPUBuffer cpuBufferA = new CPUBuffer();
@@ -98,10 +116,10 @@ public class Main {
         threads[4] = cpuProcessingB;
 
         if(GARBAGECOLLECTION) {
-            GarbageCollector garbageCollectorA = new GarbageCollector(monitor, SERVICERATEMAX * 1.5, "A");
-            GarbageCollector garbageCollectorB = new GarbageCollector(monitor, SERVICERATEMAX * 1.5, "B");
-            threads[5] = garbageCollectorA;
-            threads[6] = garbageCollectorB;
+            CPUGarbageCollector CPUGarbageCollectorA = new CPUGarbageCollector(monitor, SERVICERATEMAX * 1.5, "A");
+            CPUGarbageCollector CPUGarbageCollectorB = new CPUGarbageCollector(monitor, SERVICERATEMAX * 1.5, "B");
+            threads[5] = CPUGarbageCollectorA;
+            threads[6] = CPUGarbageCollectorB;
         }
 
         for(Thread thread : threads) {

@@ -1,6 +1,6 @@
 import static java.lang.Math.round;
 
-public class GarbageCollector extends Thread {
+public class CPUGarbageCollector extends Thread {
 
     private Monitor monitor;
     private String cpuId;
@@ -13,7 +13,7 @@ public class GarbageCollector extends Thread {
      * @param serviceRate tiempo entre limpiezas
      * @param cpuId id del cpu a limpiar
      */
-    public GarbageCollector(Monitor monitor, double serviceRate, String cpuId) {
+    public CPUGarbageCollector(Monitor monitor, double serviceRate, String cpuId) {
         this.monitor = monitor;
         this.serviceRate = round(serviceRate);
         this.cpuId = cpuId;
@@ -24,7 +24,7 @@ public class GarbageCollector extends Thread {
      */
     @Override
     public void run() {
-        System.out.println(Colors.RED_BOLD + "INICIO GarbageCollector " + this.cpuId + Colors.RESET);
+        System.out.println(Colors.RED_BOLD + "INICIO CPUGarbageCollector " + this.cpuId + Colors.RESET);
         int transicion;
 
         if(this.cpuId.equalsIgnoreCase("A"))
@@ -57,7 +57,7 @@ public class GarbageCollector extends Thread {
          * Impresion de mensaje
          */
         private void interruptedReaccion() {
-            System.out.println(Colors.RED_BOLD + "FIN GarbageCollector " + this.cpuId + Colors.RESET);
+            System.out.println(Colors.RED_BOLD + "FIN CPUGarbageCollector " + this.cpuId + Colors.RESET);
 
         }
 }
