@@ -30,7 +30,7 @@ public class Monitor {
 
         mutex.lock();
 
-        while (redDePetri.isSensibilizada(transicion) == 0)
+        while (!redDePetri.isSensibilizada(transicion))
             waitingQueue.get(transicion).await();
 
         this.redDePetri.disparar(transicion);

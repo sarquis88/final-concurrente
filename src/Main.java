@@ -2,23 +2,22 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 import static java.lang.Math.round;
+import static java.lang.Thread.currentThread;
 
 public class Main {
 
     private static final int CANTIDADPROCESOS = 400;        // cantidad de procesos a generar
 
-    private static final double ARRIVALRATEMIN = 1.00;      // tiempo minimo entre generacion de procesos
-    private static final double ARRIVALRATEMAX = 2.00;      // tiempo maximo entre generacion de procesos
+    private static final double ARRIVALRATEAVG = 2.00;      // tiempo promedio entre generacion de procesos
 
-    private static final double SERVICERATEMIN = 15.00;      // tiempo minimo de procesamiento
-    private static final double SERVICERATEMAX = 25.00;     // tiempo maximo de procesamiento
+    private static final double SERVICERATEAVG = 15.00;      // tiempo promedio de procesamiento
     private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
 
-    private static final double STANDBYDELAYMIN = 30;       // tiempo minimo de encendido
-    private static final double STANDBYDELAYMAX = 35;       // tiempo maximo de encendido
+    private static final double STANDBYDELAYAVG = 30.00;       // tiempo promedio de encendido
 
     private static final boolean GARBAGECOLLECTION = true;
 
@@ -35,7 +34,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Thread.currentThread().setName("Main");
+        currentThread().setName("Main");
 
         //                          0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15
         int[] marcadoInicial = {    1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1   };
@@ -100,14 +99,14 @@ public class Main {
         Monitor monitor = new Monitor(redDePetri);
 
         CPUBuffer cpuBufferA = new CPUBuffer();
-        cpuPowerA = new CPUPower(monitor, cpuBufferA, STANDBYDELAYMAX, STANDBYDELAYMIN, "A");
-        cpuProcessingA = new CPUProcessing(cpuPowerA, SERVICERATEMAX * FACTORA, SERVICERATEMIN * FACTORA, "A");
+        cpuPowerA = new CPUPower(monitor, STANDBYDELAYAVG, "A");
+        cpuProcessingA = new CPUProcessing(cpuPowerA, cpuBufferA, SERVICERATEAVG * FACTORA, "A");
 
         CPUBuffer cpuBufferB = new CPUBuffer();
-        cpuPowerB = new CPUPower(monitor, cpuBufferB, STANDBYDELAYMAX, STANDBYDELAYMIN, "B");
-        cpuProcessingB = new CPUProcessing(cpuPowerB, SERVICERATEMAX * FACTORB, SERVICERATEMIN * FACTORB, "B");
+        cpuPowerB = new CPUPower(monitor, STANDBYDELAYAVG, "B");
+        cpuProcessingB = new CPUProcessing(cpuPowerB, cpuBufferB, SERVICERATEAVG * FACTORB, "B");
 
-        CPUGenerator cpuGenerator = new CPUGenerator(monitor, CANTIDADPROCESOS, ARRIVALRATEMAX, ARRIVALRATEMIN, cpuBufferA, cpuBufferB);
+        CPUGenerator cpuGenerator = new CPUGenerator(monitor, CANTIDADPROCESOS, ARRIVALRATEAVG, cpuBufferA, cpuBufferB);
 
         threads[0] = cpuGenerator;
         threads[1] = cpuPowerA;
@@ -116,8 +115,8 @@ public class Main {
         threads[4] = cpuProcessingB;
 
         if(GARBAGECOLLECTION) {
-            CPUGarbageCollector CPUGarbageCollectorA = new CPUGarbageCollector(monitor, SERVICERATEMAX * 1.5, "A");
-            CPUGarbageCollector CPUGarbageCollectorB = new CPUGarbageCollector(monitor, SERVICERATEMAX * 1.5, "B");
+            CPUGarbageCollector CPUGarbageCollectorA = new CPUGarbageCollector(monitor, SERVICERATEAVG * 1.5, "A");
+            CPUGarbageCollector CPUGarbageCollectorB = new CPUGarbageCollector(monitor, SERVICERATEAVG * 1.5, "B");
             threads[5] = CPUGarbageCollectorA;
             threads[6] = CPUGarbageCollectorB;
         }
@@ -154,7 +153,7 @@ public class Main {
         // se duerme el hilo para darle tiempo a los CPUs para que se apaguen
         // de lo contrario, el programa puede terminar con los CPUs en modo On
         try {
-            Thread.sleep(round(STANDBYDELAYMAX * 3));
+            Thread.sleep(round(STANDBYDELAYAVG * 3));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -195,6 +194,20 @@ public class Main {
         }
 
         System.exit(0);
+    }
+
+    /**
+     * Dormida del Thread durante un tiempo promedio de timeAvg
+     */
+    public static void dormir(double timeAvg) throws InterruptedException {
+        Random random = new Random();
+
+        double timeMin = timeAvg - timeAvg * 0.3;
+        double timeMax = timeAvg + timeAvg * 0.3;
+
+        double sleepTimeDouble = timeMin + (timeMin - timeMax) * random.nextDouble();
+        long sleepTime = round(sleepTimeDouble);
+        Thread.sleep(sleepTime);
     }
 }
 

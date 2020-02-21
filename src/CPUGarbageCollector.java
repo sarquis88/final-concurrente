@@ -1,21 +1,24 @@
-import static java.lang.Math.round;
+/**
+ * HILO ENCARGADO DE DISPARAR LAS TRANSICIONES 7 Y 14
+ * DICHAS TRANSICIONES FUNCIONAN COMO GARBAGECOLLECTOR
+ */
 
 public class CPUGarbageCollector extends Thread {
 
     private Monitor monitor;
     private String cpuId;
 
-    private long serviceRate;
+    private double serviceRateAvg;
 
     /**
      * Constructor de clase
      * @param monitor monitor asociado a la red
-     * @param serviceRate tiempo entre limpiezas
+     * @param serviceRateAvg tiempo promedio entre limpiezas
      * @param cpuId id del cpu a limpiar
      */
-    public CPUGarbageCollector(Monitor monitor, double serviceRate, String cpuId) {
+    public CPUGarbageCollector(Monitor monitor, double serviceRateAvg, String cpuId) {
         this.monitor = monitor;
-        this.serviceRate = round(serviceRate);
+        this.serviceRateAvg = serviceRateAvg;
         this.cpuId = cpuId;
     }
 
@@ -43,8 +46,9 @@ public class CPUGarbageCollector extends Thread {
                 interruptedReaccion();
             }
 
+
             try {
-                sleep(serviceRate);
+                Main.dormir(this.serviceRateAvg);
             }
             catch (InterruptedException e) {
                 interruptedReaccion();

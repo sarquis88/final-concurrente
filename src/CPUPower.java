@@ -1,15 +1,14 @@
-import java.util.Random;
-
-import static java.lang.Math.round;
+/**
+ * HILO ENCARGADO DE DISPARAR TRANSICIONES 2, 3, 4, 9, 10, Y 11
+ * ENCENDIDO/APAGADO DE CPUs
+ */
 
 public class CPUPower extends Thread {
 
     private Monitor monitor;
-    private CPUBuffer cpuBuffer;
     private String cpuId;
 
-    private double standByDelayMax;
-    private double standByDelayMin;
+    private double standByDelayAvg;
     private boolean isActive;
     private boolean isOn;
     private long inicioSleep;
@@ -19,14 +18,14 @@ public class CPUPower extends Thread {
 
     /**
      * Constructor de clase
-     * @param monitor monitor del CPUProcessing
+     * @param monitor monitor de la red
+     * @param standByDelayAvg tiempo promedio de delay al prenderse
+     * @param cpuID id del cpu
      */
-    public CPUPower(Monitor monitor, CPUBuffer cpuBuffer, double standByDelayMax, double standByDelayMin, String cpuID) {
+    public CPUPower(Monitor monitor, double standByDelayAvg, String cpuID) {
         setName("CPUPower " + cpuID);
         this.monitor = monitor;
-        this.cpuBuffer = cpuBuffer;
-        this.standByDelayMax = standByDelayMax;
-        this.standByDelayMin = standByDelayMin;
+        this.standByDelayAvg = standByDelayAvg;
         this.isActive = false;
         this.isOn = false;
         this.cpuId = cpuID;
@@ -66,7 +65,7 @@ public class CPUPower extends Thread {
             try {
                 monitor.entrar(secuencia[1]);    // encender CPU
 
-                dormir();
+                Main.dormir(this.standByDelayAvg);
                 this.isOn = true;
                 if(flag)
                     this.tiempoSleep = this.tiempoSleep + (System.currentTimeMillis() - this.inicioSleep);
@@ -95,7 +94,7 @@ public class CPUPower extends Thread {
             // duerme el hilo para volver a chequear, dentro de un tiempo, el encendido/apagado
             // si no se duerme acá, el programa se vuelve mas lento y sobrecargado
             try {
-                dormir();
+                Main.dormir(this.standByDelayAvg);
             }
             catch (InterruptedException e) {
                 interruptedReaccion();
@@ -109,14 +108,6 @@ public class CPUPower extends Thread {
      */
     public Monitor getMonitor() {
         return this.monitor;
-    }
-
-    /**
-     * Getter del CPUBuffer
-     * @return objeto CPUBuffer relativo al buffer de instancia
-     */
-    public CPUBuffer getCpuBuffer() {
-        return this.cpuBuffer;
     }
 
     /**
@@ -139,15 +130,5 @@ public class CPUPower extends Thread {
      */
     public double getTiempoSleep() {
         return (this.tiempoSleep / 1000.00);
-    }
-
-    /**
-     * Dormida del Thread durante un tiempo minimo de standByDelayMin y maximo de standByDelayMax
-     */
-    private void dormir() throws InterruptedException {
-        Random random = new Random();
-        double sleepTimeDouble = standByDelayMin + (standByDelayMax - standByDelayMin) * random.nextDouble();
-        long sleepTime = round(sleepTimeDouble);
-        sleep(sleepTime);
     }
 }

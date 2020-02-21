@@ -1,6 +1,9 @@
-import java.util.Random;
+/**
+ * HILO ENCARGADO DE DISPARAR TRANSICIONES 0, 1 Y 8
+ * GENERADOR DE PROCESOS
+ */
 
-import static java.lang.Math.round;
+import java.util.Random;
 
 public class CPUGenerator extends Thread {
 
@@ -8,8 +11,7 @@ public class CPUGenerator extends Thread {
     private CPUBuffer cpuBufferA;
     private CPUBuffer cpuBufferB;
 
-    private double arrivalRateMax;
-    private double arrivalRateMin;
+    private double arrivalRateAvg;
     private int cantidadAGenerar;
 
     private int[] secuencia = {99, 99, 99};
@@ -18,14 +20,16 @@ public class CPUGenerator extends Thread {
      * Constructor de clase
      * @param monitor monitor del productor
      * @param cantidadAGenerar cantidad de procesos a generar
+     * @param arrivalRateAvg tiempo promedio a crear procesos
+     * @param cpuBufferA buffer a agregar procesos
+     * @param cpuBufferB buffer a agregar procesos
      */
-    public CPUGenerator(Monitor monitor, int cantidadAGenerar, double arrivalRateMax, double arrivalRateMin,
+    public CPUGenerator(Monitor monitor, int cantidadAGenerar, double arrivalRateAvg,
                         CPUBuffer cpuBufferA, CPUBuffer cpuBufferB) {
         setName("CPUGenerator");
         this.monitor = monitor;
         this.cantidadAGenerar = cantidadAGenerar;
-        this.arrivalRateMax = arrivalRateMax;
-        this.arrivalRateMin = arrivalRateMin;
+        this.arrivalRateAvg = arrivalRateAvg;
         this.cpuBufferA = cpuBufferA;
         this.cpuBufferB = cpuBufferB;
 
@@ -87,16 +91,6 @@ public class CPUGenerator extends Thread {
     }
 
     /**
-     * Dormida del Thread durante un tiempo minimo de arrivalRateMin y maximo de arrivalRateMax
-     */
-    private void dormir() throws InterruptedException {
-        Random random = new Random();
-        double sleepTimeDouble = arrivalRateMin + (arrivalRateMax - arrivalRateMin) * random.nextDouble();
-        long sleepTime = round(sleepTimeDouble);
-        sleep(sleepTime);
-    }
-
-    /**
      * Accion del Thread al iniciar
      */
     @Override
@@ -106,7 +100,7 @@ public class CPUGenerator extends Thread {
         for (int i = 0; i < cantidadAGenerar; i++) {
             this.generarProceso();
             try {
-                dormir();
+                Main.dormir(this.arrivalRateAvg);
             }
             catch (InterruptedException e) {
                 interruptedReaccion();

@@ -17,6 +17,7 @@ public class RedDePetri {
      * @param marcaInicial marca inicial de la red
      * @param incidenciaFront matriz de incidencia frontal
      * @param incidenciaBack matriz de incidencia trasera
+     * @param matrizInhibidora matriz de arcos inhibidores
      */
     public RedDePetri(int[] marcaInicial, int[][] incidenciaFront, int[][] incidenciaBack, int[][] matrizInhibidora) {
 
@@ -29,8 +30,8 @@ public class RedDePetri {
         this.cantidadTransicionesDisparadas = 0;
         this.ordenTransicionesDisparadas = "";
         this.isPInvariantesCorrecto = true;
-        actualizarSensibilizadas();
         actualizarVectorDesInhibidor();
+        actualizarSensibilizadas();
     }
 
     /**
@@ -98,10 +99,10 @@ public class RedDePetri {
      * Indica si la transicion esta sensibilizada
      * Metodo PUBLICO llamado por monitor
      * @param transicion transicion a analizar
-     * @return '1' si la transicion esta sensibilizada
+     * @return true si la transicion esta sensibilizada
      */
-    public int isSensibilizada(int transicion) {
-        return (this.transiciones[transicion]);
+    public boolean isSensibilizada(int transicion) {
+        return (this.transiciones[transicion] == 1);
     }
 
     /**

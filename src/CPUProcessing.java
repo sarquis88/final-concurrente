@@ -1,6 +1,7 @@
-import java.util.Random;
-
-import static java.lang.Math.round;
+/**
+ * HILO ENCARGADO DE DISPARAR TRANSICIONES 5, 6, 14 Y 15
+ * PROCESAMIENTO DEL CPU
+ */
 
 public class CPUProcessing extends Thread {
 
@@ -9,8 +10,7 @@ public class CPUProcessing extends Thread {
     private CPUBuffer cpuBuffer;
     private String cpuId;
 
-    private double serviceRateMax;
-    private double serviceRateMin;
+    private double serviceRateAvg;
     private int procesados;
 
     private int[] secuencia = {99, 99};
@@ -19,15 +19,17 @@ public class CPUProcessing extends Thread {
 
     /**
      * Constructor de clase
-     * @param cpuPower controlador de encendido del CPU
+     * @param cpuPower controlador de encendido/apagado del cpu
+     * @param cpuBuffer buffer en el cual procesar
+     * @param serviceRateAvg tiempo promedio para terminar proceso
+     * @param cpuId id del cpu
      */
-    public CPUProcessing(CPUPower cpuPower, double serviceRateMax, double serviceRateMin, String cpuId) {
+    public CPUProcessing(CPUPower cpuPower, CPUBuffer cpuBuffer, double serviceRateAvg, String cpuId) {
         setName("CPUProcessing " + cpuId);
         this.cpuPower = cpuPower;
         this.monitor = cpuPower.getMonitor();
-        this.cpuBuffer = cpuPower.getCpuBuffer();
-        this.serviceRateMax = serviceRateMax;
-        this.serviceRateMin = serviceRateMin;
+        this.cpuBuffer = cpuBuffer;
+        this.serviceRateAvg = serviceRateAvg;
         this.cpuId = cpuId;
         this.procesados = 0;
 
@@ -65,7 +67,7 @@ public class CPUProcessing extends Thread {
                 CPUProcess cpuProcess = this.cpuBuffer.procesar();
                 this.procesados++;
                 procesadosGlobal++;
-                dormir();
+                Main.dormir(this.serviceRateAvg);
                 this.cpuPower.setIsActive(false);
                 monitor.salir();
 
@@ -95,15 +97,5 @@ public class CPUProcessing extends Thread {
      */
     public int getProcesados() {
         return this.procesados;
-    }
-
-    /**
-     * Dormida del Thread durante un tiempo minimo de serviceRateMin y maximo de serviceRateMax
-     */
-    private void dormir() throws InterruptedException {
-        Random random = new Random();
-        double sleepTimeDouble = serviceRateMin + (serviceRateMax - serviceRateMin) * random.nextDouble();
-        long sleepTime = round(sleepTimeDouble);
-        sleep(sleepTime);
     }
 }
