@@ -56,7 +56,7 @@ public class CPUPower extends Thread {
 
         while(!currentThread().isInterrupted()) {
 
-            if(this.isFinished)
+            if(isFinished)
                 return;
 
             // intento de encendido

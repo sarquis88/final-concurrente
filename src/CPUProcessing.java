@@ -65,9 +65,9 @@ public class CPUProcessing extends Thread {
             try {
                 monitor.entrar(secuencia[1]);   // fin proceso
                 CPUProcess cpuProcess = this.cpuBuffer.procesar();
+                Main.dormir(this.serviceRateAvg);
                 this.procesados++;
                 procesadosGlobal++;
-                Main.dormir(this.serviceRateAvg);
                 this.cpuPower.setIsActive(false);
                 monitor.salir();
 
