@@ -16,6 +16,8 @@ public class CPUPower extends Thread {
 
     private int[] secuencia = {99, 99, 99};
 
+    private static boolean isFinished = false;
+
     /**
      * Constructor de clase
      * @param monitor monitor de la red
@@ -53,6 +55,9 @@ public class CPUPower extends Thread {
         boolean flag = false;
 
         while(!currentThread().isInterrupted()) {
+
+            if(this.isFinished)
+                return;
 
             // intento de encendido
             try {
@@ -130,5 +135,13 @@ public class CPUPower extends Thread {
      */
     public double getTiempoSleep() {
         return (this.tiempoSleep / 1000.00);
+    }
+
+    /**
+     * Marca el final del procesado
+     * Metodo llamado por CPUProcessing
+     */
+    public static void setFin() {
+        isFinished = true;
     }
 }

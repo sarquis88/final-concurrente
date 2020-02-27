@@ -72,9 +72,8 @@ public class RedDePetri {
      * Actualizacion de transiciones sensibilizadas
      */
     public void actualizarSensibilizadas() {
-        for (int i = 0; i < transiciones.length ; i++) {
+        for (int i = 0; i < transiciones.length ; i++)
             this.transiciones[i] = isSensibilizadaInterno(i) * this.vectorDesInhibidor[i];
-        }
     }
 
     /**

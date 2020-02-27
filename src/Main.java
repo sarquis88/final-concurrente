@@ -9,11 +9,11 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 400;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 1000;        // cantidad de procesos a generar
 
     private static final double ARRIVALRATEAVG = 2.00;      // tiempo promedio entre generacion de procesos
 
-    private static final double SERVICERATEAVG = 15.00;      // tiempo promedio de procesamiento
+    private static final double SERVICERATEAVG = 15.00;     // tiempo promedio de procesamiento
     private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
 
@@ -158,6 +158,7 @@ public class Main {
             e.printStackTrace();
         }
 
+        double tiempoEstimado = ((CANTIDADPROCESOS * SERVICERATEAVG) / 2) / 1000;
         double tiempoEjecucion = (fin - inicio) / 1000.00;
         double tiempoSleepA = cpuPowerA.getTiempoSleep();
         double tiempoSleepB = cpuPowerB.getTiempoSleep();
@@ -171,6 +172,7 @@ public class Main {
             pInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
 
         System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + String.format("%.2f", tiempoEjecucion) + " [seg]" + Colors.RESET);
+        System.out.println(Colors.BLUE_BOLD + "--> TIEMPO ESTIMADO: " + String.format("%.2f", tiempoEstimado) + " [seg]" + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "--> TIEMPO EN OFF DE CPU A: " + String.format("%.2f", tiempoSleepA) + " [seg] (%" + String.format("%.2f", tiempoSleepRelA) + ")" + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "--> TIEMPO EN OFF DE CPU B: " + String.format("%.2f", tiempoSleepB) + " [seg] (%" + String.format("%.2f", tiempoSleepRelB) + ")" + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "\n--> TRANSICIONES DISPARADAS: " + redDePetri.getCantidadTransicionesDisparadas() + Colors.RESET);

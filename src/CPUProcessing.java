@@ -74,6 +74,7 @@ public class CPUProcessing extends Thread {
                 if(cpuProcess != null) {
                     System.out.println("TERMINADO PROCESO NUMERO:          " + cpuProcess.getIdLocal() + " EN " + this.cpuId);
                     if (procesadosGlobal == Main.getCantidadProcesos()) {
+                        CPUPower.setFin();
                         Main.setFin(this.cpuId);                                                  // marca tiempo final
                         Main.exit();
                     }
