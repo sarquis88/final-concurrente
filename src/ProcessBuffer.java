@@ -1,29 +1,29 @@
 import java.util.LinkedList;
 
-public class CPUBuffer {
+public class ProcessBuffer {
 
-    private LinkedList<CPUProcess> buffer;
+    private LinkedList<Process> buffer;
 
     /**
      * Constructor de clase
      */
-    public CPUBuffer() {
+    public ProcessBuffer() {
         this.buffer = new LinkedList<>();
     }
 
     /**
-     * Agregar nuevo CPUProcess al buffer
-     * @param CPUProcess objeto CPUProcess a añadir
+     * Agregar nuevo Process al buffer
+     * @param Process objeto Process a añadir
      */
-    public void addProceso(CPUProcess CPUProcess) {
-        this.buffer.add(CPUProcess);
+    public void addProceso(Process Process) {
+        this.buffer.add(Process);
     }
 
     /**
      * Procesar el ultimo elemento de la lista
      * @return proceso procesado
      */
-    public CPUProcess procesar() {
+    public Process procesar() {
         return this.buffer.pollFirst();
     }
 

@@ -6,8 +6,6 @@ public class RedDePetri {
     private int[][] incidenciaFront;
     private int[][] incidenciaBack;
     private int[][] matrizInhibidora;
-
-    private int cantidadTransicionesDisparadas;
     private boolean isPInvariantesCorrecto;
 
     private String ordenTransicionesDisparadas;
@@ -27,7 +25,6 @@ public class RedDePetri {
         this.matrizInhibidora = matrizInhibidora;
         this.transiciones = new int[incidenciaBack[0].length];
         this.vectorDesInhibidor = new int[this.transiciones.length];
-        this.cantidadTransicionesDisparadas = 0;
         this.ordenTransicionesDisparadas = "";
         this.isPInvariantesCorrecto = true;
         actualizarVectorDesInhibidor();
@@ -51,13 +48,16 @@ public class RedDePetri {
     /**
      * Disparo de transicion en red de Petri, modificando la marca de la red
      * @param transicion transicion a disparar
+     * @return true si se disparo, de lo contrario false
      */
-    public void disparar(int transicion) {
+    public boolean disparar(int transicion) {
+        if(!isSensibilizada(transicion))
+            return false;
+
         for (int i = 0; i < marcaActual.length; i++) {
             marcaActual[i] = marcaActual[i] + incidenciaFront[i][transicion];
             marcaActual[i] = marcaActual[i] - incidenciaBack[i][transicion];
         }
-        this.cantidadTransicionesDisparadas++;
 
         if(this.isPInvariantesCorrecto)
             this.isPInvariantesCorrecto = isPInvariantesCorrecto();
@@ -66,6 +66,7 @@ public class RedDePetri {
 
         actualizarVectorDesInhibidor();
         actualizarSensibilizadas();
+        return true;
     }
 
     /**
@@ -110,14 +111,6 @@ public class RedDePetri {
      */
     public int[] getTransiciones() {
         return this.transiciones;
-    }
-
-    /**
-     * Getter de transiciones disparadas
-     * @return transiciones disparadas en int
-     */
-    public int getCantidadTransicionesDisparadas() {
-        return this.cantidadTransicionesDisparadas;
     }
 
     /**

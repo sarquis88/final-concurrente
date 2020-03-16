@@ -9,15 +9,15 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 100;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 1000;        // cantidad de procesos a generar
 
-    private static final double ARRIVALRATEAVG = 2.00;      // tiempo promedio entre generacion de procesos
+    private static final long ARRIVALRATE = 2;      // tiempo promedio entre generacion de procesos
 
-    private static final double SERVICERATEAVG = 15.00;     // tiempo promedio de procesamiento
+    private static final long SERVICERATE = 15;     // tiempo promedio de procesamiento
     private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
 
-    private static final double STANDBYDELAYAVG = 30.00;       // tiempo promedio de encendido
+    private static final long STANDBYDELAY = 30;       // tiempo promedio de encendido
 
     private static final boolean GARBAGECOLLECTION = true;
 
@@ -98,25 +98,23 @@ public class Main {
         redDePetri = new RedDePetri(marcadoInicial, incidenciaFrontward, incidenciaBackward, matrizInhibidora);
         Monitor monitor = new Monitor(redDePetri);
 
-        CPUBuffer cpuBufferA = new CPUBuffer();
-        cpuPowerA = new CPUPower(monitor, STANDBYDELAYAVG, "A");
-        cpuProcessingA = new CPUProcessing(cpuPowerA, cpuBufferA, SERVICERATEAVG * FACTORA, "A");
+        cpuPowerA = new CPUPower(monitor, STANDBYDELAY, "A");
+        cpuProcessingA = new CPUProcessing(cpuPowerA, SERVICERATE * FACTORA, "A");
 
-        CPUBuffer cpuBufferB = new CPUBuffer();
-        cpuPowerB = new CPUPower(monitor, STANDBYDELAYAVG, "B");
-        cpuProcessingB = new CPUProcessing(cpuPowerB, cpuBufferB, SERVICERATEAVG * FACTORB, "B");
+        cpuPowerB = new CPUPower(monitor, STANDBYDELAY, "B");
+        cpuProcessingB = new CPUProcessing(cpuPowerB, SERVICERATE * FACTORB, "B");
 
-        CPUGenerator cpuGenerator = new CPUGenerator(monitor, CANTIDADPROCESOS, ARRIVALRATEAVG, cpuBufferA, cpuBufferB);
+        ProcessGenerator processGenerator = new ProcessGenerator(monitor, CANTIDADPROCESOS, ARRIVALRATE);
 
-        threads[0] = cpuGenerator;
+        threads[0] = processGenerator;
         threads[1] = cpuPowerA;
         threads[2] = cpuProcessingA;
         threads[3] = cpuPowerB;
         threads[4] = cpuProcessingB;
 
         if(GARBAGECOLLECTION) {
-            CPUGarbageCollector CPUGarbageCollectorA = new CPUGarbageCollector(monitor, SERVICERATEAVG * 1.5, "A");
-            CPUGarbageCollector CPUGarbageCollectorB = new CPUGarbageCollector(monitor, SERVICERATEAVG * 1.5, "B");
+            CPUGarbageCollector CPUGarbageCollectorA = new CPUGarbageCollector(monitor, SERVICERATE * 1.5, "A");
+            CPUGarbageCollector CPUGarbageCollectorB = new CPUGarbageCollector(monitor, SERVICERATE * 1.5, "B");
             threads[5] = CPUGarbageCollectorA;
             threads[6] = CPUGarbageCollectorB;
         }
@@ -131,18 +129,13 @@ public class Main {
         inicio = System.currentTimeMillis();
     }
 
-    public static void setFin(String interrupter) {
+    public static void setFin() {
         fin = System.currentTimeMillis();
 
         if(GARBAGECOLLECTION) {
             threads[5].interrupt();
             threads[6].interrupt();
         }
-
-        if(interrupter.equalsIgnoreCase("A"))
-            threads[4].interrupt();
-        else if(interrupter.equalsIgnoreCase("B"))
-            threads[2].interrupt();
     }
 
     public static int getCantidadProcesos() {
@@ -153,17 +146,12 @@ public class Main {
         // se duerme el hilo para darle tiempo a los CPUs para que se apaguen
         // de lo contrario, el programa puede terminar con los CPUs en modo On
         try {
-            Thread.sleep(round(STANDBYDELAYAVG * 3));
+            Thread.sleep(round(STANDBYDELAY * 3));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        double tiempoEstimado = ((CANTIDADPROCESOS * SERVICERATEAVG) / 2) / 1000;
         double tiempoEjecucion = (fin - inicio) / 1000.00;
-        double tiempoSleepA = cpuPowerA.getTiempoSleep();
-        double tiempoSleepB = cpuPowerB.getTiempoSleep();
-        double tiempoSleepRelA = (tiempoSleepA / tiempoEjecucion) * 100.00;
-        double tiempoSleepRelB = (tiempoSleepB / tiempoEjecucion) * 100.00;
 
         String pInvariantes;
         if(redDePetri.getIsPInvariantesCorrecto())
@@ -172,14 +160,9 @@ public class Main {
             pInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
 
         System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + String.format("%.2f", tiempoEjecucion) + " [seg]" + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "--> TIEMPO ESTIMADO: " + String.format("%.2f", tiempoEstimado) + " [seg]" + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "--> TIEMPO EN OFF DE CPU A: " + String.format("%.2f", tiempoSleepA) + " [seg] (%" + String.format("%.2f", tiempoSleepRelA) + ")" + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "--> TIEMPO EN OFF DE CPU B: " + String.format("%.2f", tiempoSleepB) + " [seg] (%" + String.format("%.2f", tiempoSleepRelB) + ")" + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "\n--> TRANSICIONES DISPARADAS: " + redDePetri.getCantidadTransicionesDisparadas() + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "\n--> PROCESOS TERMINADOS POR CPU A: " + cpuProcessingA.getProcesados() + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "--> PROCESOS TERMINADOS POR CPU B: " + cpuProcessingB.getProcesados() + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "\n--> ANALISIS DE P-INVARIANTES: " + pInvariantes + Colors.RESET);
-        System.out.println("\n");
 
         try {
             File TInvariantesFile = new File("./src/T-Invariantes.txt");
@@ -212,5 +195,3 @@ public class Main {
         Thread.sleep(sleepTime);
     }
 }
-
-

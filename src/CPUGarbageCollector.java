@@ -1,4 +1,4 @@
-/**
+/*
  * HILO ENCARGADO DE DISPARAR LAS TRANSICIONES 7 Y 14
  * DICHAS TRANSICIONES FUNCIONAN COMO GARBAGECOLLECTOR
  */
@@ -37,15 +37,9 @@ public class CPUGarbageCollector extends Thread {
         else
             return;
 
-        while (!currentThread().isInterrupted()) {
+        while (!currentThread().isInterrupted() && !CPU.isFinished()) {
 
-            try {
-                monitor.entrar(transicion);    // limpiar basura
-                monitor.salir();
-            } catch (InterruptedException e) {
-                interruptedReaccion();
-            }
-
+            monitor.disparar(transicion);    // limpiar basura
 
             try {
                 Main.dormir(this.serviceRateAvg);

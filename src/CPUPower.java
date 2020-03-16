@@ -1,4 +1,4 @@
-/**
+/*
  * HILO ENCARGADO DE DISPARAR TRANSICIONES 2, 3, 4, 9, 10, Y 11
  * ENCENDIDO/APAGADO DE CPUs
  */
@@ -9,14 +9,8 @@ public class CPUPower extends Thread {
     private String cpuId;
 
     private double standByDelayAvg;
-    private boolean isActive;
-    private boolean isOn;
-    private long inicioSleep;
-    private long tiempoSleep;
 
     private int[] secuencia = {99, 99, 99};
-
-    private static boolean isFinished = false;
 
     /**
      * Constructor de clase
@@ -28,10 +22,7 @@ public class CPUPower extends Thread {
         setName("CPUPower " + cpuID);
         this.monitor = monitor;
         this.standByDelayAvg = standByDelayAvg;
-        this.isActive = false;
-        this.isOn = false;
         this.cpuId = cpuID;
-        this.tiempoSleep = 0;
 
         if(cpuID.equalsIgnoreCase("A")) {
             this.secuencia[0] = 2;
@@ -52,49 +43,25 @@ public class CPUPower extends Thread {
     @Override
     public void run() {
         System.out.println(Colors.RED_BOLD + "INICIO CPUPower " + this.cpuId + Colors.RESET);
-        boolean flag = false;
 
-        while(!currentThread().isInterrupted()) {
-
-            if(isFinished)
-                return;
+        while(!currentThread().isInterrupted() && !CPU.isFinished()) {
 
             // intento de encendido
-            try {
-                monitor.entrar(secuencia[0]);    // pasar de stand by a encendido
-                monitor.salir();
-            } catch (InterruptedException e) {
-                interruptedReaccion();
-            }
+            monitor.disparar(secuencia[0]);    // pasar de stand by a encendido
+
+            monitor.disparar(secuencia[1]);    // encender CPU
 
             try {
-                monitor.entrar(secuencia[1]);    // encender CPU
-
                 Main.dormir(this.standByDelayAvg);
-                this.isOn = true;
-                if(flag)
-                    this.tiempoSleep = this.tiempoSleep + (System.currentTimeMillis() - this.inicioSleep);
-                else
-                    flag = true;
-
-                monitor.salir();
-                System.out.println(Colors.RED_BOLD + "ENCENDIDO:                         CPU " + this.cpuId + Colors.RESET);
             } catch (InterruptedException e) {
-                interruptedReaccion();
+                e.printStackTrace();
             }
 
-            // intento de apagado
-            try {
-                monitor.entrar(secuencia[2]);   // apagado
+            System.out.println(Colors.RED_BOLD + "ENCENDIDO:                         CPU " + this.cpuId + Colors.RESET);
 
-                this.isOn = false;
-                this.inicioSleep = System.currentTimeMillis();
+            monitor.disparar(secuencia[2]);   // apagado
 
-                monitor.salir();
-                System.out.println(Colors.RED_BOLD + "APAGADO:                           CPU " + this.cpuId + Colors.RESET);
-            } catch (InterruptedException e) {
-                interruptedReaccion();
-            }
+            System.out.println(Colors.RED_BOLD + "APAGADO:                           CPU " + this.cpuId + Colors.RESET);
 
             // duerme el hilo para volver a chequear, dentro de un tiempo, el encendido/apagado
             // si no se duerme acá, el programa se vuelve mas lento y sobrecargado
@@ -102,7 +69,7 @@ public class CPUPower extends Thread {
                 Main.dormir(this.standByDelayAvg);
             }
             catch (InterruptedException e) {
-                interruptedReaccion();
+                e.printStackTrace();
             }
         }
     }
@@ -113,35 +80,5 @@ public class CPUPower extends Thread {
      */
     public Monitor getMonitor() {
         return this.monitor;
-    }
-
-    /**
-     * Seteo el estado de actividad del cpu
-     * @param isActive true para activo, false para inactivo
-     */
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-
-    /**
-     * Reaccion a interrupcion
-     * VACIO
-     */
-    private void interruptedReaccion() {}
-
-    /**
-     * Getter del tiempo total en estado Off
-     * @return tiempo de double
-     */
-    public double getTiempoSleep() {
-        return (this.tiempoSleep / 1000.00);
-    }
-
-    /**
-     * Marca el final del procesado
-     * Metodo llamado por CPUProcessing
-     */
-    public static void setFin() {
-        isFinished = true;
     }
 }

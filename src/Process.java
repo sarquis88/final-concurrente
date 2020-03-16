@@ -1,4 +1,4 @@
-public class CPUProcess {
+public class Process {
 
     private static int idGlobal = 1;
 
@@ -7,7 +7,7 @@ public class CPUProcess {
     /**
      * Constructor de clase
      */
-    public CPUProcess() {
+    public Process() {
         this.idLocal = idGlobal;
         idGlobal++;
     }

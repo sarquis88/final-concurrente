@@ -1,11 +1,9 @@
-import java.util.LinkedList;
-import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Monitor {
 
     private ReentrantLock mutex;
-    private LinkedList<Condition> waitingQueue;
+    private Cola[] colas;
     private RedDePetri redDePetri;
 
     /**
@@ -16,40 +14,40 @@ public class Monitor {
         this.redDePetri = red;
         this.mutex = new ReentrantLock(true);
 
-        this.waitingQueue = new LinkedList<>();
-        for(int i = 0; i < redDePetri.getTransiciones().length; i++)
-            this.waitingQueue.add(mutex.newCondition());
+        this.colas = new Cola[redDePetri.getTransiciones().length];
+        for(int i = 0; i < colas.length; i++)
+            this.colas[i] = new Cola();
     }
 
     /**
-     * Entrada al monitor y disparo de transicion
-     * ATENCION: se debe liberar el mutex con salir() si o si despues de entrar()
-     * @param transicion transicion a disparar
+     * Intenta disparar la transicion dentro de la seccion critica.
+     * @param transicion la transicion de la Red de Petri a disparar
      */
-    public void entrar(int transicion) throws InterruptedException {
-
+    public void disparar(int transicion){
         mutex.lock();
 
-        while (!redDePetri.isSensibilizada(transicion))
-            waitingQueue.get(transicion).await();
-
-        this.redDePetri.disparar(transicion);
+        boolean k = true;
+        while(k) {
+            if(redDePetri.disparar(transicion)) {
+                signalAll();
+                k = false;
+            }
+            else {
+                mutex.unlock();
+                this.colas[transicion].acquire();
+                mutex.lock();
+                k = true;
+            }
+        }
+        mutex.unlock();
     }
 
     /**
-     * Salida del monitor y avisar a todos los hilos
-     */
-    public void salir() {
-        signalAll();
-        if(mutex.isLocked())
-            mutex.unlock();
-    }
-
-    /**
-     * Despierta a todos los hilos suspendidos al azar
+     * No politica
+     * Despierta a todos los hilos
      */
     private void signalAll() {
-        for(Condition condition : this.waitingQueue)
-            condition.signalAll();
+        for(Cola cola : this.colas)
+            cola.release();
     }
 }
