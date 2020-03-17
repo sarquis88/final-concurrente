@@ -5,15 +5,18 @@ public class Monitor {
     private ReentrantLock mutex;
     private Cola[] colas;
     private RedDePetri redDePetri;
+    private Politica politica;
 
     /**
      * Constructor de clase
+     * Si o si se debe llamar al metodo setRedDePetri antes de usar
      */
-    public Monitor(){
+    public Monitor(Politica politica) {
+        this.politica = politica;
         this.mutex = new ReentrantLock(true);
     }
 
-    public void setRedDePetri(RedDePetri redDePetri, int cantidadTransiciones) {
+    public void setRedDePetri(RedDePetri redDePetri) {
         this.redDePetri = redDePetri;
         this.colas = new Cola[redDePetri.getTransiciones().length];
         for(int i = 0; i < colas.length; i++)
@@ -30,7 +33,7 @@ public class Monitor {
         boolean k = true;
         while(k) {
             if(redDePetri.disparoTemporal(transicion)) {
-                signalAll();
+                despertar();
                 k = false;
             }
             else {
@@ -44,12 +47,19 @@ public class Monitor {
     }
 
     /**
-     * No politica
-     * Despierta a todos los hilos
+     * Despierta una transicion que esté durmiendo y sensibilizada
      */
-    private void signalAll() {
-        for(Cola cola : this.colas)
-            cola.release();
+    private void despertar() {
+        int[] sensibilizadas = this.redDePetri.getTransiciones();
+        int[] listas = new int[sensibilizadas.length];
+
+        for(int i = 0; i < sensibilizadas.length; i++)
+            listas[i] = sensibilizadas[i] * this.colas[i].getWaiting();
+
+        int aDespertar = this.politica.getTransicionADespertar(listas);
+
+        if(aDespertar >= 0)
+            this.colas[aDespertar].release();
     }
 
     /**

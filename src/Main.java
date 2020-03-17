@@ -8,7 +8,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 1000;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 500;        // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;      // tiempo promedio entre generacion de procesos
 
@@ -106,13 +106,14 @@ public class Main {
         alfa[13][0] = SERVICERATE * FACTORB;
         alfa[3][0] = STANDBYDELAY;
         alfa[10][0] = STANDBYDELAY;
-        alfa[7][0] = SERVICERATE * 2;
-        alfa[14][0] = SERVICERATE * 2;
 
-        Monitor monitor = new Monitor();
+        // TRANSICIONES         0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14
+        int[] prioridades = {  10,11, 6, 8, 4, 2, 0,13,12, 7, 9, 5, 3, 1,14     };
+
+        Monitor monitor = new Monitor(new Politica(prioridades));
         redDePetri = new RedDePetri(marcadoInicial, incidenciaFrontward, incidenciaBackward, matrizInhibidora, monitor,
                 timeStamp, alfa, beta);
-        monitor.setRedDePetri(redDePetri, incidenciaBackward[0].length);
+        monitor.setRedDePetri(redDePetri);
 
         CPUPower cpuPowerA = new CPUPower(monitor, "A");
         cpuProcessingA = new CPUProcessing(cpuPowerA, "A");
