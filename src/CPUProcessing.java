@@ -10,7 +10,6 @@ public class CPUProcessing extends Thread {
     private Monitor monitor;
     private String cpuId;
 
-    private double serviceRateAvg;
     private int procesados;
     private int[] secuencia = {99, 99};
 
@@ -19,14 +18,13 @@ public class CPUProcessing extends Thread {
 
     /**
      * Constructor de clase
+     *
      * @param cpuPower controlador de encendido/apagado del cpu
-     * @param serviceRateAvg tiempo promedio para terminar proceso
      * @param cpuId id del cpu
      */
-    public CPUProcessing(CPUPower cpuPower, double serviceRateAvg, String cpuId) {
+    public CPUProcessing(CPUPower cpuPower, String cpuId) {
         setName("CPUProcessing " + cpuId);
         this.monitor = cpuPower.getMonitor();
-        this.serviceRateAvg = serviceRateAvg;
         this.cpuId = cpuId;
         this.procesados = 0;
 
@@ -53,12 +51,6 @@ public class CPUProcessing extends Thread {
             monitor.disparar(secuencia[0]);    // tomar proceso del buffer y procesar
 
             monitor.disparar(secuencia[1]);   // fin proceso
-
-            try {
-                Main.dormir(this.serviceRateAvg);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
             this.procesados++;
 

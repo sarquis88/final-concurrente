@@ -8,17 +8,14 @@ public class CPUGarbageCollector extends Thread {
     private Monitor monitor;
     private String cpuId;
 
-    private double serviceRateAvg;
-
     /**
      * Constructor de clase
+     *
      * @param monitor monitor asociado a la red
-     * @param serviceRateAvg tiempo promedio entre limpiezas
      * @param cpuId id del cpu a limpiar
      */
-    public CPUGarbageCollector(Monitor monitor, double serviceRateAvg, String cpuId) {
+    public CPUGarbageCollector(Monitor monitor, String cpuId) {
         this.monitor = monitor;
-        this.serviceRateAvg = serviceRateAvg;
         this.cpuId = cpuId;
     }
 
@@ -38,24 +35,9 @@ public class CPUGarbageCollector extends Thread {
             return;
 
         while (!currentThread().isInterrupted() && !CPU.isFinished()) {
-
             monitor.disparar(transicion);    // limpiar basura
-
-            try {
-                Main.dormir(this.serviceRateAvg);
-            }
-            catch (InterruptedException e) {
-                interruptedReaccion();
-            }
         }
 
+        System.out.println(Colors.RED_BOLD + "FIN    CPUGarbageCollector " + this.cpuId + Colors.RESET);
     }
-        /**
-         * Reaccion a interrupcion
-         * Impresion de mensaje
-         */
-        private void interruptedReaccion() {
-            System.out.println(Colors.RED_BOLD + "FIN CPUGarbageCollector " + this.cpuId + Colors.RESET);
-
-        }
 }

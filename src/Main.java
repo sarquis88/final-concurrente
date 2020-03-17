@@ -2,7 +2,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Random;
 
 import static java.lang.Math.round;
 import static java.lang.Thread.currentThread;
@@ -11,7 +10,7 @@ public class Main {
 
     private static final int CANTIDADPROCESOS = 1000;        // cantidad de procesos a generar
 
-    private static final long ARRIVALRATE = 2;      // tiempo promedio entre generacion de procesos
+    private static final long ARRIVALRATE = 10;      // tiempo promedio entre generacion de procesos
 
     private static final long SERVICERATE = 15;     // tiempo promedio de procesamiento
     private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
@@ -29,8 +28,6 @@ public class Main {
     private static RedDePetri redDePetri;
     private static CPUProcessing cpuProcessingA;
     private static CPUProcessing cpuProcessingB;
-    private static CPUPower cpuPowerA;
-    private static CPUPower cpuPowerB;
 
     public static void main(String[] args) {
 
@@ -95,16 +92,35 @@ public class Main {
                                                         {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 14
         };
 
-        redDePetri = new RedDePetri(marcadoInicial, incidenciaFrontward, incidenciaBackward, matrizInhibidora);
-        Monitor monitor = new Monitor(redDePetri);
+        long[][] timeStamp = new long[incidenciaBackward[0].length][1];
+        long[][] alfa = new long[incidenciaBackward[0].length][1];
+        long[][] beta = new long[incidenciaBackward[0].length][1];
+        for(int i = 0; i < timeStamp.length ; i++) {
+            alfa[i][0] = 0;
+            beta[i][0] = Long.MAX_VALUE;
+            timeStamp[i][0] = 0;
+        }
 
-        cpuPowerA = new CPUPower(monitor, STANDBYDELAY, "A");
-        cpuProcessingA = new CPUProcessing(cpuPowerA, SERVICERATE * FACTORA, "A");
+        alfa[0][0] = ARRIVALRATE;
+        alfa[6][0] = SERVICERATE * FACTORA;
+        alfa[13][0] = SERVICERATE * FACTORB;
+        alfa[3][0] = STANDBYDELAY;
+        alfa[10][0] = STANDBYDELAY;
+        alfa[7][0] = SERVICERATE * 2;
+        alfa[14][0] = SERVICERATE * 2;
 
-        cpuPowerB = new CPUPower(monitor, STANDBYDELAY, "B");
-        cpuProcessingB = new CPUProcessing(cpuPowerB, SERVICERATE * FACTORB, "B");
+        Monitor monitor = new Monitor();
+        redDePetri = new RedDePetri(marcadoInicial, incidenciaFrontward, incidenciaBackward, matrizInhibidora, monitor,
+                timeStamp, alfa, beta);
+        monitor.setRedDePetri(redDePetri, incidenciaBackward[0].length);
 
-        ProcessGenerator processGenerator = new ProcessGenerator(monitor, CANTIDADPROCESOS, ARRIVALRATE);
+        CPUPower cpuPowerA = new CPUPower(monitor, "A");
+        cpuProcessingA = new CPUProcessing(cpuPowerA, "A");
+
+        CPUPower cpuPowerB = new CPUPower(monitor, "B");
+        cpuProcessingB = new CPUProcessing(cpuPowerB, "B");
+
+        ProcessGenerator processGenerator = new ProcessGenerator(monitor, CANTIDADPROCESOS);
 
         threads[0] = processGenerator;
         threads[1] = cpuPowerA;
@@ -113,8 +129,8 @@ public class Main {
         threads[4] = cpuProcessingB;
 
         if(GARBAGECOLLECTION) {
-            CPUGarbageCollector CPUGarbageCollectorA = new CPUGarbageCollector(monitor, SERVICERATE * 1.5, "A");
-            CPUGarbageCollector CPUGarbageCollectorB = new CPUGarbageCollector(monitor, SERVICERATE * 1.5, "B");
+            CPUGarbageCollector CPUGarbageCollectorA = new CPUGarbageCollector(monitor, "A");
+            CPUGarbageCollector CPUGarbageCollectorB = new CPUGarbageCollector(monitor, "B");
             threads[5] = CPUGarbageCollectorA;
             threads[6] = CPUGarbageCollectorB;
         }
@@ -131,11 +147,6 @@ public class Main {
 
     public static void setFin() {
         fin = System.currentTimeMillis();
-
-        if(GARBAGECOLLECTION) {
-            threads[5].interrupt();
-            threads[6].interrupt();
-        }
     }
 
     public static int getCantidadProcesos() {
@@ -179,19 +190,5 @@ public class Main {
         }
 
         System.exit(0);
-    }
-
-    /**
-     * Dormida del Thread durante un tiempo promedio de timeAvg
-     */
-    public static void dormir(double timeAvg) throws InterruptedException {
-        Random random = new Random();
-
-        double timeMin = timeAvg - timeAvg * 0.3;
-        double timeMax = timeAvg + timeAvg * 0.3;
-
-        double sleepTimeDouble = timeMin + (timeMin - timeMax) * random.nextDouble();
-        long sleepTime = round(sleepTimeDouble);
-        Thread.sleep(sleepTime);
     }
 }

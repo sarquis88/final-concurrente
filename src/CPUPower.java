@@ -8,20 +8,16 @@ public class CPUPower extends Thread {
     private Monitor monitor;
     private String cpuId;
 
-    private double standByDelayAvg;
-
     private int[] secuencia = {99, 99, 99};
 
     /**
      * Constructor de clase
      * @param monitor monitor de la red
-     * @param standByDelayAvg tiempo promedio de delay al prenderse
      * @param cpuID id del cpu
      */
-    public CPUPower(Monitor monitor, double standByDelayAvg, String cpuID) {
+    public CPUPower(Monitor monitor, String cpuID) {
         setName("CPUPower " + cpuID);
         this.monitor = monitor;
-        this.standByDelayAvg = standByDelayAvg;
         this.cpuId = cpuID;
 
         if(cpuID.equalsIgnoreCase("A")) {
@@ -51,26 +47,12 @@ public class CPUPower extends Thread {
 
             monitor.disparar(secuencia[1]);    // encender CPU
 
-            try {
-                Main.dormir(this.standByDelayAvg);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
             System.out.println(Colors.RED_BOLD + "ENCENDIDO:                         CPU " + this.cpuId + Colors.RESET);
 
             monitor.disparar(secuencia[2]);   // apagado
 
             System.out.println(Colors.RED_BOLD + "APAGADO:                           CPU " + this.cpuId + Colors.RESET);
 
-            // duerme el hilo para volver a chequear, dentro de un tiempo, el encendido/apagado
-            // si no se duerme acá, el programa se vuelve mas lento y sobrecargado
-            try {
-                Main.dormir(this.standByDelayAvg);
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 
