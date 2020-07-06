@@ -92,20 +92,26 @@ public class Main {
                                                         {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 14
         };
 
-        long[][] timeStamp = new long[incidenciaBackward[0].length][1];
-        long[][] alfa = new long[incidenciaBackward[0].length][1];
-        long[][] beta = new long[incidenciaBackward[0].length][1];
+        int[][] invariantes = {             {   0, 8,  9, 10, 11, 12, 13 },
+                                            {   0, 8, 12, 13, 14, -1, -1 },
+                                            {   0, 1,  2,  3,  4,  5,  6 },
+                                            {   0, 1,  5,  6,  7, -1, -1 }
+        };
+
+        long[] timeStamp = new long[incidenciaBackward[0].length];
+        long[] alfa = new long[incidenciaBackward[0].length];
+        long[] beta = new long[incidenciaBackward[0].length];
         for(int i = 0; i < timeStamp.length ; i++) {
-            alfa[i][0] = 0;
-            beta[i][0] = Long.MAX_VALUE;
-            timeStamp[i][0] = 0;
+            alfa[i] = 0;
+            beta[i] = Long.MAX_VALUE;
+            timeStamp[i] = 0;
         }
 
-        alfa[0][0] = ARRIVALRATE;
-        alfa[6][0] = SERVICERATE * FACTORA;
-        alfa[13][0] = SERVICERATE * FACTORB;
-        alfa[3][0] = STANDBYDELAY;
-        alfa[10][0] = STANDBYDELAY;
+        alfa[0] = ARRIVALRATE;
+        alfa[6] = SERVICERATE * FACTORA;
+        alfa[13] = SERVICERATE * FACTORB;
+        alfa[3] = STANDBYDELAY;
+        alfa[10] = STANDBYDELAY;
 
         // TRANSICIONES         0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14
         int[] prioridades = {  10,11, 6, 8, 4, 2, 0,13,12, 7, 9, 5, 3, 1,14     };

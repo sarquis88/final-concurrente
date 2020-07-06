@@ -32,7 +32,10 @@ public class Monitor {
 
         boolean k = true;
         while(k) {
-            if(redDePetri.disparoTemporal(transicion)) {
+
+            k = redDePetri.disparoTemporal(transicion);
+
+            if( k ) {
                 despertar();
                 k = false;
             }

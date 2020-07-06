@@ -7,9 +7,9 @@ public class RedDePetri {
     private int[][] incidenciaBack;
     private int[][] matrizInhibidora;
     private boolean isPInvariantesCorrecto;
-    private long[][] timeStamp;
-    private long[][] alfa;
-    private long[][] beta;
+    private long[] timeStamp;
+    private long[] alfa;
+    private long[] beta;
 
     private String ordenTransicionesDisparadas;
     private Monitor monitor;
@@ -26,8 +26,8 @@ public class RedDePetri {
      * @param beta             matriz de valor de tiempo beta
      */
     public RedDePetri(int[] marcaInicial, int[][] incidenciaFront, int[][] incidenciaBack,
-                      int[][] matrizInhibidora, Monitor monitor, long[][] timeStamp, long[][] alfa,
-                      long[][] beta) {
+                      int[][] matrizInhibidora, Monitor monitor, long[] timeStamp, long[] alfa,
+                      long[] beta) {
 
         this.monitor = monitor;
         this.marcaActual = marcaInicial;
@@ -91,14 +91,14 @@ public class RedDePetri {
         boolean k = true;
         if (isSensibilizada(transicion)) {
             if (testVentanaTiempo(transicion)) {
-                timeStamp[transicion][0] = System.currentTimeMillis();
+                timeStamp[transicion] = System.currentTimeMillis();
             }
             else {
-                long ultimoDisparo = System.currentTimeMillis() - timeStamp[transicion][0];
-                if(ultimoDisparo < alfa[transicion][0]) {   // falta esperar mas tiempo
+                long ultimoDisparo = System.currentTimeMillis() - timeStamp[transicion];
+                if(ultimoDisparo < alfa[transicion]) {   // falta esperar mas tiempo
                     try {
                         this.monitor.getMutex().unlock();
-                        Thread.sleep(alfa[transicion][0] - ultimoDisparo);
+                        Thread.sleep(alfa[transicion] - ultimoDisparo);
                         this.monitor.getMutex().lock();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -199,7 +199,7 @@ public class RedDePetri {
      * @return true si esta dentro de la ventana, false en caso contrario
      */
     private boolean testVentanaTiempo(int transicion) {
-        long ultimoDisparo = System.currentTimeMillis() - timeStamp[transicion][0];
-        return (ultimoDisparo >= alfa[transicion][0] && ultimoDisparo < beta[transicion][0]);
+        long ultimoDisparo = System.currentTimeMillis() - timeStamp[transicion];
+        return (ultimoDisparo >= alfa[transicion] && ultimoDisparo < beta[transicion]);
     }
 }
