@@ -100,7 +100,7 @@ public class Main {
                                             {   0, 1,  5,  6,  7, -1, -1 }
         };
 
-        System.out.println(InvarianteTest.checkInvariantes(invariantesFile, invariantes));
+        InvarianteTest.checkInvariantes(invariantesFile, invariantes);
         if(true)
             return;
 
