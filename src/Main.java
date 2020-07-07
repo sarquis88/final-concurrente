@@ -8,7 +8,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 500;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 20;        // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;      // tiempo promedio entre generacion de procesos
 
@@ -19,6 +19,8 @@ public class Main {
     private static final long STANDBYDELAY = 30;       // tiempo promedio de encendido
 
     private static final boolean GARBAGECOLLECTION = true;
+
+    private static final String invariantesFile = "./src/T-Invariantes.txt";
 
     private static long inicio;
     private static long fin;
@@ -92,11 +94,15 @@ public class Main {
                                                         {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 14
         };
 
-        int[][] invariantes = {             {   0, 8,  9, 10, 11, 12, 13 },
+        int[][] invariantes = {             {   0, 8,  9, 10, 12, 13, 11 },
                                             {   0, 8, 12, 13, 14, -1, -1 },
-                                            {   0, 1,  2,  3,  4,  5,  6 },
+                                            {   0, 1,  2,  3,  5,  6,  4 },
                                             {   0, 1,  5,  6,  7, -1, -1 }
         };
+
+        System.out.println(InvarianteTest.checkInvariantes(invariantesFile, invariantes));
+        if(true)
+            return;
 
         long[] timeStamp = new long[incidenciaBackward[0].length];
         long[] alfa = new long[incidenciaBackward[0].length];
@@ -183,7 +189,7 @@ public class Main {
         System.out.println(Colors.BLUE_BOLD + "\n--> ANALISIS DE P-INVARIANTES: " + pInvariantes + Colors.RESET);
 
         try {
-            File TInvariantesFile = new File("./src/T-Invariantes.txt");
+            File TInvariantesFile = new File(invariantesFile);
 
             TInvariantesFile.delete();
             TInvariantesFile.createNewFile();
@@ -195,7 +201,6 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         System.exit(0);
     }
 }
