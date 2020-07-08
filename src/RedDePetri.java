@@ -75,7 +75,12 @@ public class RedDePetri {
         if (this.isPInvariantesCorrecto)
             this.isPInvariantesCorrecto = isPInvariantesCorrecto();
 
-        this.ordenTransicionesDisparadas = this.ordenTransicionesDisparadas.concat(transicion + " ");
+        int concat = transicion;
+        if( concat > 9 )
+            concat += 55;
+        else
+            concat += 48;
+        this.ordenTransicionesDisparadas = this.ordenTransicionesDisparadas.concat( (char) concat + " ");
 
         actualizarVectorDesInhibidor();
         actualizarSensibilizadas();

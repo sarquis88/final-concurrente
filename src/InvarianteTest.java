@@ -8,92 +8,51 @@ public class InvarianteTest {
     static void checkInvariantes(String invariantesFile, int[][] invariantes)
     {
         String transString = getTransicionesString(invariantesFile);
-        int[] transInt = getTransicionesInt(transString);
-
-        for( int i = 0; i < 4; i++)
-        {
-            while( isInvariant( transInt, invariantes[i] ))
-                transInt = removeOneInvariant(transInt, invariantes[i]);
-        }
-
-        for (int value : transInt) System.out.println(value);
-    }
-
-    static int[] removeOneInvariant( int[] trans, int[] invariant )
-    {
-        int[] posiciones = new int[ invariant.length ];
-        int[] acotado;
-        int c = 0;
+        String aux = "";
+        String regex = "";
+        char parOpen = '(';
+        char parClose = ')';
         int i;
+        int digit;
+        boolean end = false;
 
-        for( i = 0; i < trans.length; i++ )
+        for(i = 0; i < invariantes[0].length; i++)
         {
-            if( trans[i] == invariant[c] )
+            if( invariantes[0][i] == -1 )
+                break;
+            else
             {
-                posiciones[c] = i;
-                c++;
-                if( c == invariant.length )
-                    break;
-            }
-        }
+                if( invariantes[0][i] > 9 )
+                    digit = invariantes[0][i] + 55;
+                else
+                    digit = invariantes[0][i] + 48;
+                regex = regex.concat( String.valueOf( (char) digit ) );
 
-        for( i = 0; i < posiciones.length; i++)
-            trans[ posiciones[i] ] = 99;
-
-        for( i = trans.length - 1; i >= 0 ; i-- )
-        {
-            if( trans[i] == 99 )
-            {
-                int j;
-                for( j = i; j < trans.length; j++ )
+                if( i < invariantes[0].length - 1)
                 {
-                    if( j == trans.length - 1 )
-                        trans[j] = 99;
-                    else
-                        trans[j] = trans[j + 1];
+                    regex = regex.concat( String.valueOf( parOpen ) );
+                    regex = regex.concat( ".*" );
+                    regex = regex.concat( String.valueOf( parClose ) );
                 }
             }
         }
 
-        for( i = 0; i < trans.length; i++ )
+        System.out.println( regex );
+        System.out.println( transString );
+        do
         {
-            if( trans[i] == 99 )
-                break;
-        }
-        acotado = new int[ i ];
+            aux = transString.replaceAll( regex, "#$1#$2#$3#$4#$5#$6#");
 
-        for( i = 0; i < acotado.length; i++ )
-        {
-            acotado[i] = trans[i];
-        }
-
-        return acotado;
-    }
-
-    static boolean isInvariant(int[] trans, int[] invariant)
-    {
-        int len;
-        int c = 0;
-        int i;
-
-        for( len = 0; len < invariant.length; len++ )
-        {
-            if( invariant[len] == -1 )
-                break;
-        }
-
-        for( i = 0; i < trans.length; i++ )
-        {
-            if( trans[i] == invariant[c] )
+            if( aux.equalsIgnoreCase( transString ) )
+                end = true;
+            else
             {
-                c++;
-                if( c == len )
-                {
-                    return true;
-                }
+                transString = aux;
+                System.out.println( transString );
             }
-        }
-        return false;
+        } while( !end );
+
+
     }
 
     static String getTransicionesString(String invariantesFile)
@@ -115,42 +74,4 @@ public class InvarianteTest {
         return transiciones;
     }
 
-    static int[] getTransicionesInt( String transiciones)
-    {
-        int i, ii, len, a , uni, dec;
-        int[] trans;
-
-        len = 0;
-        for( i = 0; i < transiciones.length(); i++ )
-        {
-            if( transiciones.charAt(i) == ' ' )
-                len++;
-        }
-
-        trans = new int[ len ];
-        ii = 0;
-        a = 0;
-        uni = 0;
-        dec = 0;
-        for( i = 0; i < transiciones.length(); i++ )
-        {
-            if( transiciones.charAt(i) == ' ' )
-            {
-                trans[ii] = uni + 10 * dec;
-                ii++;
-                a = 0;
-            }
-            else if( a == 0)
-            {
-                uni = transiciones.charAt(i) - 48;
-                a = 1;
-            }
-            else
-            {
-                dec = uni;
-                uni = transiciones.charAt(i) - 48;
-            }
-        }
-        return trans;
-    }
 }

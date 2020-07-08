@@ -27,6 +27,8 @@ public class Main {
 
     private static Thread[] threads = {null, null, null, null, null, null, null};
 
+    private static int[][] invariantes;
+
     private static RedDePetri redDePetri;
     private static CPUProcessing cpuProcessingA;
     private static CPUProcessing cpuProcessingB;
@@ -94,15 +96,12 @@ public class Main {
                                                         {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 14
         };
 
-        int[][] invariantes = {             {   0, 8,  9, 10, 12, 13, 11 },
-                                            {   0, 8, 12, 13, 14, -1, -1 },
-                                            {   0, 1,  2,  3,  5,  6,  4 },
-                                            {   0, 1,  5,  6,  7, -1, -1 }
+        invariantes = new int[][]   {
+                {   0, 8,  9, 10, 12, 13, 11 },
+                {   0, 8, 12, 13, 14, -1, -1 },
+                {   0, 1,  2,  3,  5,  6,  4 },
+                {   0, 1,  5,  6,  7, -1, -1 }
         };
-
-        InvarianteTest.checkInvariantes(invariantesFile, invariantes);
-        if(true)
-            return;
 
         long[] timeStamp = new long[incidenciaBackward[0].length];
         long[] alfa = new long[incidenciaBackward[0].length];
@@ -198,6 +197,9 @@ public class Main {
             bufferedWriter = new BufferedWriter(new FileWriter(TInvariantesFile, false));
             bufferedWriter.write(redDePetri.getOrdenTransicionesDisparadas());
             bufferedWriter.close();
+
+            InvarianteTest.checkInvariantes(invariantesFile, invariantes);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
