@@ -8,7 +8,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 20;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 5 ;        // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;      // tiempo promedio entre generacion de procesos
 
@@ -97,10 +97,10 @@ public class Main {
         };
 
         invariantes = new int[][]   {
-                {   0, 8,  9, 10, 12, 13, 11 },
-                {   0, 8, 12, 13, 14, -1, -1 },
-                {   0, 1,  2,  3,  5,  6,  4 },
-                {   0, 1,  5,  6,  7, -1, -1 }
+                {   0,  8,  9, 10, 12, 13, 11 },
+                {   0,  8, 14, 12, 13, -1, -1 },
+                {   0,  1,  2,  3,  5,  6,  4 },
+                {   0,  1,  7,  5,  6, -1, -1 }
         };
 
         long[] timeStamp = new long[incidenciaBackward[0].length];
@@ -176,16 +176,22 @@ public class Main {
 
         double tiempoEjecucion = (fin - inicio) / 1000.00;
 
-        String pInvariantes;
+        String pInvariantes, tInvariantes;
         if(redDePetri.getIsPInvariantesCorrecto())
             pInvariantes = Colors.GREEN_BOLD + "CORRECTO" + Colors.RESET;
         else
             pInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
 
+        if(InvarianteTest.checkInvariantes(invariantesFile, invariantes))
+            tInvariantes = Colors.GREEN_BOLD + "CORRECTO" + Colors.RESET;
+        else
+            tInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
+
         System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + String.format("%.2f", tiempoEjecucion) + " [seg]" + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "\n--> PROCESOS TERMINADOS POR CPU A: " + cpuProcessingA.getProcesados() + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "--> PROCESOS TERMINADOS POR CPU B: " + cpuProcessingB.getProcesados() + Colors.RESET);
         System.out.println(Colors.BLUE_BOLD + "\n--> ANALISIS DE P-INVARIANTES: " + pInvariantes + Colors.RESET);
+        System.out.println(Colors.BLUE_BOLD + "--> ANALISIS DE T-INVARIANTES: " + tInvariantes + Colors.RESET);
 
         try {
             File TInvariantesFile = new File(invariantesFile);

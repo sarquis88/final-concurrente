@@ -5,21 +5,19 @@ import java.io.IOException;
 
 public class InvarianteTest {
 
-    static void checkInvariantes(String invariantesFile, int[][] invariantes)
+    static boolean checkInvariantes(String invariantesFile, int[][] invariantes)
     {
-        String transString = getTransicionesString(invariantesFile);
-
         int i;
-        for( i = 0; i < invariantes.length; i++ )
-        {
-            String regex = getRegex(invariantes[i]);
-            String replacement = getReplacement( regex );
-            transString = replace(regex, replacement, transString);
-            transString = cleanString(transString, "#");
-        }
+        String transString;
 
-        transString = cleanString(transString, " ");
-        System.out.println( transString );
+        transString= getTransicionesString(invariantesFile);
+
+        for( i = 0; i < invariantes.length; i++ )
+            transString = replace( transString, getInvariantChar( invariantes[i] ));
+        transString = transString.replaceAll("#", "");
+        transString = transString.replaceAll(" ", "");
+
+        return transString.length() == 0;
 
     }
 
@@ -42,81 +40,67 @@ public class InvarianteTest {
         return transiciones;
     }
 
-    static String getRegex( int[] invariante ) {
-        int i, len, digit;
-        String regex = "";
-        char parOpen = '(';
-        char parClose = ')';
+    static String replace(String text, char[] invariant)
+    {
+        int i, j, k, c;
+        int[] posiciones;
 
-        for (len = 0; len < invariante.length; len++) {
-            if (invariante[len] == -1)
+        c = 0;
+        posiciones = new int[ invariant.length ];
+
+        for( i = text.length() - 1 ; i >= 0; i-- )
+        {
+            if( text.charAt( i ) == invariant[c] )
+            {
+                posiciones[c] = i;
+                c++;
+                for( j = i + 1; j < text.length(); j++ )
+                {
+                    if( text.charAt( j ) == invariant[c] )
+                    {
+                        posiciones[c] = j;
+                        c++;
+                        if( c == invariant.length )
+                        {
+                            for( k = 0; k < posiciones.length; k++ )
+                            {
+                                if( posiciones[k] > 0 )
+                                    text =  text.substring(0, posiciones[k] ) + '#' + text.substring( posiciones[k] + 1);
+                                else if( posiciones[k] == 0)
+                                    text =  text.substring(0, posiciones[k] ) + '#' + text.substring( posiciones[k] + 1);
+                            }
+                            break;
+                        }
+                    }
+                }
+                c = 0;
+            }
+        }
+        return text;
+    }
+
+    static char[] getInvariantChar( int[] invariant )
+    {
+        char[] invariantChar;
+        int i;
+
+        for( i = 0; i < invariant.length; i++ )
+        {
+            if( invariant[i] == -1 )
                 break;
         }
 
-        for (i = 0; i < len; i++)
+        invariantChar = new char[ i ];
+
+        for( i = 0; i < invariantChar.length; i++ )
         {
-            if (invariante[i] > 9)
-                digit = invariante[i] + 55;
+            if( invariant[i] <= 9 )
+                invariantChar[i] = (char) ( invariant[i] + 48 );
             else
-                digit = invariante[i] + 48;
-            regex = regex.concat(String.valueOf((char) digit));
-
-            if (i < len - 1) {
-                regex = regex.concat(String.valueOf(parOpen));
-                regex = regex.concat(".*");
-                regex = regex.concat(String.valueOf(parClose));
-            }
+                invariantChar[i] = (char) ( invariant[i] + 55 );
         }
-        return regex;
+
+        return invariantChar;
     }
 
-    static String getReplacement( String regex )
-    {
-        int i, c = 0;
-        String replacement = "";
-
-        for(i = 0; i < regex.length(); i++)
-        {
-            if( regex.charAt( i ) == '*' )
-                c++;
-        }
-        for(i = 0; i < c; i++)
-        {
-            replacement = replacement.concat( "#$" + (i + 1) );
-        }
-        replacement = replacement.concat( "#" );
-
-        return replacement;
-    }
-
-    static String replace(String regex, String replacement, String text)
-    {
-        String aux;
-        boolean end = false;
-
-        System.out.println( "\n" + regex );
-        System.out.println( replacement + "\n" );
-        System.out.println( text );
-
-        do
-        {
-            aux = text.replaceAll( regex, replacement);
-
-            if( aux.equalsIgnoreCase( text ) )
-                end = true;
-            else
-            {
-                text = aux;
-                System.out.println( text );
-            }
-        } while( !end );
-
-        return text;
-    }
-
-    static String cleanString(String text, String durt)
-    {
-        text = text.replaceAll(durt, "");
-        return text;
-    }
 }
