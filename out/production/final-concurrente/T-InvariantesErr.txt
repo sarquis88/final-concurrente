@@ -1,0 +1,7 @@
+Transiciones restantes:					5 6 C D 0 1 7 0 8 E 
+
+Cantidad de transiciones totales:		1092
+Cantidad de transiciones restantes:		10
+
+Primera posicion restante:				83
+Ultima posicion restante:				1034

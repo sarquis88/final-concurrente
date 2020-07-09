@@ -8,7 +8,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 5 ;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 1000 ;        // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;      // tiempo promedio entre generacion de procesos
 
@@ -19,6 +19,7 @@ public class Main {
     private static final long STANDBYDELAY = 30;       // tiempo promedio de encendido
 
     private static final boolean GARBAGECOLLECTION = true;
+    private static final boolean LOGGING = true;
 
     private static final String invariantesFile = "./src/T-Invariantes.txt";
 
@@ -165,12 +166,32 @@ public class Main {
         return CANTIDADPROCESOS;
     }
 
+    public static boolean isLoggingActivated() {
+        return LOGGING;
+    }
+
     public static void exit() {
         // se duerme el hilo para darle tiempo a los CPUs para que se apaguen
         // de lo contrario, el programa puede terminar con los CPUs en modo On
         try {
             Thread.sleep(round(STANDBYDELAY * 3));
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            File TInvariantesFile = new File(invariantesFile);
+
+            TInvariantesFile.delete();
+            TInvariantesFile.createNewFile();
+
+            BufferedWriter bufferedWriter;
+            bufferedWriter = new BufferedWriter(new FileWriter(TInvariantesFile, false));
+            bufferedWriter.write(redDePetri.getOrdenTransicionesDisparadas());
+            bufferedWriter.flush();
+            bufferedWriter.close();
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -187,28 +208,15 @@ public class Main {
         else
             tInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
 
-        System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + String.format("%.2f", tiempoEjecucion) + " [seg]" + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "\n--> PROCESOS TERMINADOS POR CPU A: " + cpuProcessingA.getProcesados() + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "--> PROCESOS TERMINADOS POR CPU B: " + cpuProcessingB.getProcesados() + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "\n--> ANALISIS DE P-INVARIANTES: " + pInvariantes + Colors.RESET);
-        System.out.println(Colors.BLUE_BOLD + "--> ANALISIS DE T-INVARIANTES: " + tInvariantes + Colors.RESET);
-
-        try {
-            File TInvariantesFile = new File(invariantesFile);
-
-            TInvariantesFile.delete();
-            TInvariantesFile.createNewFile();
-
-            BufferedWriter bufferedWriter;
-            bufferedWriter = new BufferedWriter(new FileWriter(TInvariantesFile, false));
-            bufferedWriter.write(redDePetri.getOrdenTransicionesDisparadas());
-            bufferedWriter.close();
-
-            InvarianteTest.checkInvariantes(invariantesFile, invariantes);
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if( LOGGING )
+        {
+            System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + String.format("%.2f", tiempoEjecucion) + " [seg]" + Colors.RESET);
+            System.out.println(Colors.BLUE_BOLD + "\n--> PROCESOS TERMINADOS POR CPU A: " + cpuProcessingA.getProcesados() + Colors.RESET);
+            System.out.println(Colors.BLUE_BOLD + "--> PROCESOS TERMINADOS POR CPU B: " + cpuProcessingB.getProcesados() + Colors.RESET);
+            System.out.println(Colors.BLUE_BOLD + "\n--> ANALISIS DE P-INVARIANTES: " + pInvariantes + Colors.RESET);
+            System.out.println(Colors.BLUE_BOLD + "--> ANALISIS DE T-INVARIANTES: " + tInvariantes + Colors.RESET);
         }
+
         System.exit(0);
     }
 }

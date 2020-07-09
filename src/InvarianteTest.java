@@ -1,23 +1,74 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class InvarianteTest {
 
+    static private String invariantesLog = "./src/T-InvariantesErr.txt";
+
     static boolean checkInvariantes(String invariantesFile, int[][] invariantes)
     {
-        int i;
+        int i, lenOri, firstPosErr, lastPosErr;
         String transString;
+        String log;
 
-        transString= getTransicionesString(invariantesFile);
+        transString = getTransicionesString(invariantesFile);
+        lenOri = transString.length() / 2;
+        firstPosErr = 9999;
+        lastPosErr = 9999;
 
         for( i = 0; i < invariantes.length; i++ )
             transString = replace( transString, getInvariantChar( invariantes[i] ));
+
+        for( i = 0; i < transString.length(); i++ )
+        {
+            if( transString.charAt(i) != '#' && transString.charAt(i) != ' ' )
+            {
+                firstPosErr = i / 2;
+                break;
+            }
+        }
+        for( i = transString.length() - 1; i >= 0; i-- )
+        {
+            if( transString.charAt(i) != '#' && transString.charAt(i) != ' ' )
+            {
+                lastPosErr = i / 2;
+                break;
+            }
+        }
+
         transString = transString.replaceAll("#", "");
         transString = transString.replaceAll(" ", "");
 
-        return transString.length() == 0;
+        if( transString.length() == 0 )
+            return true;
+        else
+        {
+            log = "";
+            log = log.concat( "Transiciones restantes:\t\t\t\t\t");
+            for( i = 0; i < transString.length(); i++ )
+                log = log.concat( transString.charAt(i) + " ");
+            log = log.concat("\n\nCantidad de transiciones totales:\t\t" + lenOri + "\n");
+            log = log.concat("Cantidad de transiciones restantes:\t\t" + transString.length() + "\n");
+            log = log.concat("\nPrimera posicion restante:\t\t\t\t" + firstPosErr + "\n");
+            log = log.concat("Ultima posicion restante:\t\t\t\t" + lastPosErr);
+
+
+            try {
+                File TInvariantesFile = new File(invariantesLog);
+
+                TInvariantesFile.delete();
+                TInvariantesFile.createNewFile();
+
+                BufferedWriter bufferedWriter;
+                bufferedWriter = new BufferedWriter(new FileWriter(TInvariantesFile, false));
+                bufferedWriter.write( log );
+                bufferedWriter.flush();
+                bufferedWriter.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
 
     }
 

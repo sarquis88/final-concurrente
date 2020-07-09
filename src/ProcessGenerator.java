@@ -34,7 +34,8 @@ public class ProcessGenerator extends Thread {
      */
     @Override
     public void run() {
-        System.out.println(Colors.RED_BOLD + "INICIO ProcessGenerator" + Colors.RESET);
+        if( Main.isLoggingActivated() )
+            System.out.println(Colors.RED_BOLD + "INICIO ProcessGenerator" + Colors.RESET);
         Main.setInicio();
 
         while(!currentThread().isInterrupted() && this.generados <= this.cantidadAGenerar) {
@@ -62,8 +63,10 @@ public class ProcessGenerator extends Thread {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println("NUEVO PROCESO NUMERO " + this.generados++ + " - EN BUFFER " + id);
+            if( Main.isLoggingActivated() )
+                System.out.println("NUEVO PROCESO NUMERO " + this.generados++ + " - EN BUFFER " + id);
         }
-        System.out.println(Colors.RED_BOLD + "FIN   ProcessGenerator" + Colors.RESET);
+        if( Main.isLoggingActivated() )
+            System.out.println(Colors.RED_BOLD + "FIN   ProcessGenerator" + Colors.RESET);
     }
 }

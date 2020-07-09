@@ -24,7 +24,8 @@ public class CPUGarbageCollector extends Thread {
      */
     @Override
     public void run() {
-        System.out.println(Colors.RED_BOLD + "INICIO CPUGarbageCollector " + this.cpuId + Colors.RESET);
+        if( Main.isLoggingActivated() )
+            System.out.println(Colors.RED_BOLD + "INICIO CPUGarbageCollector " + this.cpuId + Colors.RESET);
         int transicion;
 
         if(this.cpuId.equalsIgnoreCase("A"))
@@ -37,7 +38,7 @@ public class CPUGarbageCollector extends Thread {
         while (!currentThread().isInterrupted() && !CPU.isFinished()) {
             monitor.disparar(transicion);    // limpiar basura
         }
-
-        System.out.println(Colors.RED_BOLD + "FIN    CPUGarbageCollector " + this.cpuId + Colors.RESET);
+        if( Main.isLoggingActivated() )
+            System.out.println(Colors.RED_BOLD + "FIN    CPUGarbageCollector " + this.cpuId + Colors.RESET);
     }
 }

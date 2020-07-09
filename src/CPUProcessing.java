@@ -11,7 +11,7 @@ public class CPUProcessing extends Thread {
     private String cpuId;
 
     private int procesados;
-    private int[] secuencia = {99, 99};
+    private final int[] secuencia = {99, 99};
 
     private static int procesadosGlobal = 0;
     private static ReentrantLock mutex = new ReentrantLock();
@@ -44,7 +44,8 @@ public class CPUProcessing extends Thread {
      */
     @Override
     public void run() {
-        System.out.println(Colors.RED_BOLD + "INICIO CPUProcessing " + this.cpuId + Colors.RESET);
+        if( Main.isLoggingActivated() )
+            System.out.println(Colors.RED_BOLD + "INICIO CPUProcessing " + this.cpuId + Colors.RESET);
 
         while(!currentThread().isInterrupted() && !CPU.isFinished()) {
 
@@ -60,7 +61,8 @@ public class CPUProcessing extends Thread {
             procesadosGlobal++;
             mutex.unlock();
 
-            System.out.println("TERMINADO PROCESO NUMERO " + procesadosGlobal + " - EN " + this.cpuId);
+            if( Main.isLoggingActivated() )
+                System.out.println("TERMINADO PROCESO NUMERO " + procesadosGlobal + " - EN " + this.cpuId);
             if (procesadosGlobal == Main.getCantidadProcesos()) {
                 CPU.finish();
                 Main.setFin();                                                  // marca tiempo final

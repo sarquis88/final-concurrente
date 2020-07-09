@@ -38,7 +38,8 @@ public class CPUPower extends Thread {
      */
     @Override
     public void run() {
-        System.out.println(Colors.RED_BOLD + "INICIO CPUPower " + this.cpuId + Colors.RESET);
+        if( Main.isLoggingActivated() )
+            System.out.println(Colors.RED_BOLD + "INICIO CPUPower " + this.cpuId + Colors.RESET);
 
         while(!currentThread().isInterrupted() && !CPU.isFinished()) {
 
@@ -47,11 +48,13 @@ public class CPUPower extends Thread {
 
             monitor.disparar(secuencia[1]);    // encender CPU
 
-            System.out.println(Colors.RED_BOLD + "ENCENDIDO:                         CPU " + this.cpuId + Colors.RESET);
+            if( Main.isLoggingActivated() )
+                System.out.println(Colors.RED_BOLD + "ENCENDIDO:                         CPU " + this.cpuId + Colors.RESET);
 
             monitor.disparar(secuencia[2]);   // apagado
 
-            System.out.println(Colors.RED_BOLD + "APAGADO:                           CPU " + this.cpuId + Colors.RESET);
+            if( Main.isLoggingActivated() )
+                System.out.println(Colors.RED_BOLD + "APAGADO:                           CPU " + this.cpuId + Colors.RESET);
 
         }
     }
