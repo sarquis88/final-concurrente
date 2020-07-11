@@ -5,7 +5,7 @@
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
 
-\title{Programación Concurrente}
+\title{Universidad Nacional de Córdoba\\Facultad de Ciencias Exactas, Físicas y Nturales}
 \author{Tomas Sarquis}
 \date{Julio 2020}
 
@@ -13,6 +13,10 @@
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \begin{titlingpage}
         \maketitle
+        \null \null \null \null
+        \begin{center}
+            {\huge Programación Concurrente}
+        \end{center}
         \topskip0pt
         \vspace*{\fill}
         El presente documento detalla la realización del \textbf{trabajo práctico número 3} 
@@ -31,8 +35,8 @@
     \end{flushleft}
     \begin{figure}[h]
         \includegraphics[width=0.9\textwidth, center]{rdp_enun.png}
-        \caption{red de Petri mono núcleo}
-    \end{figure}
+        \caption{Red de Petri mono núcleo}
+    \end{figure} \newpage
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Implementación y resultados}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -45,9 +49,9 @@
         \item 16 plazas
         \item 15 transiciones
     \end{itemize}
-    \begin{figure}[t]
+    \begin{figure}[h]
         \includegraphics[width=0.9\textwidth, center]{rdp.png}
-        \caption{red de Petri doble núcleo}
+        \caption{Red de Petri doble núcleo}
     \end{figure}   
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Hilos}
@@ -106,6 +110,20 @@
         "documentacion/html/index.html"} hecha por \emph{Doxygen}\footnote{www.doxygen.nl}.
     \end{flushleft}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \subsection{Politica}
+    \begin{flushleft}
+        La clase \emph{politica} se encarga de facilitar la elección de a qué hilo despertar en 
+        el caso en que haya más de uno durmiendo. \\
+        La forma de hacer esto es mediante prioridades: se le asigna una prioridad \textbf{distinta}
+        a cada una de las transiciones de la red. \\
+        Cuando querramos hacer uso de la politica, simplemente le indicamos cuáles son las
+        transiciones listas para dispararse y ella nos indicará cuál de esas transiciones es la
+        que tiene la mayor prioridad. \\
+        Además, la clase \emph{politica} cuenta con un método capaz de intercambiar prioridades
+        entre dos transiciones. Esto podría ser útil, en el caso en que se quiera depositar más
+        tareas en un CPU que en el otro.
+    \end{flushleft}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Invariantes}
     \begin{flushleft}
         Sabemos que una de las maneras de chequear que la red (y nuestro programa) funciona 
@@ -116,15 +134,17 @@
         \textbf{P-Invariantes:} \\
         \begin{figure}[h]
             \includegraphics[width=0.7\textwidth, center]{p-invariante.png}
-            \caption{análisis de P-Invariantes en Pipe}
+            \caption{Análisis de P-Invariantes en Pipe}
         \end{figure}
         La \emph{figura 3} nos enseña qué plazas están relacionadas mediante una invariante de
         plazas. Esta relación indica que la suma de los \emph{tokens} en dichas plazas, en cada
         relación, sea siempre unitaria. Estos es: \newline \newline
-        $M(P0) + M(P1) = 1$ \newline \newline
-        $M(P14) + M(P15) = 1$ \newline \newline
-        $M(P2) + M(P3) + M(P5) = 1$ \newline \newline
-        $M(P10) + M(P12) + M(P9) = 1$ \newline \newline
+        \begin{center}
+            $M(P0) + M(P1) = 1$ \newline \newline
+            $M(P14) + M(P15) = 1$ \newline \newline
+            $M(P2) + M(P3) + M(P5) = 1$ \newline \newline
+            $M(P10) + M(P12) + M(P9) = 1$ \newline \newline
+        \end{center}
         Para comprobar que lo anterior se cumpla siempre, la clase \emph{RedDePetri} hace un 
         chequeo cada vez que se dispara una transición. El método de la clase que hace dicho
         chequeo se llama \emph{isPInvariantesCorrecto}. \newline \newline
@@ -133,7 +153,7 @@
         que existen en nuestro sistema. \\
         \begin{figure}[h]
             \includegraphics[width=0.7\textwidth, center]{t-invariante.png}
-            \caption{análisis de T-Invariantes en Pipe}
+            \caption{Análisis de T-Invariantes en Pipe}
         \end{figure}   
         Anteriormente se mencionó la clase \emph{InvarianteTest}. Esta clase es la encargada
         de chequear, una vez finalizada la ejecución, que el orden de los disparos (de las 
@@ -147,11 +167,36 @@
         archivo\footnote{src/T-InvariantesErr.txt} de texto. \newline \newline
         \textbf{Resultados:} \newline \newline
         Al finalizar una ejecución, se loggea el estado de los análisis de invariantes. Un ejemplo
-        se puede ver en la \emph{figura 5}.
+        se puede ver en la \emph{figura 5}. \\
         \begin{figure}[h]
             \includegraphics[width=0.5\textwidth, center]{analisis-invariantes-ej.png}
-            \caption{ejemplo del análisis de invariantes de una ejecución}
+            \caption{Ejemplo del análisis de invariantes de una ejecución}
         \end{figure}
-
+        Se hicieron pruebas con 100, 1000 y 2000 procesos y con ambos procesos trabajando en forma
+        equilibrada (mismo tiempo de procesamiento). Además, se realizaron 10 muestras por cada 
+        cantidad de procesos. Los resultados, en la \emph{tabla 1}.\newline \newline
+        \begin{center}
+            \begin{table}[h]
+                \begin{tabular}{||c|c|c||} 
+                    \hline
+                    Procesos & Transiciones totales (\emph{avg}) & Transiciones restantes (\emph{avg}) \\ [0.5ex] 
+                    \hline\hline
+                    100 & 552,6 & 11,5 \\ 
+                    \hline
+                    1000 & 5538,4 & 13,8 \\
+                    \hline
+                    2000 & 11061 & 14 \\
+                    \hline
+               \end{tabular}
+               \caption{Resultados de análisis. Cada fila equivale a 10 muestras}
+            \end{table}
+        \end{center}
+        Como se dijo antes, para que los chequeos sean positivos, la cantidad de transiciones restantes
+        debe ser nula. \\
+        Claramente, los chequeos de t-invariantes son negativos, siendo esto, obviamente, no deseado. \\
+        Sin embargo, la cantidad de transiciones restantes (que no cumplen con una invariante) es 
+        relativamente la misma para todos los casos. Esto quiere decir que la cantidad de transiciones
+        restantes no dependen de la cantidad de transiciones totales.
     \end{flushleft}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

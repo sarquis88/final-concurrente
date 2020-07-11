@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.10)  10 JUL 2020 21:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.10)  11 JUL 2020 15:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -138,52 +138,49 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 <rdp_enun.png, id=10, 117.0774pt x 70.3428pt>
 File: rdp_enun.png Graphic file (type png)
 <use rdp_enun.png>
-Package pdftex.def Info: rdp_enun.png  used on input line 33.
+Package pdftex.def Info: rdp_enun.png  used on input line 37.
 (pdftex.def)             Requested size: 310.4979pt x 186.5771pt.
-<rdp.png, id=11, 211.2693pt x 148.6353pt>
+ [1 </home/tomsar/programacion-concurrente/final-concurrente/informe/rdp_enun.png>]
+<rdp.png, id=16, 211.2693pt x 148.6353pt>
 File: rdp.png Graphic file (type png)
 <use rdp.png>
-Package pdftex.def Info: rdp.png  used on input line 49.
+Package pdftex.def Info: rdp.png  used on input line 53.
 (pdftex.def)             Requested size: 310.4979pt x 218.46404pt.
- [1 </home/tomsar/programacion-concurrente/final-concurrente/informe/rdp_enun.png>] [2 </home/tomsar/programacion-concurrente/final-concurrente/informe/rdp.png>]
+ [2 </home/tomsar/programacion-concurrente/final-concurrente/informe/rdp.png>] [3]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 105.
+(Font)              <7> on input line 109.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 105.
- [3]
-<p-invariante.png, id=28, 109.3686pt x 32.0397pt>
+(Font)              <5> on input line 109.
+<p-invariante.png, id=24, 109.3686pt x 32.0397pt>
 File: p-invariante.png Graphic file (type png)
 <use p-invariante.png>
-Package pdftex.def Info: p-invariante.png  used on input line 118.
+Package pdftex.def Info: p-invariante.png  used on input line 136.
 (pdftex.def)             Requested size: 241.49895pt x 70.75299pt.
-<t-invariante.png, id=29, 94.9146pt x 27.4626pt>
+ [4 </home/tomsar/programacion-concurrente/final-concurrente/informe/p-invariante.png>]
+<t-invariante.png, id=32, 94.9146pt x 27.4626pt>
 File: t-invariante.png Graphic file (type png)
 <use t-invariante.png>
-Package pdftex.def Info: t-invariante.png  used on input line 135.
+Package pdftex.def Info: t-invariante.png  used on input line 155.
 (pdftex.def)             Requested size: 241.49895pt x 69.88113pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<analisis-invariantes-ej.png, id=30, 82.1469pt x 10.8405pt>
+<analisis-invariantes-ej.png, id=33, 82.1469pt x 10.8405pt>
 File: analisis-invariantes-ej.png Graphic file (type png)
 <use analisis-invariantes-ej.png>
-Package pdftex.def Info: analisis-invariantes-ej.png  used on input line 152.
+Package pdftex.def Info: analisis-invariantes-ej.png  used on input line 172.
 (pdftex.def)             Requested size: 172.5pt x 22.76553pt.
-[4 </home/tomsar/programacion-concurrente/final-concurrente/informe/p-invariante.png>] [5 </home/tomsar/programacion-concurrente/final-concurrente/informe/t-invariante.png> </home/tomsar/programacion-concurrente/final-concurrente/informe/analisis-invariantes-ej.png>] (/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.aux) ) 
+ [5 </home/tomsar/programacion-concurrente/final-concurrente/informe/t-invariante.png>] [6 </home/tomsar/programacion-concurrente/final-concurrente/informe/analisis-invariantes-ej.png>] (/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.aux) ) 
 Here is how much of TeX's memory you used:
- 2279 strings out of 480478
- 35286 string characters out of 5905959
- 273677 words of memory out of 5000000
- 18294 multiletter control sequences out of 15000+600000
- 537626 words of font info for 41 fonts, out of 8000000 for 9000
+ 2280 strings out of 480478
+ 35303 string characters out of 5905959
+ 273791 words of memory out of 5000000
+ 18295 multiletter control sequences out of 15000+600000
+ 537925 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 31i,8n,36p,271b,371s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 31i,8n,36p,271b,369s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.pdf (6 pages, 253101 bytes).
+Output written on /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.pdf (7 pages, 258260 bytes).
 PDF statistics:
- 77 PDF objects out of 1000 (max. 8388607)
- 51 compressed objects within 1 object stream
+ 82 PDF objects out of 1000 (max. 8388607)
+ 55 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

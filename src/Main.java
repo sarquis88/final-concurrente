@@ -8,7 +8,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 50 ;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 1000;        // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;      // tiempo promedio entre generacion de procesos
 
@@ -220,3 +220,11 @@ public class Main {
         System.exit(0);
     }
 }
+
+// doxygen
+
+/*! \mainpage Trabajo Práctico III
+ * Alumno: Tomas Sarquis\n\n
+ * Matricula: 39884977\n\n
+ * Repositorio: https://github.com/sarquis88/final-concurrente
+ */

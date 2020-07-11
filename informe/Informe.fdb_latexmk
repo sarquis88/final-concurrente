@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1594425760 "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.tex" "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.pdf" "Informe" 1594425761
-  "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.aux" 1594425761 1338 7b361fd0287c1c16a9b35f0cee784283 ""
-  "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.tex" 1594425760 8767 203b4f865ee352cb17440ab0ec5cac2f ""
+["pdflatex"] 1594490664 "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.tex" "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.pdf" "Informe" 1594490664
+  "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.aux" 1594490664 1594 89af78bb5cf169af926162353c78397f ""
+  "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.tex" 1594490663 11474 e4776c378772a57f21e448e38b79c821 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1591545468 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1591545468 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1591545468 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -57,8 +57,8 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1591545468 33301 a3134070eacafb10b1f371612ce2650d ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1594396578 4727905 1b81189106e2406a827797a37162c1c0 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1594396556 2514048 7a54d8694d95b81a64d59e2ee50f6082 ""
-  "Informe.aux" 1594425761 1338 7b361fd0287c1c16a9b35f0cee784283 "pdflatex"
-  "Informe.tex" 1594425760 8767 203b4f865ee352cb17440ab0ec5cac2f ""
+  "Informe.aux" 1594490664 1594 89af78bb5cf169af926162353c78397f "pdflatex"
+  "Informe.tex" 1594490663 11474 e4776c378772a57f21e448e38b79c821 ""
   "analisis-invariantes-ej.png" 1594423679 4286 3cc1cb9456ae80f8a38043e1d91e7e68 ""
   "p-invariante.png" 1594421762 5917 fe820a21075a88f4ffae07ed1dae6166 ""
   "rdp.png" 1594398656 65584 adc285de291c53bc10dfdd88ea8c67d1 ""
@@ -66,7 +66,7 @@
   "t-invariante.png" 1594421928 5683 a43cf44b3260dc46a98f57343d2ff5c4 ""
   (generated)
   "Informe.log"
-  "Informe.aux"
-  "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.log"
-  "Informe.pdf"
   "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.pdf"
+  "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.log"
+  "Informe.aux"
+  "Informe.pdf"
