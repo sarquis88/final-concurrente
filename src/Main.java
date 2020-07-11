@@ -8,7 +8,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 1000;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 50;        // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;      // tiempo promedio entre generacion de procesos
     private static final long SERVICERATE = 15;     // tiempo promedio de procesamiento
