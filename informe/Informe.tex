@@ -4,10 +4,20 @@
 \usepackage{graphicx}
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
+\usepackage{hyperref}
+
 
 \title{Universidad Nacional de Córdoba\\Facultad de Ciencias Exactas, Físicas y Nturales}
 \author{Tomas Sarquis}
 \date{Julio 2020}
+
+\newcommand{\fnuml}{\emph{Unified Modeling Language}, \url{en.wikipedia.org/wiki/Unified_Modeling_Language}}
+\newcommand{\fnpipe}{\url{http://pipe2.sourceforge.net}}
+\newcommand{\fndoc}{La documentación se encuentra en el archivo \emph{html} "documentacion/html/index.html"}
+\newcommand{\fndoxy}{\url{www.doxygen.nl}}
+\newcommand{\fninv}{src/T-Invariantes.txt}
+\newcommand{\fninverr}{src/T-InvariantesErr.txt}
+\newcommand{\fnpruebas}{informe/pruebas.ods}
 
 \begin{document}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -24,8 +34,25 @@
         por el alumno Tomas Sarquis, matrícula 39884977
         \vspace*{\fill}
     \end{titlingpage}
+    \tableofcontents \newpage
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \section{Enunciado}
+    \section{Introduccion}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \subsection{Objetivo}
+    \begin{flushleft}
+        El objetivo del siguiente trabajo práctico es que el estudiante sea capaz de diseñar,
+        implementar y analizar un programa que realice una simulación mediante redes de Petri,
+        conociendo sus propiedades y monitoreando que éstas se cumplan. \\
+        Algunos de los conocimientos aplicados en este trabajo son: \\
+        \begin{itemize}
+            \item Programación en \emph{Java}
+            \item Concurrencia y manejo de hilos en \emph{Java}
+            \item Redes de Petri: propiedades y ventajas
+            \item \emph{UML}\footnote{\fnuml}: diagramas para modelar
+        \end{itemize}
+    \end{flushleft}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \subsection{Enunciado}
     \begin{flushleft}
         Se debe implementar un simulador de un procesador con dos núcleos. A partir de la red de
         Petri de la \emph{figura 1}, la cual representa a un procesador mono núcleo, se deberá 
@@ -106,8 +133,7 @@
             \item \textbf{RedDePetri:} Implementación de la red de Petri
         \end{itemize}
         Para información más detallada acerca de las clases y sus funciones, se puede consultar
-        la documentación\footnote{La documentación se encuentra en el archivo \emph{html}
-        "documentacion/html/index.html"} hecha por \emph{Doxygen}\footnote{www.doxygen.nl}.
+        la documentación\footnote{\fndoc} hecha por \emph{Doxygen}\footnote{\fndoxy}.
     \end{flushleft}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Politica}
@@ -129,7 +155,7 @@
         Sabemos que una de las maneras de chequear que la red (y nuestro programa) funciona 
         de forma correcta, es analizando las invariantes. Estas son, las \textbf{t-invariantes}
         y las \textbf{p-invariantes}. \\
-        Para el análisis, se usó la herramienta Pipe\footnote{http://pipe2.sourceforge.net/}.
+        Para el análisis, se usó la herramienta Pipe\footnote{\fnpipe}.
         Los resultados fueron los siguientes: \newline \newline
         \textbf{P-Invariantes:} \\
         \begin{figure}[h]
@@ -159,12 +185,12 @@
         de chequear, una vez finalizada la ejecución, que el orden de los disparos (de las 
         transiciones) sea el correcto. \\
         Para esto, la clase \emph{Main} se encarga de grabar todas las transiciones (en orden) 
-        que han sido disparadas en un archivo\footnote{src/T-Invariantes.txt} de texto. Luego, la
+        que han sido disparadas en un archivo\footnote{\fninv} de texto. Luego, la
         clase \emph{InvarianteTest} usa esa información para, mediante un algoritmo de remplazo,
         ir eliminando las coincidencias (o \emph{matches}) entre el \emph{log} de transiciones y
         las invariantes. Si el sistema funciona correctamente, deben quedar eliminadas todas las
         transiciones. De lo contrario, existen errores, que son escritos en otro 
-        archivo\footnote{src/T-InvariantesErr.txt} de texto. \newline \newline
+        archivo\footnote{\fninverr} de texto. \newline \newline
         \textbf{Resultados:} \newline \newline
         Al finalizar una ejecución, se loggea el estado de los análisis de invariantes. Un ejemplo
         se puede ver en la \emph{figura 5}. \\
@@ -172,7 +198,7 @@
             \includegraphics[width=0.5\textwidth, center]{analisis-invariantes-ej.png}
             \caption{Ejemplo del análisis de invariantes de una ejecución}
         \end{figure}
-        Se hicieron pruebas con 100, 1000 y 2000 procesos y con ambos procesos trabajando en forma
+        Se hicieron pruebas\footnote{\fnpruebas} con 100, 1000 y 2000 procesos y con ambos procesos trabajando en forma
         equilibrada (mismo tiempo de procesamiento). Además, se realizaron 10 muestras por cada 
         cantidad de procesos. Los resultados, en la \emph{tabla 1}.\newline \newline
         \begin{center}
