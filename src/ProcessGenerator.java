@@ -3,15 +3,13 @@
   GENERADOR DE PROCESOS
  */
 
-import java.util.Random;
-
 public class ProcessGenerator extends Thread {
 
     private Monitor monitor;
 
     private int cantidadAGenerar;
     private int generados;
-    private int[] secuencia = {99, 99, 99};
+    private int[] secuencia = {99, 99};
 
     /**
      * Constructor de clase
@@ -26,7 +24,6 @@ public class ProcessGenerator extends Thread {
 
         this.secuencia[0] = 0;
         this.secuencia[1] = 1;
-        this.secuencia[2] = 8;
     }
 
     /**
@@ -45,26 +42,13 @@ public class ProcessGenerator extends Thread {
                 e.printStackTrace();
             }
 
-            int transicion;
-            String id;
-            Random random = new Random();
-            int politica = random.nextInt(2);       // 0 para A, 1 para B
-
-            if (politica == 0) {
-                transicion = secuencia[1];
-                id = "A";
-            } else {
-                transicion = secuencia[2];
-                id = "B";
-            }
-
             try {
-                monitor.disparar(transicion);                 // creacion de proceso
+                monitor.disparar(secuencia[1]);                 // creacion de proceso
             } catch (Exception e) {
                 e.printStackTrace();
             }
             if( Main.isLoggingActivated() )
-                System.out.println("NUEVO PROCESO NUMERO " + this.generados++ + " - EN BUFFER " + id);
+                System.out.println("NUEVO PROCESO NUMERO " + this.generados++);
         }
         if( Main.isLoggingActivated() )
             System.out.println(Colors.RED_BOLD + "FIN   ProcessGenerator" + Colors.RESET);

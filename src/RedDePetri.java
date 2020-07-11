@@ -175,9 +175,7 @@ public class RedDePetri {
     private boolean isPInvariantesCorrecto() {
         return (this.marcaActual[0] + this.marcaActual[1] == 1 &&
                 this.marcaActual[2] + this.marcaActual[3] + this.marcaActual[5] == 1 &&
-                this.marcaActual[7] + this.marcaActual[8] == 1 &&
-                this.marcaActual[9] + this.marcaActual[10] + this.marcaActual[12] == 1 &&
-                this.marcaActual[14] + this.marcaActual[15] == 1);
+                this.marcaActual[7] + this.marcaActual[8] == 1);
     }
 
     /**

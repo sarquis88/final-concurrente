@@ -3,39 +3,25 @@
  * PROCESAMIENTO DEL CPU
  */
 
-import java.util.concurrent.locks.ReentrantLock;
-
 public class CPUProcessing extends Thread {
 
     private Monitor monitor;
-    private String cpuId;
 
     private int procesados;
     private final int[] secuencia = {99, 99};
-
-    private static int procesadosGlobal = 0;
-    private static ReentrantLock mutex = new ReentrantLock();
 
     /**
      * Constructor de clase
      *
      * @param cpuPower controlador de encendido/apagado del cpu
-     * @param cpuId id del cpu
      */
-    public CPUProcessing(CPUPower cpuPower, String cpuId) {
-        setName("CPUProcessing " + cpuId);
+    public CPUProcessing(CPUPower cpuPower) {
+        setName("CPUProcessing");
         this.monitor = cpuPower.getMonitor();
-        this.cpuId = cpuId;
         this.procesados = 0;
 
-        if(cpuId.equalsIgnoreCase("A")) {
-            this.secuencia[0] = 5;
-            this.secuencia[1] = 6;
-        }
-        else if(cpuId.equalsIgnoreCase("B")) {
-            this.secuencia[0] = 12;
-            this.secuencia[1] = 13;
-        }
+        this.secuencia[0] = 5;
+        this.secuencia[1] = 6;
     }
 
     /**
@@ -45,7 +31,7 @@ public class CPUProcessing extends Thread {
     @Override
     public void run() {
         if( Main.isLoggingActivated() )
-            System.out.println(Colors.RED_BOLD + "INICIO CPUProcessing " + this.cpuId + Colors.RESET);
+            System.out.println(Colors.RED_BOLD + "INICIO CPUProcessing " + Colors.RESET);
 
         while(!currentThread().isInterrupted() && !CPU.isFinished()) {
 
@@ -55,15 +41,9 @@ public class CPUProcessing extends Thread {
 
             this.procesados++;
 
-            // si no se aumentan los procesadosGlobal en exlusion mutua
-            // hay problemas de inanicion en varias ejecuciones
-            mutex.lock();
-            procesadosGlobal++;
-            mutex.unlock();
-
             if( Main.isLoggingActivated() )
-                System.out.println("TERMINADO PROCESO NUMERO " + procesadosGlobal + " - EN " + this.cpuId);
-            if (procesadosGlobal == Main.getCantidadProcesos()) {
+                System.out.println("TERMINADO PROCESO NUMERO " + procesados);
+            if (procesados == Main.getCantidadProcesos()) {
                 CPU.finish();
                 Main.setFin();                                                  // marca tiempo final
                 Main.exit();
