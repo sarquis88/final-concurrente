@@ -8,15 +8,15 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 1000;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 5;          // cantidad de procesos a generar
 
-    private static final long ARRIVALRATE = 10;      // tiempo promedio entre generacion de procesos
+    private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
 
-    private static final long SERVICERATE = 15;     // tiempo promedio de procesamiento
+    private static final long SERVICERATE = 15;             // tiempo promedio de procesamiento
     private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
 
-    private static final long STANDBYDELAY = 30;       // tiempo promedio de encendido
+    private static final long STANDBYDELAY = 30;            // tiempo promedio de encendido
 
     private static final boolean GARBAGECOLLECTION = true;
     private static final boolean LOGGING = true;
@@ -97,12 +97,21 @@ public class Main {
                                                         {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 14
         };
 
-        invariantes = new int[][]   {
-                {   0,  8,  9, 10, 12, 13, 11 },
-                {   0,  8, 14, 12, 13, -1, -1 },
-                {   0,  1,  2,  3,  5,  6,  4 },
-                {   0,  1,  7,  5,  6, -1, -1 }
-        };
+        if( GARBAGECOLLECTION ) {
+            invariantes = new int[][]   {
+                    {   0,  8,  9, 10, 12, 13, 11 },
+                    {   0,  8, 14, 12, 13, -1, -1 },
+                    {   0,  1,  2,  3,  5,  6,  4 },
+                    {   0,  1,  7,  5,  6, -1, -1 }
+            };
+        }
+        else    {
+            invariantes = new int[][]   {
+                    {   0,  8,  9, 10, 12, 13, 11 },
+                    {   0,  1,  2,  3,  5,  6,  4 }
+            };
+        }
+
 
         long[] timeStamp = new long[incidenciaBackward[0].length];
         long[] alfa = new long[incidenciaBackward[0].length];
