@@ -1,0 +1,56 @@
+\hypertarget{classMonitor}{}\doxysection{Monitor Class Reference}
+\label{classMonitor}\index{Monitor@{Monitor}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMonitor_a680a529a32c912fe804c6fd4b162d43a}{Monitor}} (\mbox{\hyperlink{classPolitica}{Politica}} politica)
+\item 
+void \mbox{\hyperlink{classMonitor_a3b009e756689d5f83e5fab40a602058c}{set\+Red\+De\+Petri}} (\mbox{\hyperlink{classRedDePetri}{Red\+De\+Petri}} red\+De\+Petri)
+\item 
+void \mbox{\hyperlink{classMonitor_aafa5edd7f36fe939969178ed3fbb4300}{disparar}} (int transicion)
+\item 
+Reentrant\+Lock \mbox{\hyperlink{classMonitor_ab1c07e5210b4f1b5f2849b77b8844733}{get\+Mutex}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMonitor_a680a529a32c912fe804c6fd4b162d43a}\label{classMonitor_a680a529a32c912fe804c6fd4b162d43a}} 
+\index{Monitor@{Monitor}!Monitor@{Monitor}}
+\index{Monitor@{Monitor}!Monitor@{Monitor}}
+\doxysubsubsection{\texorpdfstring{Monitor()}{Monitor()}}
+{\footnotesize\ttfamily Monitor.\+Monitor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classPolitica}{Politica}}}]{politica }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor de clase Si o si se debe llamar al metodo set\+Red\+De\+Petri antes de usar 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMonitor_aafa5edd7f36fe939969178ed3fbb4300}\label{classMonitor_aafa5edd7f36fe939969178ed3fbb4300}} 
+\index{Monitor@{Monitor}!disparar@{disparar}}
+\index{disparar@{disparar}!Monitor@{Monitor}}
+\doxysubsubsection{\texorpdfstring{disparar()}{disparar()}}
+{\footnotesize\ttfamily void Monitor.\+disparar (\begin{DoxyParamCaption}\item[{int}]{transicion }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Intenta disparar la transicion dentro de la seccion critica. 
+\begin{DoxyParams}{Parameters}
+{\em transicion} & la transicion de la Red de Petri a disparar \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMonitor_ab1c07e5210b4f1b5f2849b77b8844733}\label{classMonitor_ab1c07e5210b4f1b5f2849b77b8844733}} 
+\index{Monitor@{Monitor}!getMutex@{getMutex}}
+\index{getMutex@{getMutex}!Monitor@{Monitor}}
+\doxysubsubsection{\texorpdfstring{getMutex()}{getMutex()}}
+{\footnotesize\ttfamily Reentrant\+Lock Monitor.\+get\+Mutex (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Retorna el lock del monitor \begin{DoxyReturn}{Returns}
+Reentrant\+Lock que funciona como mutex 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMonitor_a3b009e756689d5f83e5fab40a602058c}\label{classMonitor_a3b009e756689d5f83e5fab40a602058c}} 
+\index{Monitor@{Monitor}!setRedDePetri@{setRedDePetri}}
+\index{setRedDePetri@{setRedDePetri}!Monitor@{Monitor}}
+\doxysubsubsection{\texorpdfstring{setRedDePetri()}{setRedDePetri()}}
+{\footnotesize\ttfamily void Monitor.\+set\+Red\+De\+Petri (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRedDePetri}{Red\+De\+Petri}}}]{red\+De\+Petri }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Monitor_8java}{Monitor.\+java}}\end{DoxyCompactItemize}

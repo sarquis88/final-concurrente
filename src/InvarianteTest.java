@@ -4,6 +4,12 @@ public class InvarianteTest {
 
     static private String invariantesLog = "./src/T-InvariantesErr.txt";
 
+    /**
+     * Analisis de T-Invariantes
+     * @param invariantesFile nombre del archivo que contiene el log de las transiciones
+     * @param invariantes matriz de invariantes
+     * @return true o false dependiendo si el analisis es correcto o incorrecto, respectivamente
+     */
     static boolean checkInvariantes(String invariantesFile, int[][] invariantes)
     {
         int i, lenOri, firstPosErr, lastPosErr;
@@ -72,6 +78,11 @@ public class InvarianteTest {
 
     }
 
+    /**
+     * Convierte el log del archivo en un string
+     * @param invariantesFile nombre del archivo que contiene el log de las transiciones
+     * @return string que contiene las transiciones del log
+     */
     static String getTransicionesString(String invariantesFile)
     {
         String transiciones = "";
@@ -91,6 +102,13 @@ public class InvarianteTest {
         return transiciones;
     }
 
+    /**
+     * Matchea las invariantes en el string que contiene las transiciones. En caso de match, reemplaza los
+     * digitos de la invariante con el simbolo '#'
+     * @param text texto que contiene las transiciones
+     * @param invariant char array que representa una invariante
+     * @return el texto original con la invariante remplazada. Si no hay match, el string es el mismo.
+     */
     static String replace(String text, char[] invariant)
     {
         int i, j, k, c;
@@ -130,6 +148,11 @@ public class InvarianteTest {
         return text;
     }
 
+    /**
+     * Convierte int array en char array
+     * @param invariant int array con una invariante
+     * @return char array con la invariante ingresada
+     */
     static char[] getInvariantChar( int[] invariant )
     {
         char[] invariantChar;

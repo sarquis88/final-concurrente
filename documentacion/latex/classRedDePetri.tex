@@ -1,0 +1,124 @@
+\hypertarget{classRedDePetri}{}\doxysection{Red\+De\+Petri Class Reference}
+\label{classRedDePetri}\index{RedDePetri@{RedDePetri}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classRedDePetri_a18a6445fdf63417fd0b358740651a550}{Red\+De\+Petri}} (int\mbox{[}$\,$\mbox{]} marca\+Inicial, int\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} incidencia\+Front, int\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} incidencia\+Back, int\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} matriz\+Inhibidora, \mbox{\hyperlink{classMonitor}{Monitor}} monitor, long\mbox{[}$\,$\mbox{]} time\+Stamp, long\mbox{[}$\,$\mbox{]} alfa, long\mbox{[}$\,$\mbox{]} beta)
+\item 
+boolean \mbox{\hyperlink{classRedDePetri_adaac801eaea9839bed0318701f1cd4ea}{disparo\+Temporal}} (int transicion)
+\item 
+void \mbox{\hyperlink{classRedDePetri_a0b14c1465108399f76f1db5106fb5946}{actualizar\+Sensibilizadas}} ()
+\item 
+boolean \mbox{\hyperlink{classRedDePetri_a3c2d2888a7a02373ad990f8c49e1582c}{is\+Sensibilizada}} (int transicion)
+\item 
+int\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{classRedDePetri_a2d54e00eb4f59f326c2dfd9f5344e9d4}{get\+Transiciones}} ()
+\item 
+boolean \mbox{\hyperlink{classRedDePetri_a9de99f9fc6a9a0fbc7aa4bde134f1661}{get\+Is\+P\+Invariantes\+Correcto}} ()
+\item 
+String \mbox{\hyperlink{classRedDePetri_a651b28c22bbe25f8f2da44b0c80a1fb7}{get\+Orden\+Transiciones\+Disparadas}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classRedDePetri_a18a6445fdf63417fd0b358740651a550}\label{classRedDePetri_a18a6445fdf63417fd0b358740651a550}} 
+\index{RedDePetri@{RedDePetri}!RedDePetri@{RedDePetri}}
+\index{RedDePetri@{RedDePetri}!RedDePetri@{RedDePetri}}
+\doxysubsubsection{\texorpdfstring{RedDePetri()}{RedDePetri()}}
+{\footnotesize\ttfamily Red\+De\+Petri.\+Red\+De\+Petri (\begin{DoxyParamCaption}\item[{int\mbox{[}$\,$\mbox{]}}]{marca\+Inicial,  }\item[{int}]{incidencia\+Front\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]},  }\item[{int}]{incidencia\+Back\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]},  }\item[{int}]{matriz\+Inhibidora\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]},  }\item[{\mbox{\hyperlink{classMonitor}{Monitor}}}]{monitor,  }\item[{long\mbox{[}$\,$\mbox{]}}]{time\+Stamp,  }\item[{long\mbox{[}$\,$\mbox{]}}]{alfa,  }\item[{long\mbox{[}$\,$\mbox{]}}]{beta }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor de clase
+
+
+\begin{DoxyParams}{Parameters}
+{\em marca\+Inicial} & marca inicial de la red \\
+\hline
+{\em incidencia\+Front} & matriz de incidencia frontal \\
+\hline
+{\em incidencia\+Back} & matriz de incidencia trasera \\
+\hline
+{\em matriz\+Inhibidora} & matriz de arcos inhibidores \\
+\hline
+{\em time\+Stamp} & ventanas de tiempo \\
+\hline
+{\em alfa} & matriz de valor de tiempo alfa \\
+\hline
+{\em beta} & matriz de valor de tiempo beta \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classRedDePetri_a0b14c1465108399f76f1db5106fb5946}\label{classRedDePetri_a0b14c1465108399f76f1db5106fb5946}} 
+\index{RedDePetri@{RedDePetri}!actualizarSensibilizadas@{actualizarSensibilizadas}}
+\index{actualizarSensibilizadas@{actualizarSensibilizadas}!RedDePetri@{RedDePetri}}
+\doxysubsubsection{\texorpdfstring{actualizarSensibilizadas()}{actualizarSensibilizadas()}}
+{\footnotesize\ttfamily void Red\+De\+Petri.\+actualizar\+Sensibilizadas (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Actualizacion de transiciones sensibilizadas \mbox{\Hypertarget{classRedDePetri_adaac801eaea9839bed0318701f1cd4ea}\label{classRedDePetri_adaac801eaea9839bed0318701f1cd4ea}} 
+\index{RedDePetri@{RedDePetri}!disparoTemporal@{disparoTemporal}}
+\index{disparoTemporal@{disparoTemporal}!RedDePetri@{RedDePetri}}
+\doxysubsubsection{\texorpdfstring{disparoTemporal()}{disparoTemporal()}}
+{\footnotesize\ttfamily boolean Red\+De\+Petri.\+disparo\+Temporal (\begin{DoxyParamCaption}\item[{int}]{transicion }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Implementa el disparo con ventana de tiempo. Si la transicion no esta sensibilizada por tiempo duerme al hilo hasta estar dentro de la ventana. 
+\begin{DoxyParams}{Parameters}
+{\em transicion} & la transicion a disparar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si pudo disparar, false en caso contrario. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRedDePetri_a9de99f9fc6a9a0fbc7aa4bde134f1661}\label{classRedDePetri_a9de99f9fc6a9a0fbc7aa4bde134f1661}} 
+\index{RedDePetri@{RedDePetri}!getIsPInvariantesCorrecto@{getIsPInvariantesCorrecto}}
+\index{getIsPInvariantesCorrecto@{getIsPInvariantesCorrecto}!RedDePetri@{RedDePetri}}
+\doxysubsubsection{\texorpdfstring{getIsPInvariantesCorrecto()}{getIsPInvariantesCorrecto()}}
+{\footnotesize\ttfamily boolean Red\+De\+Petri.\+get\+Is\+P\+Invariantes\+Correcto (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter del estado de las p-\/invariantes
+
+\begin{DoxyReturn}{Returns}
+false si en algun momento las p-\/invariantes no se cumplieron, de lo contrario true 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRedDePetri_a651b28c22bbe25f8f2da44b0c80a1fb7}\label{classRedDePetri_a651b28c22bbe25f8f2da44b0c80a1fb7}} 
+\index{RedDePetri@{RedDePetri}!getOrdenTransicionesDisparadas@{getOrdenTransicionesDisparadas}}
+\index{getOrdenTransicionesDisparadas@{getOrdenTransicionesDisparadas}!RedDePetri@{RedDePetri}}
+\doxysubsubsection{\texorpdfstring{getOrdenTransicionesDisparadas()}{getOrdenTransicionesDisparadas()}}
+{\footnotesize\ttfamily String Red\+De\+Petri.\+get\+Orden\+Transiciones\+Disparadas (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter del orden de las transiciones disparadas
+
+\begin{DoxyReturn}{Returns}
+string que posee dicho orden 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRedDePetri_a2d54e00eb4f59f326c2dfd9f5344e9d4}\label{classRedDePetri_a2d54e00eb4f59f326c2dfd9f5344e9d4}} 
+\index{RedDePetri@{RedDePetri}!getTransiciones@{getTransiciones}}
+\index{getTransiciones@{getTransiciones}!RedDePetri@{RedDePetri}}
+\doxysubsubsection{\texorpdfstring{getTransiciones()}{getTransiciones()}}
+{\footnotesize\ttfamily int \mbox{[}$\,$\mbox{]} Red\+De\+Petri.\+get\+Transiciones (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter de situacion de transiciones
+
+\begin{DoxyReturn}{Returns}
+lista de ints, \textquotesingle{}1\textquotesingle{} para sensibilizada 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRedDePetri_a3c2d2888a7a02373ad990f8c49e1582c}\label{classRedDePetri_a3c2d2888a7a02373ad990f8c49e1582c}} 
+\index{RedDePetri@{RedDePetri}!isSensibilizada@{isSensibilizada}}
+\index{isSensibilizada@{isSensibilizada}!RedDePetri@{RedDePetri}}
+\doxysubsubsection{\texorpdfstring{isSensibilizada()}{isSensibilizada()}}
+{\footnotesize\ttfamily boolean Red\+De\+Petri.\+is\+Sensibilizada (\begin{DoxyParamCaption}\item[{int}]{transicion }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Indica si la transicion esta sensibilizada Metodo P\+U\+B\+L\+I\+CO llamado por monitor
+
+
+\begin{DoxyParams}{Parameters}
+{\em transicion} & transicion a analizar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si la transicion esta sensibilizada 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{RedDePetri_8java}{Red\+De\+Petri.\+java}}\end{DoxyCompactItemize}
