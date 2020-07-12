@@ -8,7 +8,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 5;          // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 500;          // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
 
@@ -19,7 +19,7 @@ public class Main {
     private static final long STANDBYDELAY = 30;            // tiempo promedio de encendido
 
     private static final boolean GARBAGECOLLECTION = true;
-    private static final boolean LOGGING = true;
+    private static final boolean LOGGING = false;
 
     private static final String invariantesFile = "./src/T-Invariantes.txt";
 
@@ -217,9 +217,9 @@ public class Main {
         else
             tInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
 
+        System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + String.format("%.2f", tiempoEjecucion) + " [seg]" + Colors.RESET);
         if( LOGGING )
         {
-            System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + String.format("%.2f", tiempoEjecucion) + " [seg]" + Colors.RESET);
             System.out.println(Colors.BLUE_BOLD + "\n--> PROCESOS TERMINADOS POR CPU A: " + cpuProcessingA.getProcesados() + Colors.RESET);
             System.out.println(Colors.BLUE_BOLD + "--> PROCESOS TERMINADOS POR CPU B: " + cpuProcessingB.getProcesados() + Colors.RESET);
             System.out.println(Colors.BLUE_BOLD + "\n--> ANALISIS DE P-INVARIANTES: " + pInvariantes + Colors.RESET);

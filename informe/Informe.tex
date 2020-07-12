@@ -223,4 +223,39 @@
     relativamente la misma para todos los casos. Esto quiere decir que la cantidad de transiciones
     restantes no dependen de la cantidad de transiciones totales.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \subsection{Tiempos}
+    A continuación, en la \emph{tabla 2}, se describen los tiempos que lleva el programa en 
+    ejecutarse. \par
+    Se observa una clara linealidad a medida que aumenta la cantidad de procesos. \par
+    \begin{center}
+        \begin{table}[h]
+            \centering
+            \begin{tabular}{||c|c||} 
+                \hline
+                Procesos & Tiempo de ejecución (\emph{avg}) \\ [0.5ex] 
+                \hline\hline
+                500 & 2,59 \\ 
+                \hline
+                1000 & 5,16 \\
+                \hline
+                1500 & 7,76 \\
+                \hline
+                2000 & 10,35 \\
+                \hline
+                2500 & 12,95 \\
+                \hline
+                3000 & 15,53 \\
+                \hline
+                3500 & 18,13 \\
+                \hline
+                4000 & 20,74 \\
+                \hline
+            \end{tabular}
+            \caption{Resultados de análisis. Cada fila equivale a 5 muestras}
+        \end{table}
+    \end{center}
+    \begin{figure}[h]
+        \includegraphics[width=0.9\textwidth, center]{tiempos.png}
+        \caption{Gráfica de cantidad de procesos vs tiempos}
+    \end{figure}
 \end{document}
