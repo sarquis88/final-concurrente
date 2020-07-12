@@ -8,7 +8,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 500;          // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 1000;          // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
 
@@ -19,9 +19,10 @@ public class Main {
     private static final long STANDBYDELAY = 30;            // tiempo promedio de encendido
 
     private static final boolean GARBAGECOLLECTION = true;
-    private static final boolean LOGGING = false;
+    private static final boolean LOGGING = true;
 
     private static final String invariantesFile = "./src/T-Invariantes.txt";
+    private static final String petriNetFile = "./petri-net.xml";
 
     private static long inicio;
     private static long fin;
@@ -38,64 +39,12 @@ public class Main {
 
         currentThread().setName("Main");
 
-        //                          0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15
-        int[] marcadoInicial = {    1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1   };
+        XMLParser xmlParser = new XMLParser(petriNetFile);
 
-        int[][] incidenciaFrontward = { // TRANSICIONES     0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14
-                                                        {   0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0  }, // 0  P
-                                                        {   1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 1  L
-                                                        {   0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 2  A
-                                                        {   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 3  Z
-                                                        {   0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 4  A
-                                                        {   0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0  }, // 5  S
-                                                        {   0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 6
-                                                        {   0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 7
-                                                        {   0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0  }, // 8
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0  }, // 9
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0  }, // 10
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0  }, // 11
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1  }, // 12
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0  }, // 13
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0  }, // 14
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0  }, // 15
-        };
-
-        int[][] incidenciaBackward = { // TRANSICIONES      0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14
-                                                        {   1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 0  P
-                                                        {   0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0  }, // 1  L
-                                                        {   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 2  A
-                                                        {   0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 3  Z
-                                                        {   0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0  }, // 4  A
-                                                        {   0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0  }, // 5  S
-                                                        {   0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 6
-                                                        {   0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0  }, // 7
-                                                        {   0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 8
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0  }, // 9
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0  }, // 10
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1  }, // 11
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1  }, // 12
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0  }, // 13
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0  }, // 14
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0  }, // 15
-        };
-
-        int[][] matrizInhibidora = { // PLAZAS              0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 0  T
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 1  R
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 2  A
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 3  N
-                                                        {   0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0  }, // 4  S
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 5  I
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 6  C
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 7  I
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 8  O
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 9  N
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 10 E
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0  }, // 11 S
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 12
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 13
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 14
-        };
+        int[] marcadoInicial = xmlParser.getMarcado();
+        int[][] incidenciaBackward = xmlParser.getIncidenciaBackward();
+        int[][] incidenciaFrontward = xmlParser.getIncidenciaFrontward();
+        int[][] matrizInhibidora = xmlParser.getMatrizInhibidora();
 
         if( GARBAGECOLLECTION ) {
             invariantes = new int[][]   {
@@ -207,12 +156,14 @@ public class Main {
         double tiempoEjecucion = (fin - inicio) / 1000.00;
 
         String pInvariantes, tInvariantes;
+        InvarianteTest invarianteTest = new InvarianteTest(invariantesFile);
+
         if(redDePetri.getIsPInvariantesCorrecto())
             pInvariantes = Colors.GREEN_BOLD + "CORRECTO" + Colors.RESET;
         else
             pInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
 
-        if(InvarianteTest.checkInvariantes(invariantesFile, invariantes))
+        if(invarianteTest.checkInvariantes(invariantes))
             tInvariantes = Colors.GREEN_BOLD + "CORRECTO" + Colors.RESET;
         else
             tInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;

@@ -18,7 +18,6 @@ public class CPUProcessing extends Thread {
 
     /**
      * Constructor de clase
-     *
      * @param cpuPower controlador de encendido/apagado del cpu
      * @param cpuId id del cpu
      */

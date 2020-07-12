@@ -16,6 +16,10 @@ public class Monitor {
         this.mutex = new ReentrantLock(true);
     }
 
+    /**
+     * Seteo de red de Petri del monitor
+     * @param redDePetri objeto red de petri
+     */
     public void setRedDePetri(RedDePetri redDePetri) {
         this.redDePetri = redDePetri;
         this.colas = new Cola[redDePetri.getTransiciones().length];

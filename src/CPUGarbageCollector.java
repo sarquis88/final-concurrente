@@ -10,7 +10,6 @@ public class CPUGarbageCollector extends Thread {
 
     /**
      * Constructor de clase
-     *
      * @param monitor monitor asociado a la red
      * @param cpuId id del cpu a limpiar
      */

@@ -2,21 +2,31 @@ import java.io.*;
 
 public class InvarianteTest {
 
-    static private String invariantesLog = "./src/T-InvariantesErr.txt";
+    private String transicionesFile;
+    private String invariantesLog;
+
+    /**
+     * Constructor de clase
+     * @param transicionesFile path del archivo con las transiciones
+     */
+    public InvarianteTest(String transicionesFile)
+    {
+        this.transicionesFile = transicionesFile;
+        this.invariantesLog = "./src/T-InvariantesErr.txt";
+    }
 
     /**
      * Analisis de T-Invariantes
-     * @param invariantesFile nombre del archivo que contiene el log de las transiciones
      * @param invariantes matriz de invariantes
      * @return true o false dependiendo si el analisis es correcto o incorrecto, respectivamente
      */
-    static boolean checkInvariantes(String invariantesFile, int[][] invariantes)
+    public boolean checkInvariantes(int[][] invariantes)
     {
         int i, lenOri, firstPosErr, lastPosErr;
         String transString;
         String log;
 
-        transString = getTransicionesString(invariantesFile);
+        transString = getTransicionesString();
         lenOri = transString.length() / 2;
         firstPosErr = 9999;
         lastPosErr = 9999;
@@ -80,15 +90,14 @@ public class InvarianteTest {
 
     /**
      * Convierte el log del archivo en un string
-     * @param invariantesFile nombre del archivo que contiene el log de las transiciones
      * @return string que contiene las transiciones del log
      */
-    static String getTransicionesString(String invariantesFile)
+    public String getTransicionesString()
     {
         String transiciones = "";
         try
         {
-            File file = new File(invariantesFile);
+            File file = new File(transicionesFile);
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             transiciones = br.readLine();
@@ -109,7 +118,7 @@ public class InvarianteTest {
      * @param invariant char array que representa una invariante
      * @return el texto original con la invariante remplazada. Si no hay match, el string es el mismo.
      */
-    static String replace(String text, char[] invariant)
+    public String replace(String text, char[] invariant)
     {
         int i, j, k, c;
         int[] posiciones;
@@ -153,7 +162,7 @@ public class InvarianteTest {
      * @param invariant int array con una invariante
      * @return char array con la invariante ingresada
      */
-    static char[] getInvariantChar( int[] invariant )
+    public char[] getInvariantChar( int[] invariant )
     {
         char[] invariantChar;
         int i;

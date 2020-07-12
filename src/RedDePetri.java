@@ -16,7 +16,6 @@ public class RedDePetri {
 
     /**
      * Constructor de clase
-     *
      * @param marcaInicial     marca inicial de la red
      * @param incidenciaFront  matriz de incidencia frontal
      * @param incidenciaBack   matriz de incidencia trasera
@@ -49,7 +48,6 @@ public class RedDePetri {
     /**
      * Indica si la transicion esta sensibilizada
      * Metodo PRIVADO
-     *
      * @param transicion transicion a analizar
      * @return '1' si la transicion esta sensibilizada
      */
@@ -63,7 +61,6 @@ public class RedDePetri {
 
     /**
      * Disparo de transicion en red de Petri, modificando la marca de la red
-     *
      * @param transicion transicion a disparar
      */
     private void disparar(int transicion) {
@@ -150,7 +147,6 @@ public class RedDePetri {
     /**
      * Indica si la transicion esta sensibilizada
      * Metodo PUBLICO llamado por monitor
-     *
      * @param transicion transicion a analizar
      * @return true si la transicion esta sensibilizada
      */
@@ -160,7 +156,6 @@ public class RedDePetri {
 
     /**
      * Getter de situacion de transiciones
-     *
      * @return lista de ints, '1' para sensibilizada
      */
     public int[] getTransiciones() {
@@ -169,7 +164,6 @@ public class RedDePetri {
 
     /**
      * Chequea el estado de las P-Invariantes
-     *
      * @return true en caso de estado correcto, de lo contrario false
      */
     private boolean isPInvariantesCorrecto() {
@@ -182,7 +176,6 @@ public class RedDePetri {
 
     /**
      * Getter del estado de las p-invariantes
-     *
      * @return false si en algun momento las p-invariantes no se cumplieron, de lo contrario true
      */
     public boolean getIsPInvariantesCorrecto() {
@@ -191,7 +184,6 @@ public class RedDePetri {
 
     /**
      * Getter del orden de las transiciones disparadas
-     *
      * @return string que posee dicho orden
      */
     public String getOrdenTransicionesDisparadas() {
