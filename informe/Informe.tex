@@ -134,6 +134,8 @@
         \item \textbf{Process:} Clase que simula un proceso de CPU. Dichos Process van a
         parar a un ProcessBuffer
         \item \textbf{RedDePetri:} Implementación de la red de Petri
+        \item \textbf{XMLParser:} Parsea las características de la red de Petri desde un
+        archivo \emph{xml}
     \end{itemize} \par
     Para información más detallada acerca de las clases y sus funciones, se puede consultar
     la documentación\footnote{\fndoc} hecha por \emph{Doxygen}\footnote{\fndoxy}.
@@ -225,7 +227,12 @@
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Tiempos}
     A continuación, en la \emph{tabla 2}, se describen los tiempos que lleva el programa en 
-    ejecutarse. \par
+    ejecutarse. Los tiempos de la red son los siguientes: \par
+    \begin{itemize}
+        \item \emph{ArrivalRate} = 10 [ms]
+        \item \emph{ServiceRate} = 15 [ms]
+        \item \emph{StandByDelay} = 30 [ms]
+    \end{itemize}
     Se observa una clara linealidad a medida que aumenta la cantidad de procesos. \par
     \begin{center}
         \begin{table}[h]
