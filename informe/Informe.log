@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.10)  13 JUL 2020 11:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.13)  13 JUL 2020 14:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -225,54 +225,78 @@ Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
 \JustifyingParindent=\skip66
 ) (/usr/share/texmf-dist/tex/latex/tools/indentfirst.sty
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
+) (/usr/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count191
+\float@exts=\toks19
+\float@box=\box47
+\@float@everytoks=\toks20
+\@floatcapt=\box48
+) (/usr/share/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2019/11/18 v2.7d Micro-typographical refinements (RS)
+\MT@toks=\toks21
+\MT@count=\count192
+LaTeX Info: Redefining \textls on input line 790.
+\MT@outer@kern=\dimen156
+LaTeX Info: Redefining \textmicrotypecontext on input line 1354.
+\MT@listname@count=\count193
+ (/usr/share/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+File: microtype-pdftex.def 2019/11/18 v2.7d Definitions specific to pdftex (RS)
+LaTeX Info: Redefining \lsstyle on input line 914.
+LaTeX Info: Redefining \lslig on input line 914.
+\MT@outer@space=\skip67
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 30.
+Package microtype Info: Loading configuration file microtype.cfg.
+ (/usr/share/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
+))
+Package hyperref Info: Option `colorlinks' set `true' on input line 32.
  (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-06-03 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count191
-\l__pdf_internal_box=\box47
+\l__kernel_color_stack_int=\count194
+\l__pdf_internal_box=\box49
 ) (/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.aux
 LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
 )
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Info: Redefining \. on input line 32.
-LaTeX Info: Redefining \% on input line 32.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Info: Redefining \. on input line 34.
+LaTeX Info: Redefining \% on input line 34.
  (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count192
-\scratchdimen=\dimen156
-\scratchbox=\box48
-\nofMPsegments=\count193
-\nofMParguments=\count194
-\everyMPshowfont=\toks19
-\MPscratchCnt=\count195
-\MPscratchDim=\dimen157
-\MPnumerator=\count196
-\makeMPintoPDFobject=\count197
-\everyMPtoPDFconversion=\toks20
+\scratchcounter=\count195
+\scratchdimen=\dimen157
+\scratchbox=\box50
+\nofMPsegments=\count196
+\nofMParguments=\count197
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count198
+\MPscratchDim=\dimen158
+\MPnumerator=\count199
+\makeMPintoPDFobject=\count266
+\everyMPtoPDFconversion=\toks23
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\AtBeginShipoutBox=\box49
+\AtBeginShipoutBox=\box51
  (/usr/share/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2019/11/23 v1.2a Standard LaTeX Color (DPC)
  (/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
@@ -280,7 +304,7 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 147.
 )
-Package hyperref Info: Link coloring ON on input line 32.
+Package hyperref Info: Link coloring ON on input line 34.
  (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
  (/usr/share/texmf-dist/tex/latex/refcount/refcount.sty
@@ -288,21 +312,35 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count198
+\c@section@level=\count267
 )
-LaTeX Info: Redefining \ref on input line 32.
-LaTeX Info: Redefining \pageref on input line 32.
-LaTeX Info: Redefining \nameref on input line 32.
+LaTeX Info: Redefining \ref on input line 34.
+LaTeX Info: Redefining \pageref on input line 34.
+LaTeX Info: Redefining \nameref on input line 34.
  (/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.out) (/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.out)
 \@outlinefile=\write3
  ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 32.
+LaTeX Info: Redefining \selectfont on input line 34.
+LaTeX Info: Redefining \microtypecontext on input line 34.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `basictext'.
+LaTeX Info: Redefining \showhyphens on input line 34.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+ (/usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
+)
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 36.
+(Font)              <12> on input line 38.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 36.
+(Font)              <8> on input line 38.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 36.
+(Font)              <6> on input line 38.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.toc
@@ -317,165 +355,203 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.48     \tableofcontents \newpage
-                                   [1]
-Underfull \hbox (badness 10000) in paragraph at lines 56--57
-
- []
-
-<rdp_enun.png, id=70, 117.0774pt x 70.3428pt>
+l.52     \newpage
+                  [1]
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+<rdp_enun.png, id=85, 117.0774pt x 70.3428pt>
 File: rdp_enun.png Graphic file (type png)
 <use rdp_enun.png>
-Package pdftex.def Info: rdp_enun.png  used on input line 71.
+Package pdftex.def Info: rdp_enun.png  used on input line 74.
 (pdftex.def)             Requested size: 310.4979pt x 186.5771pt.
-[2 </home/tomsar/programacion-concurrente/final-concurrente/informe/rdp_enun.png>]
-<rdp.png, id=83, 211.2693pt x 148.6353pt>
+ [2pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.78     \newpage
+                  </home/tomsar/programacion-concurrente/final-concurrente/informe/rdp_enun.png>]
+<rdp.png, id=98, 211.2693pt x 148.6353pt>
 File: rdp.png Graphic file (type png)
 <use rdp.png>
-Package pdftex.def Info: rdp.png  used on input line 85.
+Package pdftex.def Info: rdp.png  used on input line 89.
 (pdftex.def)             Requested size: 310.4979pt x 218.46404pt.
 
-Overfull \hbox (2.73878pt too wide) in paragraph at lines 100--109
-\OT1/cmr/bx/n/10 ProcessGenerator: \OT1/cmr/m/n/10 En-car-ga-do de ge-ne-rar los pro-ce-sos com^^Sunes a am-bos CPUs.
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 100--109
+Underfull \hbox (badness 10000) in paragraph at lines 104--113
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 100--109
+Underfull \hbox (badness 10000) in paragraph at lines 104--113
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 100--109
+Underfull \hbox (badness 10000) in paragraph at lines 104--113
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 100--109
+Underfull \hbox (badness 10000) in paragraph at lines 104--113
 
  []
 
-[3 </home/tomsar/programacion-concurrente/final-concurrente/informe/rdp.png>]
-Overfull \hbox (1.6971pt too wide) in paragraph at lines 132--134
-[]\OT1/cmr/bx/n/10 ProcessGenerator: \OT1/cmr/m/n/10 Mo-de-lo del hi-lo Pro-cess-Ge-ne-ra-tor an-te-rior-men-te des-
- []
+[3pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 
-[4]
-<diagrama-clases.png, id=93, 192.72pt x 105.996pt>
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.113     \subsection
+                     {Clases en Java} </home/tomsar/programacion-concurrente/final-concurrente/informe/rdp.png>] [4]
+<diagrama-clases.png, id=108, 192.72pt x 105.996pt>
 File: diagrama-clases.png Graphic file (type png)
 <use diagrama-clases.png>
-Package pdftex.def Info: diagrama-clases.png  used on input line 141.
+Package pdftex.def Info: diagrama-clases.png  used on input line 145.
 (pdftex.def)             Requested size: 310.4979pt x 170.77448pt.
- [5 </home/tomsar/programacion-concurrente/final-concurrente/informe/diagrama-clases.png>]
-<p-invariante.png, id=106, 109.3686pt x 32.0397pt>
+ [5pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.168     y las \textbf{p-invariantes}. \par
+                                             </home/tomsar/programacion-concurrente/final-concurrente/informe/diagrama-clases.png>]
+<p-invariante.png, id=121, 109.3686pt x 32.0397pt>
 File: p-invariante.png Graphic file (type png)
 <use p-invariante.png>
-Package pdftex.def Info: p-invariante.png  used on input line 169.
+Package pdftex.def Info: p-invariante.png  used on input line 173.
 (pdftex.def)             Requested size: 241.49895pt x 70.75299pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 165--175
+Underfull \hbox (badness 10000) in paragraph at lines 169--175
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 165--175
+Underfull \hbox (badness 10000) in paragraph at lines 169--175
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 165--175
+Underfull \hbox (badness 10000) in paragraph at lines 176--179
 
  []
 
-<t-invariante.png, id=107, 94.9146pt x 27.4626pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--179
+
+ []
+
+<t-invariante.png, id=122, 94.9146pt x 27.4626pt>
 File: t-invariante.png Graphic file (type png)
 <use t-invariante.png>
-Package pdftex.def Info: t-invariante.png  used on input line 188.
+Package pdftex.def Info: t-invariante.png  used on input line 192.
 (pdftex.def)             Requested size: 241.49895pt x 69.88113pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 181--193
+Underfull \hbox (badness 10000) in paragraph at lines 185--194
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 181--193
+Underfull \hbox (badness 10000) in paragraph at lines 185--194
 
  []
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+Underfull \hbox (badness 10000) in paragraph at lines 185--194
 
+ []
 
-Underfull \hbox (badness 10000) in paragraph at lines 194--201
+[6pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.195     A
+           nteriormente se mencionó la clase \emph{InvarianteTest}. Esta cl... </home/tomsar/programacion-concurrente/final-concurrente/informe/p-invariante.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 198--205
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 194--201
+Underfull \hbox (badness 10000) in paragraph at lines 198--205
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 194--201
+Underfull \hbox (badness 10000) in paragraph at lines 198--205
 
  []
 
-[6 </home/tomsar/programacion-concurrente/final-concurrente/informe/p-invariante.png>]
-<analisis-invariantes-ej.png, id=118, 82.1469pt x 10.8405pt>
+<analisis-invariantes-ej.png, id=133, 82.1469pt x 10.8405pt>
 File: analisis-invariantes-ej.png Graphic file (type png)
 <use analisis-invariantes-ej.png>
-Package pdftex.def Info: analisis-invariantes-ej.png  used on input line 205.
+Package pdftex.def Info: analisis-invariantes-ej.png  used on input line 209.
 (pdftex.def)             Requested size: 172.5pt x 22.76553pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 208--211
+Underfull \hbox (badness 10000) in paragraph at lines 212--215
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 208--211
+Underfull \hbox (badness 10000) in paragraph at lines 212--215
 
  []
 
-[7 </home/tomsar/programacion-concurrente/final-concurrente/informe/t-invariante.png> </home/tomsar/programacion-concurrente/final-concurrente/informe/analisis-invariantes-ej.png>]
-<tiempos.png, id=130, 154.4169pt x 105.0324pt>
+[7pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.230     \end{center}
+                       \parpdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.230     \end{center}
+                       \par </home/tomsar/programacion-concurrente/final-concurrente/informe/t-invariante.png> </home/tomsar/programacion-concurrente/final-concurrente/informe/analisis-invariantes-ej.png>]
+<tiempos.png, id=144, 154.4169pt x 105.0324pt>
 File: tiempos.png Graphic file (type png)
 <use tiempos.png>
-Package pdftex.def Info: tiempos.png  used on input line 271.
+Package pdftex.def Info: tiempos.png  used on input line 274.
 (pdftex.def)             Requested size: 310.4979pt x 211.21016pt.
+ [8pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
 
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.277     S
+           e observa una clara linealidad a medida que aumenta la cantidad d...pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.277     S
+           e observa una clara linealidad a medida que aumenta la cantidad d...] [9pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 274.
-[8] [9 </home/tomsar/programacion-concurrente/final-concurrente/informe/tiempos.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 274.
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.279     \newpage
+                   </home/tomsar/programacion-concurrente/final-concurrente/informe/tiempos.png>] [10]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 294.
+ [11]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 294.
  (/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.aux
 LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 274.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 274.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 294.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 294.
 Package rerunfilecheck Info: File `Informe.out' has not changed.
-(rerunfilecheck)             Checksum: 1B886FBD09784A14B603929540F210C8;579.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 274.
+(rerunfilecheck)             Checksum: EDDDEFC290B8FE053D16E00B159066C1;749.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 294.
  ) 
 Here is how much of TeX's memory you used:
- 7572 strings out of 480478
- 116222 string characters out of 5905959
- 396680 words of memory out of 5000000
- 23410 multiletter control sequences out of 15000+600000
- 537758 words of font info for 42 fonts, out of 8000000 for 9000
+ 9242 strings out of 480478
+ 144878 string characters out of 5905959
+ 461498 words of memory out of 5000000
+ 24983 multiletter control sequences out of 15000+600000
+ 540344 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,9n,40p,292b,412s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.pdf (10 pages, 328612 bytes).
+ 38i,9n,58p,292b,424s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.pdf (12 pages, 343207 bytes).
 PDF statistics:
- 193 PDF objects out of 1000 (max. 8388607)
- 160 compressed objects within 2 object streams
- 37 named destinations out of 1000 (max. 500000)
- 116 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 221 PDF objects out of 1000 (max. 8388607)
+ 185 compressed objects within 2 object streams
+ 42 named destinations out of 1000 (max. 500000)
+ 16012 words of extra memory for PDF output out of 17280 (max. 10000000)
 

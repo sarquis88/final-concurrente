@@ -99,6 +99,15 @@ INPUT /usr/share/texmf-dist/tex/latex/ms/everysel.sty
 INPUT /usr/share/texmf-dist/tex/latex/ms/everysel.sty
 INPUT /usr/share/texmf-dist/tex/latex/tools/indentfirst.sty
 INPUT /usr/share/texmf-dist/tex/latex/tools/indentfirst.sty
+INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texmf-dist/tex/latex/microtype/microtype.sty
+INPUT /usr/share/texmf-dist/tex/latex/microtype/microtype.sty
+INPUT /usr/share/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+INPUT /usr/share/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+INPUT /usr/share/texmf-dist/tex/latex/microtype/microtype.cfg
+INPUT /usr/share/texmf-dist/tex/latex/microtype/microtype.cfg
+INPUT /usr/share/texmf-dist/tex/latex/microtype/microtype.cfg
 INPUT /usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 INPUT /usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 INPUT /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.aux
@@ -128,6 +137,8 @@ OUTPUT /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.p
 INPUT /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.out
 INPUT /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.out
 OUTPUT /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.out
+INPUT /usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+INPUT /usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 INPUT /usr/share/texmf-dist/fonts/map/fontname/texfonts.map
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
@@ -172,6 +183,7 @@ INPUT /home/tomsar/programacion-concurrente/final-concurrente/informe/analisis-i
 INPUT /home/tomsar/programacion-concurrente/final-concurrente/informe/tiempos.png
 INPUT /home/tomsar/programacion-concurrente/final-concurrente/informe/tiempos.png
 INPUT /home/tomsar/programacion-concurrente/final-concurrente/informe/tiempos.png
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.aux
 INPUT /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.out
 INPUT /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.out
@@ -186,4 +198,5 @@ INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb
+INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb

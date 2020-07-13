@@ -8,6 +8,8 @@
 \usepackage{hyperref}
 \usepackage{ragged2e}
 \usepackage{indentfirst}
+\usepackage{float}
+\usepackage{microtype}
 
 \title{Universidad Nacional de Córdoba\\Facultad de Ciencias Exactas, Físicas y Nturales}
 \author{Tomas Sarquis}
@@ -45,15 +47,16 @@
         por el alumno Tomas Sarquis, matrícula 39884977
         \vspace*{\fill}
     \end{titlingpage}
-    \tableofcontents \newpage
+    \tableofcontents 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \newpage
     \section{Introduccion}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Objetivo}
     El objetivo del siguiente trabajo práctico es que el estudiante sea capaz de diseñar,
     implementar y analizar un programa que realice una simulación mediante redes de Petri,
     conociendo sus propiedades y monitoreando que éstas se cumplan. \par
-    Algunos de los conocimientos aplicados en este trabajo son: \\
+    Algunos de los conocimientos aplicados en este trabajo son:
     \begin{itemize}
         \item Programación en \emph{Java}
         \item Concurrencia y manejo de hilos en \emph{Java}
@@ -67,11 +70,12 @@
     extender la misma a una red que modele un procesador con dos núcleos. Además, se debe
     implementar una política que resuelva los conflictos que se generan con las transiciones
     que alimentan los buffers de los núcleos.
-    \begin{figure}[h]
+    \begin{figure}[H]
         \includegraphics[width=0.9\textwidth, center]{rdp_enun.png}
         \caption{Red de Petri mono-núcleo}
-    \end{figure} \newpage
+    \end{figure} 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \newpage
     \section{Implementación y resultados}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Red de Petri}
@@ -81,7 +85,7 @@
         \item 16 plazas
         \item 15 transiciones
     \end{itemize}
-    \begin{figure}[h]
+    \begin{figure}[H]
         \includegraphics[width=0.9\textwidth, center]{rdp.png}
         \caption{Red de Petri doble núcleo}
     \end{figure}   
@@ -97,7 +101,7 @@
         \item CPUProcessing x 2
         \item CPUGarbageCollector x 2
     \end{itemize}
-    \textbf{ProcessGenerator:} Encargado de generar los procesos comúnes a ambos CPUs. 
+    \textbf{ProcessGenerator:} Encargado de generar los procesos comúnes a ambos CPUs.
     Dispara las transiciones 0, 1 y 8. \newline \newline
     \textbf{CPUPower:} Maneja el encendido/apagado de cada CPU. Dispara las transiciones
     2, 3 y 4 o 9, A y B. \newline \newline
@@ -137,7 +141,7 @@
         \item \textbf{XMLParser:} Parsea las características de la red de Petri desde un
         archivo \emph{xml}
     \end{itemize} \par
-    \begin{figure}[h]
+    \begin{figure}[H]
         \includegraphics[width=0.9\textwidth, center]{diagrama-clases.png}
         \caption{Diagrama de clases simplificado}
     \end{figure}
@@ -165,7 +169,7 @@
     Para el análisis, se usó la herramienta Pipe\footnote{\fnpipe}.
     Los resultados fueron los siguientes: \newline \newline
     \textbf{P-Invariantes:} \\
-    \begin{figure}[h]
+    \begin{figure}[H]
         \includegraphics[width=0.7\textwidth, center]{p-invariante.png}
         \caption{Análisis de P-Invariantes en Pipe}
     \end{figure}
@@ -184,7 +188,7 @@
     \textbf{T-Invariantes:} \newline \newline
     De la misma forma, podemos observar en la \emph{figura 5} las invariantes de transición
     que existen en nuestro sistema. \\
-    \begin{figure}[h]
+    \begin{figure}[H]
         \includegraphics[width=0.7\textwidth, center]{t-invariante.png}
         \caption{Análisis de T-Invariantes en Pipe}
     \end{figure}   
@@ -201,7 +205,7 @@
     \textbf{Resultados:} \newline \newline \par
     Al finalizar una ejecución, se loggea el estado de los análisis de invariantes. Un ejemplo
     se puede ver en la \emph{figura 6}. \par
-    \begin{figure}[h]
+    \begin{figure}[H]
         \includegraphics[width=0.5\textwidth, center]{analisis-invariantes-ej.png}
         \caption{Ejemplo del análisis de invariantes de una ejecución}
     \end{figure}
@@ -209,7 +213,7 @@
     equilibrada (mismo tiempo de procesamiento). Además, se realizaron 10 muestras por cada 
     cantidad de procesos. Los resultados, en la \emph{tabla 1}.\newline \newline
     \begin{center}
-        \begin{table}[h]
+        \begin{table}[H]
             \begin{tabular}{||c|c|c||} 
                 \hline
                 Procesos & Transiciones totales (\emph{avg}) & Transiciones restantes (\emph{avg}) \\ [0.5ex] 
@@ -238,10 +242,9 @@
         \item \emph{ArrivalRate} = 10 [ms]
         \item \emph{ServiceRate} = 15 [ms]
         \item \emph{StandByDelay} = 30 [ms]
-    \end{itemize}
-    Se observa una clara linealidad a medida que aumenta la cantidad de procesos. \par
+    \end{itemize} 
     \begin{center}
-        \begin{table}[h]
+        \begin{table}[H]
             \centering
             \begin{tabular}{||c|c||} 
                 \hline
@@ -267,8 +270,25 @@
             \caption{Resultados de análisis. Cada fila equivale a 5 muestras}
         \end{table}
     \end{center}
-    \begin{figure}[h]
+    \begin{figure}[H]
         \includegraphics[width=0.9\textwidth, center]{tiempos.png}
         \caption{Gráfica de cantidad de procesos vs tiempos}
     \end{figure}
+    Se observa una clara linealidad a medida que aumenta la cantidad de procesos.
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \newpage 
+    \section{Conclusión}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    En el presente trabajo práctico se llevó a cabo la implementación de un sistema que modela
+    dos procesadores trabajando concurrentemente, orquestados por una red de Petri. Esta última
+    nos da la ventaja de poder controlar que el sistema funcione correctamente, chequeando que
+    las propiedades de la red sean las correctas. Además, el uso de redes de Petri nos da la 
+    posibilidad de escalar nuestro sistema sin mayores problemas.
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \newpage 
+    \section{Apéndice}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \subsection{Repositorio del proyecto}
+    \url{https://github.com/sarquis88/final-concurrente}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
