@@ -65,7 +65,7 @@ public class Monitor {
         for(int i = 0; i < sensibilizadas.length; i++)
             listas[i] = sensibilizadas[i] * this.colas[i].getWaiting();
 
-        int aDespertar = this.politica.getTransicionADespertar(listas);
+        int aDespertar = this.politica.getTransicionPrioritaria(listas);
 
         if(aDespertar >= 0)
             this.colas[aDespertar].release();

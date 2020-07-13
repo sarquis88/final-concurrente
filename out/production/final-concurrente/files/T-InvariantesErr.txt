@@ -1,7 +1,7 @@
-Transiciones restantes:					5 6 C D 0 8 E 0 1 7 
+Transiciones restantes:					0 8 C E D 
 
-Cantidad de transiciones totales:		5554
-Cantidad de transiciones restantes:		10
+Cantidad de transiciones totales:		1508
+Cantidad de transiciones restantes:		5
 
-Primera posicion restante:				8
-Ultima posicion restante:				5326
+Primera posicion restante:				22
+Ultima posicion restante:				44

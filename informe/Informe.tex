@@ -137,7 +137,13 @@
         \item \textbf{XMLParser:} Parsea las características de la red de Petri desde un
         archivo \emph{xml}
     \end{itemize} \par
-    Para información más detallada acerca de las clases y sus funciones, se puede consultar
+    \begin{figure}[h]
+        \includegraphics[width=0.9\textwidth, center]{diagrama-clases.png}
+        \caption{Diagrama de clases simplificado}
+    \end{figure}
+    Varios métodos y/o atributos fueron omitidos para mayor claridad en el diagrama de clases
+    de la \emph{figura 3}. \par   
+    Para información más detallada acerca de las clases y  sus funciones, se puede consultar
     la documentación\footnote{\fndoc} hecha por \emph{Doxygen}\footnote{\fndoxy}.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Politica}
@@ -163,7 +169,7 @@
         \includegraphics[width=0.7\textwidth, center]{p-invariante.png}
         \caption{Análisis de P-Invariantes en Pipe}
     \end{figure}
-    La \emph{figura 3} nos enseña qué plazas están relacionadas mediante una invariante de
+    La \emph{figura 4} nos enseña qué plazas están relacionadas mediante una invariante de
     plazas. Esta relación indica que la suma de los \emph{tokens} en dichas plazas, en cada
     relación, sea siempre unitaria. Estos es: \newline \newline
     \begin{center}
@@ -176,7 +182,7 @@
     chequeo cada vez que se dispara una transición. El método de la clase que hace dicho
     chequeo se llama \emph{isPInvariantesCorrecto}. \newline \newline
     \textbf{T-Invariantes:} \newline \newline
-    De la misma forma, podemos observar en la \emph{figura 4} las invariantes de transición
+    De la misma forma, podemos observar en la \emph{figura 5} las invariantes de transición
     que existen en nuestro sistema. \\
     \begin{figure}[h]
         \includegraphics[width=0.7\textwidth, center]{t-invariante.png}
@@ -194,7 +200,7 @@
     archivo\footnote{\fninverr} de texto. \newline \newline
     \textbf{Resultados:} \newline \newline \par
     Al finalizar una ejecución, se loggea el estado de los análisis de invariantes. Un ejemplo
-    se puede ver en la \emph{figura 5}. \par
+    se puede ver en la \emph{figura 6}. \par
     \begin{figure}[h]
         \includegraphics[width=0.5\textwidth, center]{analisis-invariantes-ej.png}
         \caption{Ejemplo del análisis de invariantes de una ejecución}

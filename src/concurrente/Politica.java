@@ -18,7 +18,7 @@ public class Politica {
 	 * @return transicion sensibilizada con mayor prioridad (menor numero),
 	 * 			-1 si no hay ninguna transicion sensibilizada
 	 */
-	public int getTransicionADespertar(int[] transicionesListas) {
+	public int getTransicionPrioritaria(int[] transicionesListas) {
 		int transicionADespertar = -1;
 		int prioridadActual = 99;
 		for (int i = 0; i < transicionesListas.length; i++){

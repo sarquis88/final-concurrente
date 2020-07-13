@@ -1,16 +1,16 @@
 package concurrente;
 
-import java.util.LinkedList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ProcessBuffer {
 
-    private LinkedList<Process> buffer;
+    private ConcurrentLinkedQueue<Process> buffer;
 
     /**
      * Constructor de clase
      */
     public ProcessBuffer() {
-        this.buffer = new LinkedList<>();
+        this.buffer = new ConcurrentLinkedQueue<>();
     }
 
     /**
@@ -26,7 +26,7 @@ public class ProcessBuffer {
      * @return proceso procesado
      */
     public Process procesar() {
-        return this.buffer.pollFirst();
+        return this.buffer.poll();
     }
 
     /**

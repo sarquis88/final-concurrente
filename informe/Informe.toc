@@ -7,5 +7,5 @@
 \contentsline {subsection}{\numberline {2.2}Hilos}{3}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Clases en Java}{4}{subsection.2.3}%
 \contentsline {subsection}{\numberline {2.4}Politica}{5}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Invariantes}{5}{subsection.2.5}%
-\contentsline {subsection}{\numberline {2.6}Tiempos}{7}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.5}Invariantes}{6}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Tiempos}{8}{subsection.2.6}%

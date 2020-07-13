@@ -10,7 +10,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 1000;          // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 300;          // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
 
@@ -22,6 +22,7 @@ public class Main {
 
     private static final boolean GARBAGECOLLECTION = true;
     private static final boolean LOGGING = true;
+    private static final boolean REALBUFFER = true;
 
     private static final String invariantesFile = "./src/files/T-Invariantes.txt";
     private static final String petriNetFile = "./src/files/petri-net.xml";
@@ -87,13 +88,20 @@ public class Main {
                 timeStamp, alfa, beta);
         monitor.setRedDePetri(redDePetri);
 
+        ProcessBuffer[] buffers = {null, null};
+        if( REALBUFFER )
+        {
+            buffers[0] = new ProcessBuffer();
+            buffers[1] = new ProcessBuffer();
+        }
+
         CPUPower cpuPowerA = new CPUPower(monitor, "A");
-        cpuProcessingA = new CPUProcessing(cpuPowerA, "A");
+        cpuProcessingA = new CPUProcessing(cpuPowerA, "A", buffers[0]);
 
         CPUPower cpuPowerB = new CPUPower(monitor, "B");
-        cpuProcessingB = new CPUProcessing(cpuPowerB, "B");
+        cpuProcessingB = new CPUProcessing(cpuPowerB, "B", buffers[1]);
 
-        ProcessGenerator processGenerator = new ProcessGenerator(monitor, CANTIDADPROCESOS);
+        ProcessGenerator processGenerator = new ProcessGenerator(monitor, CANTIDADPROCESOS, buffers);
 
         threads[0] = processGenerator;
         threads[1] = cpuPowerA;
