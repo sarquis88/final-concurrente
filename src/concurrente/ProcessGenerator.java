@@ -26,7 +26,7 @@ public class ProcessGenerator extends Thread {
 
         this.secuencia[0] = 0;
         this.secuencia[1] = 1;
-        this.secuencia[2] = 8;
+        this.secuencia[2] = 7;
     }
 
     /**

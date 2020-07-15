@@ -25,7 +25,7 @@ public class CPUGarbageCollector extends Thread {
         int transicion;
 
         if(this.cpuId.equalsIgnoreCase("A"))
-            transicion = 7;
+            transicion = 13;
         else if(this.cpuId.equalsIgnoreCase("B"))
             transicion = 14;
         else

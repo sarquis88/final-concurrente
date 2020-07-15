@@ -23,9 +23,9 @@ public class CPUPower extends Thread {
             this.secuencia[2] = 4;
         }
         else if(cpuID.equalsIgnoreCase("B")) {
-            this.secuencia[0] = 9;
-            this.secuencia[1] = 10;
-            this.secuencia[2] = 11;
+            this.secuencia[0] = 8;
+            this.secuencia[1] = 9;
+            this.secuencia[2] = 10;
         }
     }
 

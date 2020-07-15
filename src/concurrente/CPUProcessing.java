@@ -32,8 +32,8 @@ public class CPUProcessing extends Thread {
             this.secuencia[1] = 6;
         }
         else if(cpuId.equalsIgnoreCase("B")) {
-            this.secuencia[0] = 12;
-            this.secuencia[1] = 13;
+            this.secuencia[0] = 11;
+            this.secuencia[1] = 12;
         }
     }
 

@@ -24,6 +24,13 @@ public class XMLParser {
     public XMLParser(String petriNetFilePath)
     {
         this.petriNetFilePath = petriNetFilePath;
+    }
+
+    /**
+     * Realizacion del parseo
+     */
+    public void setupParser()
+    {
         setMarcado();
         setIncidencia();
     }
@@ -141,13 +148,13 @@ public class XMLParser {
                     {
                         incidenciaBackward  [Integer.decode(source.replaceAll("P", ""))]
                                             [Integer.decode(target.replaceAll("T", ""))]
-                                            = Integer.decode(peso.replaceAll("Default,", ""));;
+                                            = Integer.decode(peso.replaceAll("Default,", ""));
                     }
                     else if( source.charAt(0) == 'T' )
                     {
                         incidenciaFrontward [Integer.decode(target.replaceAll("P", ""))]
                                             [Integer.decode(source.replaceAll("T", ""))]
-                                            = Integer.decode(peso.replaceAll("Default,", ""));;
+                                            = Integer.decode(peso.replaceAll("Default,", ""));
                     }
                     else
                         throw new Exception();

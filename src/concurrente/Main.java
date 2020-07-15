@@ -10,7 +10,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 1000;          // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 10000;          // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
 
@@ -20,12 +20,12 @@ public class Main {
 
     private static final long STANDBYDELAY = 30;            // tiempo promedio de encendido
 
-    private static final boolean GARBAGECOLLECTION = false;
+    private static final boolean GARBAGECOLLECTION = true;
     private static final boolean LOGGING = true;
     private static final boolean REALBUFFER = true;
 
     private static final String invariantesFile = "./src/files/T-Invariantes.txt";
-    private static final String petriNetFile = "./src/files/petri-net.xml";
+    private static String petriNetFile;
 
     private static long inicio;
     private static long fin;
@@ -42,28 +42,30 @@ public class Main {
 
         currentThread().setName("Main");
 
+        if( GARBAGECOLLECTION ) {
+            petriNetFile = "./src/files/petri-net.xml";
+            invariantes = new int[][]   {
+                    {   0,  7,  8,  9, 11, 12, 10 },
+                    {   0,  7, 14, 11, 12, -1, -1 },
+                    {   0,  1,  2,  3,  5,  6,  4 },
+                    {   0,  1, 13,  5,  6, -1, -1 }
+            };
+        }
+        else    {
+            petriNetFile = "./src/files/petri-net-nogarbagecollector.xml";
+            invariantes = new int[][]   {
+                    {   0,  7,  8, 9, 11, 12, 10 },
+                    {   0,  1,  2, 3,  5,  6,  4 }
+            };
+        }
+
         XMLParser xmlParser = new XMLParser(petriNetFile);
+        xmlParser.setupParser();
 
         int[] marcadoInicial = xmlParser.getMarcado();
         int[][] incidenciaBackward = xmlParser.getIncidenciaBackward();
         int[][] incidenciaFrontward = xmlParser.getIncidenciaFrontward();
         int[][] matrizInhibidora = xmlParser.getMatrizInhibidora();
-
-        if( GARBAGECOLLECTION ) {
-            invariantes = new int[][]   {
-                    {   0,  8,  9, 10, 12, 13, 11 },
-                    {   0,  8, 14, 12, 13, -1, -1 },
-                    {   0,  1,  2,  3,  5,  6,  4 },
-                    {   0,  1,  7,  5,  6, -1, -1 }
-            };
-        }
-        else    {
-            invariantes = new int[][]   {
-                    {   0,  8,  9, 10, 12, 13, 11 },
-                    {   0,  1,  2,  3,  5,  6,  4 }
-            };
-        }
-
 
         long[] timeStamp = new long[incidenciaBackward[0].length];
         long[] alfa = new long[incidenciaBackward[0].length];
@@ -76,12 +78,12 @@ public class Main {
 
         alfa[0] = ARRIVALRATE;
         alfa[6] = SERVICERATE * FACTORA;
-        alfa[13] = SERVICERATE * FACTORB;
+        alfa[12] = SERVICERATE * FACTORB;
         alfa[3] = STANDBYDELAY;
-        alfa[10] = STANDBYDELAY;
+        alfa[9] = STANDBYDELAY;
 
         // TRANSICIONES         0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14
-        int[] prioridades = {  10,11, 6, 8, 4, 2, 0,13,12, 7, 9, 5, 3, 1,14     };
+        int[] prioridades = {  10,11, 6, 8, 4, 2, 0,12, 7, 9, 5, 3, 1,13,14     };
 
         Monitor monitor = new Monitor(new Politica(prioridades));
         redDePetri = new RedDePetri(marcadoInicial, incidenciaFrontward, incidenciaBackward, matrizInhibidora, monitor,
