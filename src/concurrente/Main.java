@@ -10,7 +10,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 50;        // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 5000;        // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;      // tiempo promedio entre generacion de procesos
     private static final long SERVICERATE = 15;     // tiempo promedio de procesamiento
@@ -20,7 +20,7 @@ public class Main {
     private static final boolean LOGGING = true;
 
     private static final String invariantesFile = "./src/files/T-Invariantes.txt";
-    private static final String petriNetFile = "./src/files/petri-net-mono.xml";
+    private static String petriNetFile;
 
     private static long inicio;
     private static long fin;
@@ -35,6 +35,21 @@ public class Main {
     public static void main(String[] args) {
 
         currentThread().setName("Main");
+        if( GARBAGECOLLECTION )
+        {
+            petriNetFile = "./src/files/petri-net-mono.xml";
+            invariantes = new int[][]   {
+                    {   0,  1,  2,  3,  5,  6,  4 },
+                    {   0,  1,  7,  5,  6, -1, -1 }
+            };
+        }
+        else
+        {
+            petriNetFile = "./src/files/petri-net-mono-nogargabecollector.xml";
+            invariantes = new int[][]   {
+                    {   0,  1,  2,  3,  5,  6,  4 }
+            };
+        }
 
         XMLParser xmlParser = new XMLParser( petriNetFile );
         xmlParser.setupParser();
@@ -43,11 +58,6 @@ public class Main {
         int[][] incidenciaFrontward = xmlParser.getIncidenciaFrontward();
         int[][] incidenciaBackward = xmlParser.getIncidenciaBackward();
         int[][] matrizInhibidora = xmlParser.getMatrizInhibidora();
-
-        invariantes = new int[][]   {
-                {   0,  1,  2,  3,  5,  6,  4 },
-                {   0,  1,  7,  5,  6, -1, -1 }
-        };
 
         long[] timeStamp = new long[incidenciaBackward[0].length];
         long[] alfa = new long[incidenciaBackward[0].length];
