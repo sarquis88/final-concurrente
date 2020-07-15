@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1594662287 "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.tex" "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.pdf" "Informe" 1594662288
-  "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.aux" 1594662288 3697 0fdf563f10de02b4c9e1fff2f5ed2fec ""
-  "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.tex" 1594662287 15097 1ecb0f1928c7e03dbb5ecb3dc274898c ""
+["pdflatex"] 1594675897 "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.tex" "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.pdf" "Informe" 1594675898
+  "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.aux" 1594675898 3565 758e332667bfa126a24956016f43d815 ""
+  "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.tex" 1594675897 15101 39da6ebebe89d8b877d85e91a2703a89 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1591545468 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1591545468 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/share/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1591545468 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -98,10 +98,10 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1591545468 33301 a3134070eacafb10b1f371612ce2650d ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1594654738 4727905 1b81189106e2406a827797a37162c1c0 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1594654720 2514049 52ac766a3805ab6f2677a54d822ef690 ""
-  "Informe.aux" 1594662288 3697 0fdf563f10de02b4c9e1fff2f5ed2fec "pdflatex"
-  "Informe.out" 1594662288 749 edddefc290b8fe053d16e00b159066c1 "pdflatex"
-  "Informe.tex" 1594662287 15097 1ecb0f1928c7e03dbb5ecb3dc274898c ""
-  "Informe.toc" 1594662288 1002 bc90e5dfcb407a6518ca4c1ccc0eebd4 "pdflatex"
+  "Informe.aux" 1594675898 3565 758e332667bfa126a24956016f43d815 "pdflatex"
+  "Informe.out" 1594675898 675 59d93e9474a5f0a093c31e39de66c913 "pdflatex"
+  "Informe.tex" 1594675897 15101 39da6ebebe89d8b877d85e91a2703a89 ""
+  "Informe.toc" 1594675898 911 139d61c4fac67d4e6511092d5242a8f6 "pdflatex"
   "analisis-invariantes-ej.png" 1594423679 4286 3cc1cb9456ae80f8a38043e1d91e7e68 ""
   "diagrama-clases.png" 1594650989 61036 c06d354ec32598f13ce5e75860663c95 ""
   "p-invariante.png" 1594421762 5917 fe820a21075a88f4ffae07ed1dae6166 ""
@@ -110,10 +110,10 @@
   "t-invariante.png" 1594421928 5683 a43cf44b3260dc46a98f57343d2ff5c4 ""
   "tiempos.png" 1594513085 14899 811a311b007dbfbd6bdc6c3935541563 ""
   (generated)
-  "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.log"
   "Informe.aux"
+  "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.log"
+  "Informe.log"
   "/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.pdf"
   "Informe.toc"
   "Informe.pdf"
-  "Informe.log"
   "Informe.out"

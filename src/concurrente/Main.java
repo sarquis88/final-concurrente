@@ -10,7 +10,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 300;          // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 1000;          // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
 
@@ -20,7 +20,7 @@ public class Main {
 
     private static final long STANDBYDELAY = 30;            // tiempo promedio de encendido
 
-    private static final boolean GARBAGECOLLECTION = true;
+    private static final boolean GARBAGECOLLECTION = false;
     private static final boolean LOGGING = true;
     private static final boolean REALBUFFER = true;
 

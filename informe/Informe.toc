@@ -11,4 +11,3 @@
 \contentsline {subsection}{\numberline {2.6}Tiempos}{8}{subsection.2.6}%
 \contentsline {section}{\numberline {3}Conclusión}{10}{section.3}%
 \contentsline {section}{\numberline {4}Apéndice}{11}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Repositorio del proyecto}{11}{subsection.4.1}%
