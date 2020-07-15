@@ -15,9 +15,12 @@ public class Main {
     private static final long ARRIVALRATE = 10;      // tiempo promedio entre generacion de procesos
     private static final long SERVICERATE = 15;     // tiempo promedio de procesamiento
     private static final long STANDBYDELAY = 30;       // tiempo promedio de encendido
+
     private static final boolean GARBAGECOLLECTION = true;
     private static final boolean LOGGING = true;
+
     private static final String invariantesFile = "./src/files/T-Invariantes.txt";
+    private static final String petriNetFile = "./src/files/T-Invariantes.txt";
 
     private static long inicio;
     private static long fin;
