@@ -24,6 +24,13 @@ public class XMLParser {
     public XMLParser(String petriNetFilePath)
     {
         this.petriNetFilePath = petriNetFilePath;
+    }
+
+    /**
+     * Realización de parseo
+     */
+    public void setupParser()
+    {
         setMarcado();
         setIncidencia();
     }

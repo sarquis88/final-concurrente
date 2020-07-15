@@ -1,7 +1,4 @@
-package concurrente;/*
- * HILO ENCARGADO DE DISPARAR TRANSICIONES 5, 6, 14 Y 15
- * PROCESAMIENTO DEL concurrente.CPU
- */
+package concurrente;
 
 public class CPUProcessing extends Thread {
 
@@ -16,7 +13,7 @@ public class CPUProcessing extends Thread {
      * @param cpuPower controlador de encendido/apagado del cpu
      */
     public CPUProcessing(CPUPower cpuPower) {
-        setName("concurrente.CPUProcessing");
+        setName("CPUProcessing");
         this.monitor = cpuPower.getMonitor();
         this.procesados = 0;
 
@@ -26,12 +23,12 @@ public class CPUProcessing extends Thread {
 
     /**
      * Accion del hilo
-     * Mantener encendido el concurrente.CPU y procesar datos
+     * Mantener encendido el CPU y procesar datos
      */
     @Override
     public void run() {
         if( Main.isLoggingActivated() )
-            System.out.println(Colors.RED_BOLD + "INICIO concurrente.CPUProcessing " + Colors.RESET);
+            System.out.println(Colors.RED_BOLD + "INICIO CPUProcessing " + Colors.RESET);
 
         while(!currentThread().isInterrupted() && !CPU.isFinished()) {
 

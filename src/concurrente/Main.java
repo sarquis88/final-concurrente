@@ -20,7 +20,7 @@ public class Main {
     private static final boolean LOGGING = true;
 
     private static final String invariantesFile = "./src/files/T-Invariantes.txt";
-    private static final String petriNetFile = "./src/files/T-Invariantes.txt";
+    private static final String petriNetFile = "./src/files/petri-net-mono.xml";
 
     private static long inicio;
     private static long fin;
@@ -36,43 +36,13 @@ public class Main {
 
         currentThread().setName("Main");
 
-        //                          0, 1, 2, 3, 4, 5, 6, 7, 8
-        int[] marcadoInicial = {    1, 0, 1, 0, 0, 0, 0, 0, 1   };
+        XMLParser xmlParser = new XMLParser( petriNetFile );
+        xmlParser.setupParser();
 
-        int[][] incidenciaFrontward = { // TRANSICIONES     0, 1, 2, 3, 4, 5, 6, 7
-                                                        {   0, 1, 0, 0, 0, 0, 0, 0  }, // 0  P
-                                                        {   1, 0, 0, 0, 0, 0, 0, 0  }, // 1  L
-                                                        {   0, 0, 0, 0, 1, 0, 0, 0  }, // 2  A
-                                                        {   0, 0, 1, 0, 0, 0, 0, 0  }, // 3  Z
-                                                        {   0, 1, 1, 0, 0, 0, 0, 0  }, // 4  A
-                                                        {   0, 0, 0, 1, 0, 1, 0, 1  }, // 5  S
-                                                        {   0, 1, 0, 0, 0, 0, 0, 0  }, // 6
-                                                        {   0, 0, 0, 0, 0, 1, 0, 0  }, // 7
-                                                        {   0, 0, 0, 0, 0, 0, 1, 0,  }  // 8
-        };
-
-        int[][] incidenciaBackward = { // TRANSICIONES      0, 1, 2, 3, 4, 5, 6, 7
-                                                        {   1, 0, 0, 0, 0, 0, 0, 0,   }, // 0  P
-                                                        {   0, 1, 0, 0, 0, 0, 0, 0,   }, // 1  L
-                                                        {   0, 0, 1, 0, 0, 0, 0, 0,   }, // 2  A
-                                                        {   0, 0, 0, 1, 0, 0, 0, 0,   }, // 3  Z
-                                                        {   0, 0, 1, 1, 0, 0, 0, 1,   }, // 4  A
-                                                        {   0, 0, 0, 0, 1, 1, 0, 1,   }, // 5  S
-                                                        {   0, 0, 0, 0, 0, 1, 0, 0,   }, // 6
-                                                        {   0, 0, 0, 0, 0, 0, 1, 0,   }, // 7
-                                                        {   0, 0, 0, 0, 0, 1, 0, 0,   }, // 8
-        };
-
-        int[][] matrizInhibidora = { // PLAZAS              0, 1, 2, 3, 4, 5, 6, 7, 8
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 0  T
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 1  R
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 2  A
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 3  N
-                                                        {   0, 0, 0, 0, 0, 0, 1, 1, 0  }, // 4  S
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 5  I
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 6  C
-                                                        {   0, 0, 0, 0, 0, 0, 0, 0, 0  }, // 7  I
-        };
+        int[] marcadoInicial = xmlParser.getMarcado();
+        int[][] incidenciaFrontward = xmlParser.getIncidenciaFrontward();
+        int[][] incidenciaBackward = xmlParser.getIncidenciaBackward();
+        int[][] matrizInhibidora = xmlParser.getMatrizInhibidora();
 
         invariantes = new int[][]   {
                 {   0,  1,  2,  3,  5,  6,  4 },

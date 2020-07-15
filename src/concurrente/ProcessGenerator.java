@@ -1,7 +1,4 @@
-package concurrente;/*
-  HILO ENCARGADO DE DISPARAR TRANSICIONES 0, 1 Y 8
-  GENERADOR DE PROCESOS
- */
+package concurrente;
 
 public class ProcessGenerator extends Thread {
 
@@ -17,7 +14,7 @@ public class ProcessGenerator extends Thread {
      * @param cantidadAGenerar cantidad de procesos a generar
      */
     public ProcessGenerator(Monitor monitor, int cantidadAGenerar) {
-        setName("concurrente.ProcessGenerator");
+        setName("ProcessGenerator");
         this.monitor = monitor;
         this.cantidadAGenerar = cantidadAGenerar;
         this.generados = 1;
@@ -32,7 +29,7 @@ public class ProcessGenerator extends Thread {
     @Override
     public void run() {
         if( Main.isLoggingActivated() )
-            System.out.println(Colors.RED_BOLD + "INICIO concurrente.ProcessGenerator" + Colors.RESET);
+            System.out.println(Colors.RED_BOLD + "INICIO ProcessGenerator" + Colors.RESET);
         Main.setInicio();
 
         while(!currentThread().isInterrupted() && this.generados <= this.cantidadAGenerar) {
@@ -51,6 +48,6 @@ public class ProcessGenerator extends Thread {
                 System.out.println("NUEVO PROCESO NUMERO " + this.generados++);
         }
         if( Main.isLoggingActivated() )
-            System.out.println(Colors.RED_BOLD + "FIN   concurrente.ProcessGenerator" + Colors.RESET);
+            System.out.println(Colors.RED_BOLD + "FIN   ProcessGenerator" + Colors.RESET);
     }
 }
