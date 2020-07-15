@@ -1,3 +1,5 @@
+package concurrente;
+
 public class Politica {
 
 	int[] prioridades;

@@ -1,3 +1,5 @@
+package concurrente;
+
 import java.io.*;
 
 public class InvarianteTest {

@@ -1,4 +1,4 @@
-/*
+package concurrente;/*
  * HILO ENCARGADO DE DISPARAR LAS TRANSICIONES 7 Y 14
  * DICHAS TRANSICIONES FUNCIONAN COMO GARBAGECOLLECTOR
  */
@@ -24,12 +24,12 @@ public class CPUGarbageCollector extends Thread {
     @Override
     public void run() {
         if( Main.isLoggingActivated() )
-            System.out.println(Colors.RED_BOLD + "INICIO CPUGarbageCollector " + Colors.RESET);
+            System.out.println(Colors.RED_BOLD + "INICIO concurrente.CPUGarbageCollector " + Colors.RESET);
 
         while (!currentThread().isInterrupted() && !CPU.isFinished()) {
             monitor.disparar(transicion);    // limpiar basura
         }
         if( Main.isLoggingActivated() )
-            System.out.println(Colors.RED_BOLD + "FIN    CPUGarbageCollector " + Colors.RESET);
+            System.out.println(Colors.RED_BOLD + "FIN    concurrente.CPUGarbageCollector " + Colors.RESET);
     }
 }

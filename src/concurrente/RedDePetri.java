@@ -1,3 +1,5 @@
+package concurrente;
+
 public class RedDePetri {
 
     private int[] marcaActual;

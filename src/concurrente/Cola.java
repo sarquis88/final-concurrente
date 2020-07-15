@@ -1,3 +1,5 @@
+package concurrente;
+
 public class Cola {
 
 	private int waiting;

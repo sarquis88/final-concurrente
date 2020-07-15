@@ -1,3 +1,5 @@
+package concurrente;
+
 import java.util.LinkedList;
 
 public class ProcessBuffer {
@@ -12,8 +14,8 @@ public class ProcessBuffer {
     }
 
     /**
-     * Agregar nuevo Process al buffer
-     * @param Process objeto Process a añadir
+     * Agregar nuevo concurrente.Process al buffer
+     * @param Process objeto concurrente.Process a añadir
      */
     public void addProceso(Process Process) {
         this.buffer.add(Process);

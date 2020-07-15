@@ -1,3 +1,5 @@
+package concurrente;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -15,7 +17,7 @@ public class Main {
     private static final long STANDBYDELAY = 30;       // tiempo promedio de encendido
     private static final boolean GARBAGECOLLECTION = true;
     private static final boolean LOGGING = true;
-    private static final String invariantesFile = "./src/T-Invariantes.txt";
+    private static final String invariantesFile = "./src/files/T-Invariantes.txt";
 
     private static long inicio;
     private static long fin;

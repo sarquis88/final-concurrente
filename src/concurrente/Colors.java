@@ -1,3 +1,5 @@
+package concurrente;
+
 public class Colors {
 
     public static final String RESET = "\033[0m";  // Text Reset
