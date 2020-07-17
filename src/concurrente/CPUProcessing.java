@@ -4,37 +4,29 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class CPUProcessing extends Thread {
 
-    private Monitor monitor;
-    private ProcessBuffer buffer;
-    private String cpuId;
-
+    private final Monitor monitor;
+    private final ProcessBuffer buffer;
+    private final String cpuId;
     private int procesados;
-    private final int[] secuencia = {99, 99};
-
+    private final int[] secuencia;
     private static int procesadosGlobal = 0;
-    private static ReentrantLock mutex = new ReentrantLock();
+    private static final ReentrantLock mutex = new ReentrantLock();
 
     /**
      * Constructor de clase
      * @param cpuPower controlador de encendido/apagado del cpu
      * @param cpuId id del cpu
      * @param buffer buffer que contiene los procesos
+     * @param secuencia secuencia de disparos
      */
-    public CPUProcessing(CPUPower cpuPower, String cpuId, ProcessBuffer buffer) {
+    public CPUProcessing(CPUPower cpuPower, String cpuId, ProcessBuffer buffer, int[] secuencia)
+    {
         setName("CPUProcessing " + cpuId);
         this.monitor = cpuPower.getMonitor();
         this.cpuId = cpuId;
         this.procesados = 0;
         this.buffer = buffer;
-
-        if(cpuId.equalsIgnoreCase("A")) {
-            this.secuencia[0] = 5;
-            this.secuencia[1] = 6;
-        }
-        else if(cpuId.equalsIgnoreCase("B")) {
-            this.secuencia[0] = 11;
-            this.secuencia[1] = 12;
-        }
+        this.secuencia = secuencia;
     }
 
     /**

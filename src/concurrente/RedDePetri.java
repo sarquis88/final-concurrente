@@ -2,19 +2,19 @@ package concurrente;
 
 public class RedDePetri {
 
-    private int[] marcaActual;
-    private int[] vectorDesInhibidor;
-    private int[] transiciones;
-    private int[][] incidenciaFront;
-    private int[][] incidenciaBack;
-    private int[][] matrizInhibidora;
+    private final int[] marcaActual;
+    private final int[] vectorDesInhibidor;
+    private final int[] transiciones;
+    private final int[][] incidenciaFront;
+    private final int[][] incidenciaBack;
+    private final int[][] matrizInhibidora;
     private boolean isPInvariantesCorrecto;
-    private long[] timeStamp;
-    private long[] alfa;
-    private long[] beta;
-
+    private final boolean dualCore;
+    private final long[] timeStamp;
+    private final long[] alfa;
+    private final long[] beta;
     private String ordenTransicionesDisparadas;
-    private Monitor monitor;
+    private final Monitor monitor;
 
     /**
      * Constructor de clase
@@ -28,7 +28,7 @@ public class RedDePetri {
      */
     public RedDePetri(int[] marcaInicial, int[][] incidenciaFront, int[][] incidenciaBack,
                       int[][] matrizInhibidora, Monitor monitor, long[] timeStamp, long[] alfa,
-                      long[] beta) {
+                      long[] beta, boolean dualCore) {
 
         this.monitor = monitor;
         this.marcaActual = marcaInicial;
@@ -42,6 +42,7 @@ public class RedDePetri {
         this.timeStamp = timeStamp;
         this.alfa = alfa;
         this.beta = beta;
+        this.dualCore = dualCore;
 
         actualizarVectorDesInhibidor();
         actualizarSensibilizadas();
@@ -169,11 +170,20 @@ public class RedDePetri {
      * @return true en caso de estado correcto, de lo contrario false
      */
     private boolean isPInvariantesCorrecto() {
-        return (this.marcaActual[0] + this.marcaActual[1] == 1 &&
-                this.marcaActual[2] + this.marcaActual[3] + this.marcaActual[5] == 1 &&
-                this.marcaActual[7] + this.marcaActual[8] == 1 &&
-                this.marcaActual[9] + this.marcaActual[10] + this.marcaActual[12] == 1 &&
-                this.marcaActual[14] + this.marcaActual[15] == 1);
+        if( this.dualCore )
+        {
+            return (this.marcaActual[0] + this.marcaActual[1] == 1 &&
+                    this.marcaActual[2] + this.marcaActual[3] + this.marcaActual[5] == 1 &&
+                    this.marcaActual[7] + this.marcaActual[8] == 1 &&
+                    this.marcaActual[9] + this.marcaActual[10] + this.marcaActual[12] == 1 &&
+                    this.marcaActual[14] + this.marcaActual[15] == 1);
+        }
+        else
+        {
+            return (this.marcaActual[0] + this.marcaActual[1] == 1 &&
+                    this.marcaActual[2] + this.marcaActual[3] + this.marcaActual[5] == 1 &&
+                    this.marcaActual[7] + this.marcaActual[8] == 1);
+        }
     }
 
     /**

@@ -201,17 +201,22 @@
     ir eliminando las coincidencias (o \emph{matches}) entre el \emph{log} de transiciones y
     las invariantes. Si el sistema funciona correctamente, deben quedar eliminadas todas las
     transiciones. De lo contrario, existen errores, que son escritos en otro 
-    archivo\footnote{\fninverr} de texto. \newline \newline
-    \textbf{Resultados:} \newline \newline \par
+    archivo\footnote{\fninverr} de texto. 
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \newpage
+    \section{Resultados}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \subsection{Análisis de invariantes}
     Al finalizar una ejecución, se loggea el estado de los análisis de invariantes. Un ejemplo
     se puede ver en la \emph{figura 6}. \par
     \begin{figure}[H]
         \includegraphics[width=0.5\textwidth, center]{analisis-invariantes-ej.png}
         \caption{Ejemplo del análisis de invariantes de una ejecución}
     \end{figure}
-    Se hicieron pruebas\footnote{\fnpruebas} con 100, 1000 y 2000 procesos y con ambos procesos trabajando en forma
-    equilibrada (mismo tiempo de procesamiento). Además, se realizaron 10 muestras por cada 
-    cantidad de procesos. Los resultados, en la \emph{tabla 1}.\newline \newline
+    Se hicieron pruebas\footnote{\fnpruebas} con 100, 1000 y 2000 procesos y con ambos 
+    procesadores trabajando en forma equilibrada (mismo tiempo de procesamiento). 
+    Además, se realizaron 10 muestras por cada cantidad de procesos. Los resultados, 
+    en la \emph{tabla 1}.\newline
     \begin{center}
         \begin{table}[H]
             \begin{tabular}{||c|c|c||} 
@@ -228,9 +233,10 @@
             \caption{Resultados de análisis. Cada fila equivale a 10 muestras}
         \end{table}
     \end{center} \par
-    Como se dijo antes, para que los chequeos sean positivos, la cantidad de transiciones restantes
-    debe ser nula. \par
-    Claramente, los chequeos de t-invariantes son negativos, siendo esto, obviamente, no deseado. \\
+    No hubo mayores problemas con el análisis de P-Invariantes. \newline \par
+    Respecto a los T-Invariantes, para que los chequeos sean positivos, la cantidad de transiciones 
+    restantes debe ser nula. \par
+    Claramente, los chequeos de t-invariantes son negativos, siendo esto, obviamente, no deseado. \par
     Sin embargo, la cantidad de transiciones restantes (que no cumplen con una invariante) es 
     relativamente la misma para todos los casos. Esto quiere decir que la cantidad de transiciones
     restantes no dependen de la cantidad de transiciones totales.

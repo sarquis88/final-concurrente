@@ -4,7 +4,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ProcessBuffer {
 
-    private ConcurrentLinkedQueue<Process> buffer;
+    private final ConcurrentLinkedQueue<Process> buffer;
 
     /**
      * Constructor de clase
@@ -23,10 +23,9 @@ public class ProcessBuffer {
 
     /**
      * Procesar el ultimo elemento de la lista
-     * @return proceso procesado
      */
-    public Process procesar() {
-        return this.buffer.poll();
+    public void procesar() {
+        this.buffer.poll();
     }
 
     /**

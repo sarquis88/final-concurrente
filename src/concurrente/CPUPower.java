@@ -2,31 +2,22 @@ package concurrente;
 
 public class CPUPower extends Thread {
 
-    private Monitor monitor;
-    private String cpuId;
-
-    private int[] secuencia = {99, 99, 99};
+    private final Monitor monitor;
+    private final String cpuId;
+    private final int[] secuencia;
 
     /**
      * Constructor de clase
      * @param monitor monitor de la red
      * @param cpuID id del cpu
+     * @param secuencia secuencia de disparos
      */
-    public CPUPower(Monitor monitor, String cpuID) {
+    public CPUPower(Monitor monitor, String cpuID, int[] secuencia)
+    {
         setName("CPUPower " + cpuID);
         this.monitor = monitor;
         this.cpuId = cpuID;
-
-        if(cpuID.equalsIgnoreCase("A")) {
-            this.secuencia[0] = 2;
-            this.secuencia[1] = 3;
-            this.secuencia[2] = 4;
-        }
-        else if(cpuID.equalsIgnoreCase("B")) {
-            this.secuencia[0] = 8;
-            this.secuencia[1] = 9;
-            this.secuencia[2] = 10;
-        }
+        this.secuencia = secuencia;
     }
 
     /**

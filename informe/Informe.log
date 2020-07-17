@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.13)  15 JUL 2020 13:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.13)  15 JUL 2020 20:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -361,7 +361,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-<rdp_enun.png, id=85, 117.0774pt x 70.3428pt>
+<rdp_enun.png, id=95, 117.0774pt x 70.3428pt>
 File: rdp_enun.png Graphic file (type png)
 <use rdp_enun.png>
 Package pdftex.def Info: rdp_enun.png  used on input line 74.
@@ -372,7 +372,7 @@ Package pdftex.def Info: rdp_enun.png  used on input line 74.
                                                   \fi \fi 
 l.78     \newpage
                   </home/tomsar/programacion-concurrente/final-concurrente/informe/rdp_enun.png>]
-<rdp.png, id=98, 211.2693pt x 148.6353pt>
+<rdp.png, id=108, 211.2693pt x 148.6353pt>
 File: rdp.png Graphic file (type png)
 <use rdp.png>
 Package pdftex.def Info: rdp.png  used on input line 89.
@@ -403,7 +403,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--113
                                                   \fi \fi 
 l.113     \subsection
                      {Clases en Java} </home/tomsar/programacion-concurrente/final-concurrente/informe/rdp.png>] [4]
-<diagrama-clases.png, id=108, 192.72pt x 105.996pt>
+<diagrama-clases.png, id=118, 192.72pt x 105.996pt>
 File: diagrama-clases.png Graphic file (type png)
 <use diagrama-clases.png>
 Package pdftex.def Info: diagrama-clases.png  used on input line 145.
@@ -414,7 +414,7 @@ Package pdftex.def Info: diagrama-clases.png  used on input line 145.
                                                   \fi \fi 
 l.168     y las \textbf{p-invariantes}. \par
                                              </home/tomsar/programacion-concurrente/final-concurrente/informe/diagrama-clases.png>]
-<p-invariante.png, id=121, 109.3686pt x 32.0397pt>
+<p-invariante.png, id=131, 109.3686pt x 32.0397pt>
 File: p-invariante.png Graphic file (type png)
 <use p-invariante.png>
 Package pdftex.def Info: p-invariante.png  used on input line 173.
@@ -439,7 +439,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 176--179
 
  []
 
-<t-invariante.png, id=122, 94.9146pt x 27.4626pt>
+<t-invariante.png, id=132, 94.9146pt x 27.4626pt>
 File: t-invariante.png Graphic file (type png)
 <use t-invariante.png>
 Package pdftex.def Info: t-invariante.png  used on input line 192.
@@ -464,98 +464,84 @@ Underfull \hbox (badness 10000) in paragraph at lines 185--194
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.195     A
-           nteriormente se mencionó la clase \emph{InvarianteTest}. Esta cl... </home/tomsar/programacion-concurrente/final-concurrente/informe/p-invariante.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 198--205
+           nteriormente se mencionó la clase \emph{InvarianteTest}. Esta cl... </home/tomsar/programacion-concurrente/final-concurrente/informe/p-invariante.png>] [7pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 198--205
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 198--205
-
- []
-
-<analisis-invariantes-ej.png, id=133, 82.1469pt x 10.8405pt>
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.206     \newpage
+                   </home/tomsar/programacion-concurrente/final-concurrente/informe/t-invariante.png>]
+<analisis-invariantes-ej.png, id=150, 82.1469pt x 10.8405pt>
 File: analisis-invariantes-ej.png Graphic file (type png)
 <use analisis-invariantes-ej.png>
-Package pdftex.def Info: analisis-invariantes-ej.png  used on input line 209.
+Package pdftex.def Info: analisis-invariantes-ej.png  used on input line 213.
 (pdftex.def)             Requested size: 172.5pt x 22.76553pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 212--215
+Underfull \hbox (badness 10000) in paragraph at lines 216--220
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 212--215
+Underfull \hbox (badness 10000) in paragraph at lines 236--236
 
  []
 
-[7pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
+[8pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.230     \end{center}
-                       \parpdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
+l.251     \end{itemize}
+                       pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.230     \end{center}
-                       \par </home/tomsar/programacion-concurrente/final-concurrente/informe/t-invariante.png> </home/tomsar/programacion-concurrente/final-concurrente/informe/analisis-invariantes-ej.png>]
-<tiempos.png, id=144, 154.4169pt x 105.0324pt>
+l.251     \end{itemize}
+                        </home/tomsar/programacion-concurrente/final-concurrente/informe/analisis-invariantes-ej.png>]
+<tiempos.png, id=160, 154.4169pt x 105.0324pt>
 File: tiempos.png Graphic file (type png)
 <use tiempos.png>
-Package pdftex.def Info: tiempos.png  used on input line 274.
+Package pdftex.def Info: tiempos.png  used on input line 280.
 (pdftex.def)             Requested size: 310.4979pt x 211.21016pt.
- [8pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
+ [9pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.277     S
-           e observa una clara linealidad a medida que aumenta la cantidad d...pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
+l.285     \newpage
+                  pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.277     S
-           e observa una clara linealidad a medida que aumenta la cantidad d...] [9pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.279     \newpage
+l.285     \newpage
                    </home/tomsar/programacion-concurrente/final-concurrente/informe/tiempos.png>] [10]
-Underfull \hbox (badness 10000) in paragraph at lines 291--294
+Underfull \hbox (badness 10000) in paragraph at lines 297--300
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 299.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 305.
 [11]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 299.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 305.
  (/home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.aux
 LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 299.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 299.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 305.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 305.
 Package rerunfilecheck Info: File `Informe.out' has not changed.
-(rerunfilecheck)             Checksum: CDC35B8679F797C6C32D7F9370C940D5;750.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 299.
+(rerunfilecheck)             Checksum: 10D2CE4BEB828B5DAB85E28E3CBB2281;872.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 305.
  ) 
 Here is how much of TeX's memory you used:
- 9242 strings out of 480478
- 144878 string characters out of 5905959
- 461498 words of memory out of 5000000
- 24983 multiletter control sequences out of 15000+600000
- 540344 words of font info for 78 fonts, out of 8000000 for 9000
+ 9244 strings out of 480478
+ 144912 string characters out of 5905959
+ 459501 words of memory out of 5000000
+ 24985 multiletter control sequences out of 15000+600000
+ 540293 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,9n,58p,292b,424s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.pdf (12 pages, 343459 bytes).
+Output written on /home/tomsar/programacion-concurrente/final-concurrente/informe/Informe.pdf (12 pages, 344595 bytes).
 PDF statistics:
- 221 PDF objects out of 1000 (max. 8388607)
- 185 compressed objects within 2 object streams
- 42 named destinations out of 1000 (max. 500000)
- 16012 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 232 PDF objects out of 1000 (max. 8388607)
+ 196 compressed objects within 2 object streams
+ 44 named destinations out of 1000 (max. 500000)
+ 16028 words of extra memory for PDF output out of 17280 (max. 10000000)
 

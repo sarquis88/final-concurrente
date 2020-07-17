@@ -4,29 +4,28 @@ import java.util.Random;
 
 public class ProcessGenerator extends Thread {
 
-    private Monitor monitor;
-    private ProcessBuffer[] buffers;
-
-    private int cantidadAGenerar;
+    private final Monitor monitor;
+    private final ProcessBuffer[] buffers;
+    private final int cantidadAGenerar;
     private int generados;
-    private int[] secuencia = {99, 99, 99};
+    private final int[] secuencia;
 
     /**
      * Constructor de clase
      * @param monitor monitor del productor
      * @param cantidadAGenerar cantidad de procesos a generar
      * @param buffers lista de buffers
+     * @param secuencia secuencia de disparos
      */
-    public ProcessGenerator(Monitor monitor, int cantidadAGenerar, ProcessBuffer[] buffers) {
+    public ProcessGenerator(Monitor monitor, int cantidadAGenerar, ProcessBuffer[] buffers,
+                            int[] secuencia)
+    {
         setName("ProcessGenerator");
         this.monitor = monitor;
         this.cantidadAGenerar = cantidadAGenerar;
         this.generados = 1;
         this.buffers = buffers;
-
-        this.secuencia[0] = 0;
-        this.secuencia[1] = 1;
-        this.secuencia[2] = 7;
+        this.secuencia = secuencia;
     }
 
     /**
@@ -49,17 +48,7 @@ public class ProcessGenerator extends Thread {
             String id;
             ProcessBuffer buffer;
 
-            if ( buffers[0].getSize() < buffers[1].getSize() )
-                politica = 0;
-            else if( buffers[0].getSize() > buffers[1].getSize() )
-                politica = 1;
-            else
-            {
-                Random ran = new Random();
-                politica = ran.nextInt(2);
-            }
-
-            if( politica == 0 )
+            if( this.secuencia.length == 2)
             {
                 transicion = secuencia[1];
                 id = "A";
@@ -67,9 +56,28 @@ public class ProcessGenerator extends Thread {
             }
             else
             {
-                transicion = secuencia[2];
-                id = "B";
-                buffer = buffers[1];
+                if ( buffers[0].getSize() < buffers[1].getSize() )
+                    politica = 0;
+                else if( buffers[0].getSize() > buffers[1].getSize() )
+                    politica = 1;
+                else
+                {
+                    Random ran = new Random();
+                    politica = ran.nextInt(2);
+                }
+
+                if( politica == 0 )
+                {
+                    transicion = secuencia[1];
+                    id = "A";
+                    buffer = buffers[0];
+                }
+                else
+                {
+                    transicion = secuencia[2];
+                    id = "B";
+                    buffer = buffers[1];
+                }
             }
 
             try {

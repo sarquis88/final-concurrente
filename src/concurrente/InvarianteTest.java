@@ -4,8 +4,8 @@ import java.io.*;
 
 public class InvarianteTest {
 
-    private String transicionesFile;
-    private String invariantesLog;
+    private final String transicionesFile;
+    private final String invariantesLog;
 
     /**
      * Constructor de clase

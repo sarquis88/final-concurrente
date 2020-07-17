@@ -4,10 +4,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Monitor {
 
-    private ReentrantLock mutex;
+    private final ReentrantLock mutex;
     private Cola[] colas;
     private RedDePetri redDePetri;
-    private Politica politica;
+    private final Politica politica;
 
     /**
      * Constructor de clase

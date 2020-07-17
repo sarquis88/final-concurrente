@@ -8,10 +8,11 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.Objects;
 
 public class XMLParser {
 
-    private String petriNetFilePath;
+    private final String petriNetFilePath;
     private int[] marcado;
     private int[][] incidenciaFrontward;
     private int[][] incidenciaBackward;
@@ -138,7 +139,7 @@ public class XMLParser {
                     peso = peso.replaceAll("\n", "");
                     peso = peso.replaceAll(" ", "");
                     peso = peso.replaceAll("Default,", "");
-                    if( getArcType(eElement).equalsIgnoreCase("inhibitor"))
+                    if( Objects.requireNonNull(getArcType(eElement)).equalsIgnoreCase("inhibitor"))
                     {
                         matrizInhibidora    [Integer.decode(target.replaceAll("T", ""))]
                                             [Integer.decode(source.replaceAll("P", ""))]
