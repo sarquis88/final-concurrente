@@ -11,7 +11,7 @@
 \usepackage{float}
 \usepackage{microtype}
 
-\title{Universidad Nacional de Córdoba\\Facultad de Ciencias Exactas, Físicas y Naturales}
+\title{Universidad Nacional de Córdoba\\Facultad de Ciencias Exactas, Físicas y Nturales}
 \author{Tomas Sarquis}
 \date{Julio 2020}
 
@@ -50,12 +50,12 @@
     \tableofcontents 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \newpage
-    \section{Introducción}
+    \section{Introduccion}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Objetivo}
     El objetivo del siguiente trabajo práctico es que el estudiante sea capaz de diseñar,
     implementar y analizar un programa que realice una simulación mediante redes de Petri,
-    conociendo sus propiedades y monitorizando que éstas se cumplan. \par
+    conociendo sus propiedades y monitoreando que éstas se cumplan. \par
     Algunos de los conocimientos aplicados en este trabajo son:
     \begin{itemize}
         \item Programación en \emph{Java}
@@ -101,7 +101,7 @@
         \item CPUProcessing x 2
         \item CPUGarbageCollector x 2
     \end{itemize}
-    \textbf{ProcessGenerator:} Encargado de generar los procesos comunes a ambos CPUs.
+    \textbf{ProcessGenerator:} Encargado de generar los procesos comúnes a ambos CPUs.
     Dispara las transiciones 0, 1 y 8. \newline \newline
     \textbf{CPUPower:} Maneja el encendido/apagado de cada CPU. Dispara las transiciones
     2, 3 y 4 o 9, A y B. \newline \newline
@@ -111,7 +111,7 @@
     "basura". \newline
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Clases en Java}
-    El programa encargado de simular el sistema se desarrolla en el lenguaje de programación
+    El programa encargado de simular el sistema se desarrola en el lenguaje de programación
     \emph{Java}. \par
     A continuación, se describen las clases, implementadas en dicho lenguaje,
     que modelan el programa:
@@ -130,7 +130,7 @@
         \item \textbf{Main:} Clase principal y ejecutable
         \item \textbf{Monitor:} Encargada de administrar los tiempos y el uso de la red de 
         Petri
-        \item \textbf{Politica:} A la hora de despertar un hilo, la política es quien decide
+        \item \textbf{Politica:} A la hora de despertar un hilo, la politica es quien decide
         a cuál hacerlo
         \item \textbf{ProcessBuffer:} Modelo de un buffer en el cuál se depositan Process
         \item \textbf{ProcessGenerator:} Modelo del hilo ProcessGenerator anteriormente
@@ -150,15 +150,15 @@
     Para información más detallada acerca de las clases y  sus funciones, se puede consultar
     la documentación\footnote{\fndoc} hecha por \emph{Doxygen}\footnote{\fndoxy}.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \subsection{Política}
-    La clase \emph{política} se encarga de facilitar la elección de a qué hilo despertar en 
+    \subsection{Politica}
+    La clase \emph{politica} se encarga de facilitar la elección de a qué hilo despertar en 
     el caso en que haya más de uno durmiendo. \par
     La forma de hacer esto es mediante prioridades: se le asigna una prioridad \textbf{distinta}
     a cada una de las transiciones de la red. \par
-    Cuando queramos hacer uso de la política, simplemente le indicamos cuáles son las
+    Cuando querramos hacer uso de la politica, simplemente le indicamos cuáles son las
     transiciones listas para dispararse y ella nos indicará cuál de esas transiciones es la
     que tiene la mayor prioridad. \par
-    Además, la clase \emph{política} cuenta con un método capaz de intercambiar prioridades
+    Además, la clase \emph{politica} cuenta con un método capaz de intercambiar prioridades
     entre dos transiciones. Esto podría ser útil, en el caso en que se quiera depositar más
     tareas en un CPU que en el otro.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
