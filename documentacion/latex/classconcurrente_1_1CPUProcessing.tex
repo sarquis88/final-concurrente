@@ -1,0 +1,60 @@
+\hypertarget{classconcurrente_1_1CPUProcessing}{}\doxysection{concurrente.\+C\+P\+U\+Processing Class Reference}
+\label{classconcurrente_1_1CPUProcessing}\index{concurrente.CPUProcessing@{concurrente.CPUProcessing}}
+Inheritance diagram for concurrente.\+C\+P\+U\+Processing\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classconcurrente_1_1CPUProcessing}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classconcurrente_1_1CPUProcessing_afd70264035a0bf57b7e4e32ea1ac2709}{C\+P\+U\+Processing}} (\mbox{\hyperlink{classconcurrente_1_1CPUPower}{C\+P\+U\+Power}} cpu\+Power, String cpu\+Id, \mbox{\hyperlink{classconcurrente_1_1ProcessBuffer}{Process\+Buffer}} buffer, int\mbox{[}$\,$\mbox{]} secuencia)
+\item 
+void \mbox{\hyperlink{classconcurrente_1_1CPUProcessing_a8a4ae5182a9033d366ef0f76f2bede7a}{run}} ()
+\item 
+int \mbox{\hyperlink{classconcurrente_1_1CPUProcessing_a76ecdf46d8a233b6b02a057c78f6bb4d}{get\+Procesados}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classconcurrente_1_1CPUProcessing_afd70264035a0bf57b7e4e32ea1ac2709}\label{classconcurrente_1_1CPUProcessing_afd70264035a0bf57b7e4e32ea1ac2709}} 
+\index{concurrente.CPUProcessing@{concurrente.CPUProcessing}!CPUProcessing@{CPUProcessing}}
+\index{CPUProcessing@{CPUProcessing}!concurrente.CPUProcessing@{concurrente.CPUProcessing}}
+\doxysubsubsection{\texorpdfstring{CPUProcessing()}{CPUProcessing()}}
+{\footnotesize\ttfamily concurrente.\+C\+P\+U\+Processing.\+C\+P\+U\+Processing (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classconcurrente_1_1CPUPower}{C\+P\+U\+Power}}}]{cpu\+Power,  }\item[{String}]{cpu\+Id,  }\item[{\mbox{\hyperlink{classconcurrente_1_1ProcessBuffer}{Process\+Buffer}}}]{buffer,  }\item[{int\mbox{[}$\,$\mbox{]}}]{secuencia }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor de clase 
+\begin{DoxyParams}{Parameters}
+{\em cpu\+Power} & controlador de encendido/apagado del cpu \\
+\hline
+{\em cpu\+Id} & id del cpu \\
+\hline
+{\em buffer} & buffer que contiene los procesos \\
+\hline
+{\em secuencia} & secuencia de disparos \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classconcurrente_1_1CPUProcessing_a76ecdf46d8a233b6b02a057c78f6bb4d}\label{classconcurrente_1_1CPUProcessing_a76ecdf46d8a233b6b02a057c78f6bb4d}} 
+\index{concurrente.CPUProcessing@{concurrente.CPUProcessing}!getProcesados@{getProcesados}}
+\index{getProcesados@{getProcesados}!concurrente.CPUProcessing@{concurrente.CPUProcessing}}
+\doxysubsubsection{\texorpdfstring{getProcesados()}{getProcesados()}}
+{\footnotesize\ttfamily int concurrente.\+C\+P\+U\+Processing.\+get\+Procesados (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Getter de procesos terminados \begin{DoxyReturn}{Returns}
+int de los procesos terminados 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classconcurrente_1_1CPUProcessing_a8a4ae5182a9033d366ef0f76f2bede7a}\label{classconcurrente_1_1CPUProcessing_a8a4ae5182a9033d366ef0f76f2bede7a}} 
+\index{concurrente.CPUProcessing@{concurrente.CPUProcessing}!run@{run}}
+\index{run@{run}!concurrente.CPUProcessing@{concurrente.CPUProcessing}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily void concurrente.\+C\+P\+U\+Processing.\+run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Accion del hilo Mantener encendido el \mbox{\hyperlink{classconcurrente_1_1CPU}{C\+PU}} y procesar datos 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+concurrente/\mbox{\hyperlink{CPUProcessing_8java}{C\+P\+U\+Processing.\+java}}\end{DoxyCompactItemize}

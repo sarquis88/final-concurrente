@@ -1,0 +1,60 @@
+\hypertarget{classconcurrente_1_1Politica}{}\doxysection{concurrente.\+Politica Class Reference}
+\label{classconcurrente_1_1Politica}\index{concurrente.Politica@{concurrente.Politica}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classconcurrente_1_1Politica_a269c2a069c3bae1bbc9dd80118a738be}{Politica}} (int\mbox{[}$\,$\mbox{]} prioridades)
+\item 
+int \mbox{\hyperlink{classconcurrente_1_1Politica_aa14498cd2011f0f222a13ce89215f037}{get\+Transicion\+Prioritaria}} (int\mbox{[}$\,$\mbox{]} transiciones\+Listas)
+\item 
+void \mbox{\hyperlink{classconcurrente_1_1Politica_a63dcbfc43b477a1954f9219370590211}{switch\+Prioridades}} (int sw1, int sw2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classconcurrente_1_1Politica_a269c2a069c3bae1bbc9dd80118a738be}\label{classconcurrente_1_1Politica_a269c2a069c3bae1bbc9dd80118a738be}} 
+\index{concurrente.Politica@{concurrente.Politica}!Politica@{Politica}}
+\index{Politica@{Politica}!concurrente.Politica@{concurrente.Politica}}
+\doxysubsubsection{\texorpdfstring{Politica()}{Politica()}}
+{\footnotesize\ttfamily concurrente.\+Politica.\+Politica (\begin{DoxyParamCaption}\item[{int\mbox{[}$\,$\mbox{]}}]{prioridades }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor de clase 
+\begin{DoxyParams}{Parameters}
+{\em prioridades} & prioridades a aplicar \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classconcurrente_1_1Politica_aa14498cd2011f0f222a13ce89215f037}\label{classconcurrente_1_1Politica_aa14498cd2011f0f222a13ce89215f037}} 
+\index{concurrente.Politica@{concurrente.Politica}!getTransicionPrioritaria@{getTransicionPrioritaria}}
+\index{getTransicionPrioritaria@{getTransicionPrioritaria}!concurrente.Politica@{concurrente.Politica}}
+\doxysubsubsection{\texorpdfstring{getTransicionPrioritaria()}{getTransicionPrioritaria()}}
+{\footnotesize\ttfamily int concurrente.\+Politica.\+get\+Transicion\+Prioritaria (\begin{DoxyParamCaption}\item[{int\mbox{[}$\,$\mbox{]}}]{transiciones\+Listas }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Retorna la transicion con mayor prioridad a despertar 
+\begin{DoxyParams}{Parameters}
+{\em transiciones\+Listas} & vector de transiciones transiciones\+Listas \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+transicion sensibilizada con mayor prioridad (menor numero), -\/1 si no hay ninguna transicion sensibilizada 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classconcurrente_1_1Politica_a63dcbfc43b477a1954f9219370590211}\label{classconcurrente_1_1Politica_a63dcbfc43b477a1954f9219370590211}} 
+\index{concurrente.Politica@{concurrente.Politica}!switchPrioridades@{switchPrioridades}}
+\index{switchPrioridades@{switchPrioridades}!concurrente.Politica@{concurrente.Politica}}
+\doxysubsubsection{\texorpdfstring{switchPrioridades()}{switchPrioridades()}}
+{\footnotesize\ttfamily void concurrente.\+Politica.\+switch\+Prioridades (\begin{DoxyParamCaption}\item[{int}]{sw1,  }\item[{int}]{sw2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Cambio de prioridades entre dos transiciones 
+\begin{DoxyParams}{Parameters}
+{\em sw1} & transicion 1 \\
+\hline
+{\em sw2} & transicion 2 \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+concurrente/\mbox{\hyperlink{Politica_8java}{Politica.\+java}}\end{DoxyCompactItemize}

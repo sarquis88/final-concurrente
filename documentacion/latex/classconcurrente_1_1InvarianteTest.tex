@@ -1,0 +1,90 @@
+\hypertarget{classconcurrente_1_1InvarianteTest}{}\doxysection{concurrente.\+Invariante\+Test Class Reference}
+\label{classconcurrente_1_1InvarianteTest}\index{concurrente.InvarianteTest@{concurrente.InvarianteTest}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classconcurrente_1_1InvarianteTest_a12b9dab6d4575e0d1eba59ded074ff05}{Invariante\+Test}} (String transiciones\+File)
+\item 
+boolean \mbox{\hyperlink{classconcurrente_1_1InvarianteTest_a6d3d0b5338cee83fc5b247a5323c576b}{check\+Invariantes}} (int\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} invariantes)
+\item 
+String \mbox{\hyperlink{classconcurrente_1_1InvarianteTest_a41dde023106528441a07afdf56ed77b0}{get\+Transiciones\+String}} ()
+\item 
+String \mbox{\hyperlink{classconcurrente_1_1InvarianteTest_a54cf8fa908482500dc5133c10180644c}{replace}} (String text, char\mbox{[}$\,$\mbox{]} invariant)
+\item 
+char\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{classconcurrente_1_1InvarianteTest_abde3aa763d461cb51ad009edaad000c7}{get\+Invariant\+Char}} (int\mbox{[}$\,$\mbox{]} invariant)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classconcurrente_1_1InvarianteTest_a12b9dab6d4575e0d1eba59ded074ff05}\label{classconcurrente_1_1InvarianteTest_a12b9dab6d4575e0d1eba59ded074ff05}} 
+\index{concurrente.InvarianteTest@{concurrente.InvarianteTest}!InvarianteTest@{InvarianteTest}}
+\index{InvarianteTest@{InvarianteTest}!concurrente.InvarianteTest@{concurrente.InvarianteTest}}
+\doxysubsubsection{\texorpdfstring{InvarianteTest()}{InvarianteTest()}}
+{\footnotesize\ttfamily concurrente.\+Invariante\+Test.\+Invariante\+Test (\begin{DoxyParamCaption}\item[{String}]{transiciones\+File }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor de clase 
+\begin{DoxyParams}{Parameters}
+{\em transiciones\+File} & path del archivo con las transiciones \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classconcurrente_1_1InvarianteTest_a6d3d0b5338cee83fc5b247a5323c576b}\label{classconcurrente_1_1InvarianteTest_a6d3d0b5338cee83fc5b247a5323c576b}} 
+\index{concurrente.InvarianteTest@{concurrente.InvarianteTest}!checkInvariantes@{checkInvariantes}}
+\index{checkInvariantes@{checkInvariantes}!concurrente.InvarianteTest@{concurrente.InvarianteTest}}
+\doxysubsubsection{\texorpdfstring{checkInvariantes()}{checkInvariantes()}}
+{\footnotesize\ttfamily boolean concurrente.\+Invariante\+Test.\+check\+Invariantes (\begin{DoxyParamCaption}\item[{int}]{invariantes\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Analisis de T-\/\+Invariantes 
+\begin{DoxyParams}{Parameters}
+{\em invariantes} & matriz de invariantes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true o false dependiendo si el analisis es correcto o incorrecto, respectivamente 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classconcurrente_1_1InvarianteTest_abde3aa763d461cb51ad009edaad000c7}\label{classconcurrente_1_1InvarianteTest_abde3aa763d461cb51ad009edaad000c7}} 
+\index{concurrente.InvarianteTest@{concurrente.InvarianteTest}!getInvariantChar@{getInvariantChar}}
+\index{getInvariantChar@{getInvariantChar}!concurrente.InvarianteTest@{concurrente.InvarianteTest}}
+\doxysubsubsection{\texorpdfstring{getInvariantChar()}{getInvariantChar()}}
+{\footnotesize\ttfamily char \mbox{[}$\,$\mbox{]} concurrente.\+Invariante\+Test.\+get\+Invariant\+Char (\begin{DoxyParamCaption}\item[{int\mbox{[}$\,$\mbox{]}}]{invariant }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Convierte int array en char array 
+\begin{DoxyParams}{Parameters}
+{\em invariant} & int array con una invariante \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char array con la invariante ingresada 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classconcurrente_1_1InvarianteTest_a41dde023106528441a07afdf56ed77b0}\label{classconcurrente_1_1InvarianteTest_a41dde023106528441a07afdf56ed77b0}} 
+\index{concurrente.InvarianteTest@{concurrente.InvarianteTest}!getTransicionesString@{getTransicionesString}}
+\index{getTransicionesString@{getTransicionesString}!concurrente.InvarianteTest@{concurrente.InvarianteTest}}
+\doxysubsubsection{\texorpdfstring{getTransicionesString()}{getTransicionesString()}}
+{\footnotesize\ttfamily String concurrente.\+Invariante\+Test.\+get\+Transiciones\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Convierte el log del archivo en un string \begin{DoxyReturn}{Returns}
+string que contiene las transiciones del log 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classconcurrente_1_1InvarianteTest_a54cf8fa908482500dc5133c10180644c}\label{classconcurrente_1_1InvarianteTest_a54cf8fa908482500dc5133c10180644c}} 
+\index{concurrente.InvarianteTest@{concurrente.InvarianteTest}!replace@{replace}}
+\index{replace@{replace}!concurrente.InvarianteTest@{concurrente.InvarianteTest}}
+\doxysubsubsection{\texorpdfstring{replace()}{replace()}}
+{\footnotesize\ttfamily String concurrente.\+Invariante\+Test.\+replace (\begin{DoxyParamCaption}\item[{String}]{text,  }\item[{char\mbox{[}$\,$\mbox{]}}]{invariant }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Matchea las invariantes en el string que contiene las transiciones. En caso de match, reemplaza los digitos de la invariante con el simbolo \textquotesingle{}\#\textquotesingle{} 
+\begin{DoxyParams}{Parameters}
+{\em text} & texto que contiene las transiciones \\
+\hline
+{\em invariant} & char array que representa una invariante \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+el texto original con la invariante remplazada. Si no hay match, el string es el mismo. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+concurrente/\mbox{\hyperlink{InvarianteTest_8java}{Invariante\+Test.\+java}}\end{DoxyCompactItemize}

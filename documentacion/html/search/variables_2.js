@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['red_5fbold_151',['RED_BOLD',['../classColors.html#a2848f33460806371bd6a9ac988d19460',1,'Colors']]],
-  ['reset_152',['RESET',['../classColors.html#a52a5e39d7355882d1055b43c292fffd8',1,'Colors']]]
+  ['red_5fbold_153',['RED_BOLD',['../classconcurrente_1_1Colors.html#a33b419f3350b204b85510c11274f3dc2',1,'concurrente::Colors']]],
+  ['reset_154',['RESET',['../classconcurrente_1_1Colors.html#a9948702590060367b643d5c5e82abcab',1,'concurrente::Colors']]]
 ];

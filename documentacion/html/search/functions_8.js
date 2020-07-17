@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['politica_135',['Politica',['../classPolitica.html#a3d4e0baade5bb2ebb07022f2b58e4a7e',1,'Politica']]],
-  ['procesar_136',['procesar',['../classProcessBuffer.html#a5613d2764f99be9af3e73d2fc9bdd51e',1,'ProcessBuffer']]],
-  ['process_137',['Process',['../classProcess.html#a48f7b5c2996de9adecccc10d8071602e',1,'Process']]],
-  ['processbuffer_138',['ProcessBuffer',['../classProcessBuffer.html#a25303233c43d5931d6f8005d26d95587',1,'ProcessBuffer']]],
-  ['processgenerator_139',['ProcessGenerator',['../classProcessGenerator.html#a1edcbe9ad6126602df1eb311d860c130',1,'ProcessGenerator']]]
+  ['politica_136',['Politica',['../classconcurrente_1_1Politica.html#a269c2a069c3bae1bbc9dd80118a738be',1,'concurrente::Politica']]],
+  ['procesar_137',['procesar',['../classconcurrente_1_1ProcessBuffer.html#a7fdfb7a9c8bc30b6c627acd8323f0ee2',1,'concurrente::ProcessBuffer']]],
+  ['process_138',['Process',['../classconcurrente_1_1Process.html#a74eae09b7cbf9bab326671b5db9a8658',1,'concurrente::Process']]],
+  ['processbuffer_139',['ProcessBuffer',['../classconcurrente_1_1ProcessBuffer.html#a5f95ffc0afb21dae5171648871b03143',1,'concurrente::ProcessBuffer']]],
+  ['processgenerator_140',['ProcessGenerator',['../classconcurrente_1_1ProcessGenerator.html#a80d7b21a3782c1e11b49f4a6a9261429',1,'concurrente::ProcessGenerator']]]
 ];

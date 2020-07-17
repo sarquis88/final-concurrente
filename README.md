@@ -1,6 +1,4 @@
 # final-concurrente
 Final concurrente
 
-Simulacion de DOS procesadores mediante red de Petri
-
-Para un procesador, ver branch mono
+Simulacion de procesador/es mediante red de Petri
