@@ -1,9 +1,6 @@
 package concurrente;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import static java.lang.Math.round;
 import static java.lang.Thread.currentThread;
@@ -13,12 +10,12 @@ public class Main {
     private static final int CANTIDADPROCESOS = 100;          // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
-    private static final long SERVICERATE = 15;             // tiempo promedio de procesamiento
+    private static final long SERVICERATE = 20;             // tiempo promedio de procesamiento
     private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
     private static final long STANDBYDELAY = 30;            // tiempo promedio de encendido
 
-    private static final boolean DUALCORE = false;
+    private static final boolean DUALCORE = true;
     private static final boolean GARBAGECOLLECTION = true;
 
     private static final boolean LOGGING = true;            // logueo en consola
