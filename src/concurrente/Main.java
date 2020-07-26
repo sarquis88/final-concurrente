@@ -7,10 +7,10 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 100;          // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 1000;          // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
-    private static final long SERVICERATE = 20;             // tiempo promedio de procesamiento
+    private static final long SERVICERATE = 50;             // tiempo promedio de procesamiento
     private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
     private static final long STANDBYDELAY = 30;            // tiempo promedio de encendido
@@ -213,14 +213,16 @@ public class Main {
      * Metodo llamado por CPUProcessing al procesar ultimo proceso
      */
     public static void exit() {
-        // se duerme el hilo para darle tiempo a los CPUs para que se apaguen
-        // de lo contrario, el programa puede terminar con los CPUs en modo On
+        /* duerme el hilo para darle tiempo a los CPUs para que se apaguen
+            de lo contrario, el programa puede terminar con los CPUs en modo On */
         try {
             Thread.sleep(round(STANDBYDELAY * 3));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        /* escritura del orden de las transiciones disparadas en el archivo
+            de texto TInvariantesFile */
         try {
             File TInvariantesFile = new File(invariantesFile);
 
@@ -237,6 +239,8 @@ public class Main {
             e.printStackTrace();
         }
 
+        /* calculo de tiempo de ejecucion, analisis de invariantes
+            y loggs con informacion */
         double tiempoEjecucion = (fin - inicio) / 1000.00;
 
         String pInvariantes, tInvariantes;

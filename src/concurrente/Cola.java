@@ -15,13 +15,11 @@ public class Cola {
 	 * Envio de thread a dormir
 	 */
 	public synchronized void acquire() {
-		if(this.waiting == 0) {
-			try {
-				this.waiting = 1;
-				wait();
-			} catch (InterruptedException e) {
-				interruptedReaccion();
-			}
+		this.waiting++;
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			interruptedReaccion();
 		}
 	}
 
@@ -29,10 +27,8 @@ public class Cola {
 	 * Notificacion al thread para que se despierte
 	 */
 	public synchronized void release() {
-		if(this.waiting == 1) {
-			this.waiting = 0;
-			this.notify();
-		}
+		this.waiting--;
+		this.notify();
 	}
 
 	/**
@@ -47,6 +43,9 @@ public class Cola {
 	 * @return retorna int waiting, 1 ó 0
 	 */
 	public int getWaiting() {
-		return this.waiting;
+		if( this.waiting > 0 )
+			return 1;
+		else
+			return 0;
 	}
 }

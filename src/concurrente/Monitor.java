@@ -37,15 +37,18 @@ public class Monitor {
         mutex.lock();
 
         boolean k = true;
-        while(k) {
+        while(k)
+        {
 
             k = redDePetri.disparoTemporal(transicion);
 
-            if( k ) {
+            if( k )
+            {
                 despertar();
                 k = false;
             }
-            else {
+            else
+            {
                 mutex.unlock();
                 this.colas[transicion].acquire();
                 mutex.lock();
