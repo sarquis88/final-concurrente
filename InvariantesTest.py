@@ -119,7 +119,7 @@ def test_mono(file):
     line = re.sub( garbage, r'', line)
 
     # remplazo de transicion incompleta
-    old = line
+    old = " "
     while old != line:
         old = line
         line = re.sub( resto, r'\g<1>\g<2>\g<3>', line)
@@ -136,8 +136,7 @@ def __main__():
     fileA = open("./src/files/transicionesA.txt")
     fileB = open("./src/files/transicionesB.txt")
 
-    test_mono( file )
-    return
+    #test_mono( file )
     test_colectivo( file )
     test_individual( file, 'a' )
     test_individual( file, 'b' )
