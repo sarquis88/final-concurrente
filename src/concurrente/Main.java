@@ -7,21 +7,24 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 1000;          // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 100;          // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
-    private static final long SERVICERATE = 50;             // tiempo promedio de procesamiento
+    private static final long SERVICERATE = 15;             // tiempo promedio de procesamiento
     private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
     private static final long STANDBYDELAY = 30;            // tiempo promedio de encendido
 
-    private static final boolean DUALCORE = true;
+    private static final boolean DUALCORE = false;
     private static final boolean GARBAGECOLLECTION = true;
 
     private static final boolean LOGGING = true;            // logueo en consola
     private static final boolean REALBUFFER = true;         // creacion de objetos Process en ProcessBuffer
 
-    private static final String invariantesFile = "./src/files/T-Invariantes.txt";
+    private static final String transicionesFile = "./src/files/transiciones.txt";
+    private static final String transicionesFileA = "./src/files/transicionesA.txt";
+    private static final String transicionesFileB = "./src/files/transicionesB.txt";
+
 
     private static long inicio;
     private static long fin;
@@ -224,14 +227,28 @@ public class Main {
         /* escritura del orden de las transiciones disparadas en el archivo
             de texto TInvariantesFile */
         try {
-            File TInvariantesFile = new File(invariantesFile);
-
+            File TInvariantesFile = new File( transicionesFile );
             TInvariantesFile.delete();
             TInvariantesFile.createNewFile();
-
             BufferedWriter bufferedWriter;
             bufferedWriter = new BufferedWriter(new FileWriter(TInvariantesFile, false));
-            bufferedWriter.write(redDePetri.getOrdenTransicionesDisparadas());
+            bufferedWriter.write(redDePetri.getOrdenTransicionesDisparadas('c'));
+            bufferedWriter.flush();
+            bufferedWriter.close();
+
+            TInvariantesFile = new File( transicionesFileA );
+            TInvariantesFile.delete();
+            TInvariantesFile.createNewFile();
+            bufferedWriter = new BufferedWriter(new FileWriter(TInvariantesFile, false));
+            bufferedWriter.write(redDePetri.getOrdenTransicionesDisparadas('a'));
+            bufferedWriter.flush();
+            bufferedWriter.close();
+
+            TInvariantesFile = new File( transicionesFileB );
+            TInvariantesFile.delete();
+            TInvariantesFile.createNewFile();
+            bufferedWriter = new BufferedWriter(new FileWriter(TInvariantesFile, false));
+            bufferedWriter.write(redDePetri.getOrdenTransicionesDisparadas('b'));
             bufferedWriter.flush();
             bufferedWriter.close();
 
@@ -244,17 +261,19 @@ public class Main {
         double tiempoEjecucion = (fin - inicio) / 1000.00;
 
         String pInvariantes, tInvariantes;
-        InvarianteTest invarianteTest = new InvarianteTest(invariantesFile);
 
         if(redDePetri.getIsPInvariantesCorrecto())
             pInvariantes = Colors.GREEN_BOLD + "CORRECTO" + Colors.RESET;
         else
             pInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
 
+        /*
+        InvarianteTest invarianteTest = new InvarianteTest(invariantesFile);
         if(invarianteTest.checkInvariantes(invariantes))
             tInvariantes = Colors.GREEN_BOLD + "CORRECTO" + Colors.RESET;
         else
             tInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
+         */
 
         System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + String.format("%.2f", tiempoEjecucion) + " [seg]" + Colors.RESET);
         if( LOGGING )
@@ -263,7 +282,7 @@ public class Main {
             if( DUALCORE )
                 System.out.println(Colors.BLUE_BOLD + "--> PROCESOS TERMINADOS POR CPU B: " + cpuProcessingB.getProcesados() + Colors.RESET);
             System.out.println(Colors.BLUE_BOLD + "\n--> ANALISIS DE P-INVARIANTES: " + pInvariantes + Colors.RESET);
-            System.out.println(Colors.BLUE_BOLD + "--> ANALISIS DE T-INVARIANTES: " + tInvariantes + Colors.RESET);
+            //System.out.println(Colors.BLUE_BOLD + "--> ANALISIS DE T-INVARIANTES: " + tInvariantes + Colors.RESET);
         }
 
         System.exit(0);

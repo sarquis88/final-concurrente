@@ -14,6 +14,8 @@ public class RedDePetri {
     private final long[] alfa;
     private final long[] beta;
     private String ordenTransicionesDisparadas;
+    private String ordenTransicionesDisparadasA;
+    private String ordenTransicionesDisparadasB;
     private final Monitor monitor;
 
     /**
@@ -38,6 +40,8 @@ public class RedDePetri {
         this.transiciones = new int[incidenciaBack[0].length];
         this.vectorDesInhibidor = new int[this.transiciones.length];
         this.ordenTransicionesDisparadas = "";
+        this.ordenTransicionesDisparadasA = "";
+        this.ordenTransicionesDisparadasB = "";
         this.isPInvariantesCorrecto = true;
         this.timeStamp = timeStamp;
         this.alfa = alfa;
@@ -81,6 +85,12 @@ public class RedDePetri {
         else
             concat += 48;
         this.ordenTransicionesDisparadas = this.ordenTransicionesDisparadas.concat( (char) concat + " ");
+
+        if( concat >= 49 && concat <= 54 )
+            this.ordenTransicionesDisparadasA = this.ordenTransicionesDisparadasA.concat( (char) concat + " ");
+        else if( concat != '0' && concat != 'D' && concat != 'E' )
+            this.ordenTransicionesDisparadasB = this.ordenTransicionesDisparadasB.concat( (char) concat + " ");
+
 
         actualizarVectorDesInhibidor();
         actualizarSensibilizadas();
@@ -198,8 +208,14 @@ public class RedDePetri {
      * Getter del orden de las transiciones disparadas
      * @return string que posee dicho orden
      */
-    public String getOrdenTransicionesDisparadas() {
-        return this.ordenTransicionesDisparadas;
+    public String getOrdenTransicionesDisparadas( char cpu )
+    {
+        if( cpu == 'a' )
+            return this.ordenTransicionesDisparadasA;
+        else if( cpu == 'b' )
+            return this.ordenTransicionesDisparadasB;
+        else
+            return this.ordenTransicionesDisparadas;
     }
 
     /**
