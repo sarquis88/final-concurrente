@@ -100,10 +100,13 @@ def test_mono(file):
     print("")
     print("Test mono:")
 
-    # definicion de valores de acuerdo al CPU
+    # definicion de valores
     invariante = r'0(.*?)1(.*?)2(.*?)3(.*?)5(.*?)6(.*?)4'
+    remplazo_invariante = r'\g<1>\g<2>\g<3>\g<4>\g<5>\g<6>'
     resto = r'0(.*?)1(.*?)5(.*?)6'
+    remplazo_resto = r'\g<1>\g<2>\g<3>'
     garbage = r'7'
+    remplazo_garbage = r''
 
     # lectura de archivo
     line = file.readline()
@@ -113,16 +116,16 @@ def test_mono(file):
     old = " "
     while old != line:
         old = line
-        line = re.sub( invariante, r'\g<1>\g<2>\g<3>\g<4>\g<5>\g<6>', line)
+        line = re.sub( invariante, remplazo_invariante, line)
 
     # remplazo de invariante garbagecollector
-    line = re.sub( garbage, r'', line)
+    line = re.sub( garbage, remplazo_garbage, line)
 
-    # remplazo de transicion incompleta
+    # remplazo de invariante incompleta
     old = " "
     while old != line:
         old = line
-        line = re.sub( resto, r'\g<1>\g<2>\g<3>', line)
+        line = re.sub( resto, remplazo_resto, line)
 
     # chequeo final
     if len(line) == 0:
@@ -136,10 +139,10 @@ def __main__():
     fileA = open("./src/files/transicionesA.txt")
     fileB = open("./src/files/transicionesB.txt")
 
-    #test_mono( file )
-    test_colectivo( file )
-    test_individual( file, 'a' )
-    test_individual( file, 'b' )
+    test_mono( file )
+    #test_colectivo( file )
+    #test_individual( file, 'a' )
+    #test_individual( file, 'b' )
 
     print("")
 

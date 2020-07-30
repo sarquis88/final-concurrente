@@ -7,15 +7,15 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 500;          // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 15;          // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
-    private static final long SERVICERATE = 15;             // tiempo promedio de procesamiento
+    private static final long SERVICERATE = 5;             // tiempo promedio de procesamiento
     private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
     private static final long STANDBYDELAY = 30;            // tiempo promedio de encendido
 
-    private static final boolean DUALCORE = true;
+    private static final boolean DUALCORE = false;
     private static final boolean GARBAGECOLLECTION = true;
 
     private static final boolean LOGGING = true;            // logueo en consola
@@ -31,7 +31,7 @@ public class Main {
 
     private static final Thread[] threads = { null, null, null, null, null, null, null };
 
-    private static int[][] invariantes;
+    //private static int[][] invariantes;
 
     private static RedDePetri redDePetri;
     private static CPUProcessing cpuProcessingA;
@@ -60,21 +60,25 @@ public class Main {
             if (GARBAGECOLLECTION)
             {
                 petriNetFile = "./src/files/petri-net.xml";
+                /*
                 invariantes = new int[][]{
                         {0, 7, 8, 9, 11, 12, 10},
                         {0, 7, 14, 11, 12, -1, -1},
                         {0, 1, 2, 3, 5, 6, 4},
                         {0, 1, 13, 5, 6, -1, -1}
                 };
+                 */
                 // TRANSICIONES          0,  1, 2, 3, 4, 5, 6,  7, 8, 9,10,11,12, 13, 14
                 prioridades = new int[]{10, 11, 6, 8, 4, 2, 0, 12, 7, 9, 5, 3, 1, 13, 14};
             } else
             {
                 petriNetFile = "./src/files/petri-net-nogarbagecollector.xml";
+                /*
                 invariantes = new int[][]{
                         {0, 7, 8, 9, 11, 12, 10},
                         {0, 1, 2, 3, 5, 6, 4}
                 };
+                */
                 // TRANSICIONES          0,  1, 2, 3, 4, 5, 6,  7, 8, 9,10,11,12
                 prioridades = new int[]{10, 11, 6, 8, 4, 2, 0, 12, 7, 9, 5, 3, 1};
             }
@@ -85,18 +89,22 @@ public class Main {
             if (GARBAGECOLLECTION)
             {
                 petriNetFile = "./src/files/petri-net-mono.xml";
+                /*
                 invariantes = new int[][]{
                         {0, 1, 2, 3, 5, 6, 4},
                         {0, 1, 7, 5, 6, -1, -1}
                 };
+                */
                 // TRANSICIONES          0, 1, 2, 3, 4, 5, 6, 7
                 prioridades = new int[]{5, 6, 3, 4, 2, 1, 0, 7};
             } else
             {
                 petriNetFile = "./src/files/petri-net-mono-nogarbagecollector.xml";
+                /*
                 invariantes = new int[][]{
                         {0, 1, 2, 3, 5, 6, 4}
                 };
+                */
                 // TRANSICIONES          0, 1, 2, 3, 4, 5, 6
                 prioridades = new int[]{5, 6, 3, 4, 2, 1, 0};
             }
@@ -260,7 +268,7 @@ public class Main {
             y loggs con informacion */
         double tiempoEjecucion = (fin - inicio) / 1000.00;
 
-        String pInvariantes, tInvariantes;
+        String pInvariantes;
 
         if(redDePetri.getIsPInvariantesCorrecto())
             pInvariantes = Colors.GREEN_BOLD + "CORRECTO" + Colors.RESET;
@@ -268,6 +276,7 @@ public class Main {
             pInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
 
         /*
+        String tInvariantes;
         InvarianteTest invarianteTest = new InvarianteTest(invariantesFile);
         if(invarianteTest.checkInvariantes(invariantes))
             tInvariantes = Colors.GREEN_BOLD + "CORRECTO" + Colors.RESET;
