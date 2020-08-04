@@ -7,7 +7,7 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 15;          // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 500;          // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
     private static final long SERVICERATE = 5;             // tiempo promedio de procesamiento
@@ -15,7 +15,7 @@ public class Main {
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
     private static final long STANDBYDELAY = 30;            // tiempo promedio de encendido
 
-    private static final boolean DUALCORE = false;
+    private static final boolean DUALCORE = true;
     private static final boolean GARBAGECOLLECTION = true;
 
     private static final boolean LOGGING = true;            // logueo en consola

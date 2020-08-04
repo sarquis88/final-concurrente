@@ -101,8 +101,8 @@ def test_mono(file):
     print("Test mono:")
 
     # definicion de valores
-    invariante = r'0(.*?)1(.*?)2(.*?)3(.*?)5(.*?)6(.*?)4'
-    remplazo_invariante = r'\g<1>\g<2>\g<3>\g<4>\g<5>\g<6>'
+    invariante = r'(.*?)0(.*?)1(.*?)2(.*?)3(.*?)5(.*?)6(.*?)4(.*?)'
+    remplazo_invariante = r'\g<1>\g<2>\g<3>\g<4>\g<5>\g<6>\g<7>\g<8>'
     resto = r'0(.*?)1(.*?)5(.*?)6'
     remplazo_resto = r'\g<1>\g<2>\g<3>'
     garbage = r'7'
@@ -111,6 +111,8 @@ def test_mono(file):
     # lectura de archivo
     line = file.readline()
     line = re.sub("\s", "", line)
+
+    print( "Transiciones totales: " + str(len(line)) )
 
     # remplazo de invariante
     old = " "
@@ -139,10 +141,10 @@ def __main__():
     fileA = open("./src/files/transicionesA.txt")
     fileB = open("./src/files/transicionesB.txt")
 
-    test_mono( file )
-    #test_colectivo( file )
-    #test_individual( file, 'a' )
-    #test_individual( file, 'b' )
+    #test_mono( file )
+    test_colectivo( file )
+    test_individual( file, 'a' )
+    test_individual( file, 'b' )
 
     print("")
 
