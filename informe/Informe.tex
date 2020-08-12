@@ -13,7 +13,7 @@
 
 \title{Universidad Nacional de Córdoba\\Facultad de Ciencias Exactas, Físicas y Naturales}
 \author{Tomas Sarquis}
-\date{Julio 2020}
+\date{Agosto 2020}
 
 \newcommand{\fnuml}{\emph{Unified Modeling Language}, \url{en.wikipedia.org/wiki/Unified_Modeling_Language}}
 \newcommand{\fnpipe}{\url{http://pipe2.sourceforge.net}}
@@ -76,7 +76,7 @@
     \end{figure} 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \newpage
-    \section{Implementación y resultados}
+    \section{Implementación}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Red de Petri}
     En la \emph{figura 2} se observa cómo fue modelada la red de Petri de acuerdo al enunciado. \par
@@ -126,7 +126,6 @@
         Processing y GarbageCollector
         \item \textbf{CPUPower:} Modelo del hilo CPUPower anteriormente descrito
         \item \textbf{CPUProcessing:} Modelo del hilo CPUProcessing anteriormente descrito
-        \item \textbf{InvarianteTest:} Implementación de un test de t-invariantes
         \item \textbf{Main:} Clase principal y ejecutable
         \item \textbf{Monitor:} Encargada de administrar los tiempos y el uso de la red de 
         Petri
@@ -149,6 +148,15 @@
     de la \emph{figura 3}. \par   
     Para información más detallada acerca de las clases y  sus funciones, se puede consultar
     la documentación\footnote{\fndoc} hecha por \emph{Doxygen}\footnote{\fndoxy}.
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \subsection{Monitor}
+    La clase \emph{Monitor} es la que se encarga de administrar los hilos de nuestro programa.
+    A continuación, para un mejor entendimiento de la clase, se observa un diagrama de secuencia
+    que ilustra cómo un hilo entra al monitor, hace su trabajo y sale del mismo.
+    \begin{figure}[H]
+        \includegraphics[width=1.2\textwidth, center]{secuencia-monitor.png}
+        \caption{Diagrama de secuencia del monitor}
+    \end{figure}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Política}
     La clase \emph{política} se encarga de facilitar la elección de a qué hilo despertar en 
@@ -173,7 +181,7 @@
         \includegraphics[width=0.7\textwidth, center]{p-invariante.png}
         \caption{Análisis de P-Invariantes en Pipe}
     \end{figure}
-    La \emph{figura 4} nos enseña qué plazas están relacionadas mediante una invariante de
+    La \emph{figura 5} nos enseña qué plazas están relacionadas mediante una invariante de
     plazas. Esta relación indica que la suma de los \emph{tokens} en dichas plazas, en cada
     relación, sea siempre unitaria. Estos es: \newline \newline
     \begin{center}
@@ -186,60 +194,92 @@
     chequeo cada vez que se dispara una transición. El método de la clase que hace dicho
     chequeo se llama \emph{isPInvariantesCorrecto}. \newline \newline
     \textbf{T-Invariantes:} \newline \newline
-    De la misma forma, podemos observar en la \emph{figura 5} las invariantes de transición
+    De la misma forma, podemos observar en la \emph{figura 6} las invariantes de transición
     que existen en nuestro sistema. \\
     \begin{figure}[H]
         \includegraphics[width=0.7\textwidth, center]{t-invariante.png}
         \caption{Análisis de T-Invariantes en Pipe}
-    \end{figure}   
-    Anteriormente se mencionó la clase \emph{InvarianteTest}. Esta clase es la encargada
-    de chequear, una vez finalizada la ejecución, que el orden de los disparos (de las 
-    transiciones) sea el correcto. \par
-    Para esto, la clase \emph{Main} se encarga de grabar todas las transiciones (en orden) 
-    que han sido disparadas en un archivo\footnote{\fninv} de texto. Luego, la
-    clase \emph{InvarianteTest} usa esa información para, mediante un algoritmo de remplazo,
-    ir eliminando las coincidencias (o \emph{matches}) entre el \emph{log} de transiciones y
-    las invariantes. Si el sistema funciona correctamente, deben quedar eliminadas todas las
-    transiciones. De lo contrario, existen errores, que son escritos en otro 
-    archivo\footnote{\fninverr} de texto. 
+    \end{figure}
+    Para este análisis, la clase \emph{Main} se encarga de grabar todas las transiciones 
+    (en orden) que han sido disparadas en un archivo\footnote{\fninv} de texto. Luego, un
+    programa en Python (\emph{InvariantesTest.py}) usa esa información para, mediante un 
+    algoritmo de remplazo con regex, ir eliminando las coincidencias (o \emph{matches}) 
+    entre el \emph{log} de transiciones y las invariantes. Si el sistema funciona 
+    correctamente, deben quedar eliminadas todas las transiciones. \newline \par
+    Se realizó un análisis en los \emph{softwares} Charlie/Snoopy para respaldarnos nó 
+    solamente en Pipe. En este análisis consideramos un CPU mono-core. Los resultados 
+    fueron los mismos:
+    \begin{figure}[H]
+        \includegraphics[width=1.0\textwidth, center]{t-invariante-snoopy.png}
+        \caption{Análisis de T-Invariantes en Charlie/Snoopy}
+    \end{figure}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \newpage
     \section{Resultados}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Análisis de invariantes}
-    Al finalizar una ejecución, se loggea el estado de los análisis de invariantes. Un ejemplo
-    se puede ver en la \emph{figura 6}. \par
-    \begin{figure}[H]
-        \includegraphics[width=0.5\textwidth, center]{analisis-invariantes-ej.png}
-        \caption{Ejemplo del análisis de invariantes de una ejecución}
-    \end{figure}
-    Se hicieron pruebas\footnote{\fnpruebas} con 100, 1000 y 2000 procesos y con ambos 
-    procesadores trabajando en forma equilibrada (mismo tiempo de procesamiento). 
-    Además, se realizaron 10 muestras por cada cantidad de procesos. Los resultados, 
-    en la \emph{tabla 1}.\newline
+    \textbf{P-invariantes: } el análisis de las invariantes de plaza consiste en chequear, 
+    cada vez que se dispara una transición, que las ecuaciones de la sección 2.5 se cumplen.
+    No hubo mayor problema con las mismas, comprobándose que el análisis siempre indica que
+    las invariantes de plaza se llevan a cabo correctamente. \newline \par
+    \textbf{T-invariantes: } el análisis de las invariantes de transiciones consiste en 
+    observar el log de transiciones e ir remplazando las invariantes que van coincidiendo.
+    Como se dijo anteriormente, éste análisis se realizó en Python haciendo uso de la 
+    librería de regex. \par
+    El programa que realiza dicho análisis consta de dos funciones de interés: \par
+    \begin{itemize}
+        \item test\_colectivo\_4inv(): Se realiza el análisis con las invariantes obtenidas 
+        por Pipe. Se hace un reemplazo recursivo hasta que no haya más coincidencias.
+        \begin{figure}[H]
+            \includegraphics[width=0.9\textwidth, center]{regex4inv.png}
+            \caption{Regex utilizado en la función de 4 invariantes}
+        \end{figure}
+        \item test\_colectivo\_2inv(): Se realiza el análisis con dos invariantes escogidas 
+        por el diseñador. Se hace un reemplazo recursivo hasta que no haya más coincidencias.
+        Luego, se reemplazan las transiciones equivalentes al \emph{GarbageCollector}.
+        \begin{figure}[H]
+            \includegraphics[width=0.9\textwidth, center]{regex2inv.png}
+            \caption{Regex utilizado en la función de 2 invariantes}
+        \end{figure}
+    \end{itemize} \par
+    Cabe destacar que las letras \{\textbf{A, B, C, D, E}\}, en éstas últimas imágenes, 
+    equivalen a las transiciones \{\textbf{10, 11, 12, 13, 14}\}. \newline \newline
+    \textbf{Resultados}
     \begin{center}
         \begin{table}[H]
-            \begin{tabular}{||c|c|c||} 
+            \centering
+            \begin{tabular}{||c|c|c|c||} 
                 \hline
-                Procesos & Transiciones totales (\emph{avg}) & Transiciones restantes (\emph{avg}) \\ [0.5ex] 
+                Procesos & Trans. totales & Trans. restantes (4inv) & Trans. restantes (2inv) \\ [0.5ex] 
                 \hline\hline
-                100 & 552,6 & 11,5 \\ 
+                250 & 1486 & 17 & 373 \\ 
                 \hline
-                1000 & 5538,4 & 13,8 \\
+                500 & 2984 & 24 & 771 \\
                 \hline
-                2000 & 11061 & 14 \\
+                750 & 4478 & 22 & 1183 \\
+                \hline
+                1000 & 5956 & 24 & 1527 \\
+                \hline
+                1250 & 7430 & 17 & 2008 \\
+                \hline
+                1500 & 8938 & 19 & 2434 \\
                 \hline
             \end{tabular}
-            \caption{Resultados de análisis. Cada fila equivale a 10 muestras}
+            \caption{Resultados de análisis de T-Invariantes}
         \end{table}
     \end{center} \par
-    No hubo mayores problemas con el análisis de P-Invariantes. \newline \par
-    Respecto a los T-Invariantes, para que los chequeos sean positivos, la cantidad de transiciones 
-    restantes debe ser nula. \par
-    Claramente, los chequeos de t-invariantes son negativos, siendo esto, obviamente, no deseado. \par
-    Sin embargo, la cantidad de transiciones restantes (que no cumplen con una invariante) es 
-    relativamente la misma para todos los casos. Esto quiere decir que la cantidad de transiciones
-    restantes no dependen de la cantidad de transiciones totales.
+    Como se puede ver, en ambos casos \textbf{hay transiciones restantes}. Obviamente no es
+    lo deseado. \par
+    En el caso del método de \textbf{2 invariantes}, las transiciones restantes son muchas.
+    Esto era esperado, ya que el método no contempla que, cada vez que se procesa una tarea,
+    no necesariamente el CPU se enciende/apaga. \par
+    En el caso del método de \textbf{4 invariantes}, se esperaba que las transiciones 
+    restantes sean nulas. Si bien esto no es asi, podemos observar que la cantidad de 
+    transiciones restantes no aumenta con la cantidad de transiciones totales, si no, que se
+    mantienen en el mismo rango de valores. \newline \par 
+    A pesar de que los análisis indican que el programa funciona de forma incorrecta, se
+    invita al lector a leer la sección del apéndice \textbf{Caso de análisis}. En dicha 
+    sección, se demuestra el correcto funcionamiento del programa.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Tiempos}
     A continuación, en la \emph{tabla 2}, se describen los tiempos que lleva el programa en 
@@ -289,7 +329,11 @@
     dos procesadores trabajando concurrentemente, orquestados por una red de Petri. Esta última
     nos da la ventaja de poder controlar que el sistema funcione correctamente, chequeando que
     las propiedades de la red sean las correctas. Además, el uso de redes de Petri nos da la 
-    posibilidad de escalar nuestro sistema sin mayores problemas.
+    posibilidad de escalar nuestro sistema sin mayores problemas. \par
+    Si bien me he encontrado con problemas (sección Resultados - Invariantes), se pudo 
+    comprobar, por otros medios, que el sistema de verdad funciona de forma correcta. \par
+    Dichos problemas se han intentado de resolver desde distintos frentes, no pudiéndose 
+    lograr.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \newpage 
     \section{Apéndice}
@@ -312,5 +356,30 @@
         \item \textbf{LOGGING}: activación de mensajes en consola
         \item \textbf{REALBUFFER}: activación de bufferes \emph{ProcessBuffer}
     \end{itemize}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \subsection{Caso de análisis} \noindent
+    A continuación, se demuestra el correcto funcionamiento del sistema, para un caso particular
+    en el cuál se procesan 8 tareas:
+    \begin{center}
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{||c|c|c|c||} 
+                \hline
+                Procesos & Trans. totales & Trans. restantes (4inv) & Trans. restantes (2inv) \\ [0.5ex] 
+                \hline\hline
+                8 & 48 & 5 & 10 \\ 
+                \hline
+            \end{tabular}
+            \caption{Resultados de análisis de T-Invariantes. Caso de análisis}
+        \end{table}
+    \end{center} \par
+    En el cuadro anterior, se observan los resultados negativos del análisis de 
+    T-Invariantes. Las transiciones disparadas en éste caso, son: \newline 
+    \begin{center}
+        078901B2C35A6401072801079BCBE07E07E356D5CBCB64CA 
+    \end{center}
+    Se invita al lector, interesado, en chequear que dichas transiciones sean válidas para 
+    nuestra red de Petri. Para ésto, se debe simular la anterior secuencia de transiciones
+    en algún \emph{software} como Pipe.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

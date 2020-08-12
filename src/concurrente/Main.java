@@ -7,10 +7,10 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 500;          // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 8;          // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
-    private static final long SERVICERATE = 5;             // tiempo promedio de procesamiento
+    private static final long SERVICERATE = 10;             // tiempo promedio de procesamiento
     private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
     private static final long STANDBYDELAY = 30;            // tiempo promedio de encendido
@@ -30,8 +30,6 @@ public class Main {
     private static long fin;
 
     private static final Thread[] threads = { null, null, null, null, null, null, null };
-
-    //private static int[][] invariantes;
 
     private static RedDePetri redDePetri;
     private static CPUProcessing cpuProcessingA;
