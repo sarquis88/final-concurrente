@@ -92,7 +92,7 @@
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Hilos}
     Teniendo en cuenta la red de la \emph{figura 2}, lo siguiente es pensar cuántos hilos
-    serán los encargados de ejecutarse el programa. \par
+    serán los encargados de ejecutarse en el programa. \par
     Luego de realizar un análisis, se llegó a la conclusión de que en la red deben trabajar
     \textbf{7 hilos} en forma concurrente. Estos hilos son llamados:
     \begin{itemize}
@@ -102,19 +102,21 @@
         \item CPUGarbageCollector x 2
     \end{itemize}
     \textbf{ProcessGenerator:} Encargado de generar los procesos comunes a ambos CPUs.
-    Dispara las transiciones 0, 1 y 8. \newline \newline
+    Dispara las transiciones 0, 1 y 7. \newline \newline
     \textbf{CPUPower:} Maneja el encendido/apagado de cada CPU. Dispara las transiciones
-    2, 3 y 4 o 9, A y B. \newline \newline
+    2, 3 y 4 o 8, 9 y A. \newline \newline
     \textbf{CPUProcessing:} Procesa las tareas de cada CPU. Dispara las transiciones
-    2, 3 y 4 o 9, A y B. \newline \newline
-    \textbf{CPUGarbageCollector:} Previene que la plaza número 4/11 no junte \emph{tokens}
-    "basura". \newline
+    5 y 6 o B y C. \newline \newline
+    \textbf{CPUGarbageCollector:} Previene que no se junten \emph{tokens} "basura". 
+    Dispara las transiciones E o D.\newline \par
+    Cabe destacar que las letras \{\textbf{A, B, C, D, E}\}, en éstas últimas entradas, 
+    equivalen a las transiciones \{\textbf{10, 11, 12, 13, 14}\}. 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Clases en Java}
     El programa encargado de simular el sistema se desarrolla en el lenguaje de programación
     \emph{Java}. \par
     A continuación, se describen las clases, implementadas en dicho lenguaje,
-    que modelan el programa:
+    que modelan el sistema:
     \begin{itemize}
         \item \textbf{Cola:} Colas (\emph{queues}), las cuales son usadas para que los
         hilos puedan dormir en caso que lo necesiten
@@ -122,7 +124,7 @@
         loggear)
         \item \textbf{CPUGarbageCollector:} Modelo del hilo CPUGarbageCollector anteriormente
         descrito
-        \item \textbf{CPU:} Modela un CPU. Clase encargada de "comunicar" los hilos Generator,
+        \item \textbf{CPU:} Modela un CPU. Clase encargada de comunicar los hilos Generator,
         Processing y GarbageCollector
         \item \textbf{CPUPower:} Modelo del hilo CPUPower anteriormente descrito
         \item \textbf{CPUProcessing:} Modelo del hilo CPUProcessing anteriormente descrito
@@ -193,7 +195,7 @@
     Para comprobar que lo anterior se cumpla siempre, la clase \emph{RedDePetri} hace un 
     chequeo cada vez que se dispara una transición. El método de la clase que hace dicho
     chequeo se llama \emph{isPInvariantesCorrecto}. \newline \newline
-    \textbf{T-Invariantes:} \newline \newline
+    \textbf{T-Invariantes:} \newline \par
     De la misma forma, podemos observar en la \emph{figura 6} las invariantes de transición
     que existen en nuestro sistema. \\
     \begin{figure}[H]
@@ -221,12 +223,15 @@
     \textbf{P-invariantes: } el análisis de las invariantes de plaza consiste en chequear, 
     cada vez que se dispara una transición, que las ecuaciones de la sección 2.5 se cumplen.
     No hubo mayor problema con las mismas, comprobándose que el análisis siempre indica que
-    las invariantes de plaza se llevan a cabo correctamente. \newline \par
-    \textbf{T-invariantes: } el análisis de las invariantes de transiciones consiste en 
+    las invariantes de plaza se llevan a cabo correctamente. \par
+    Los resultados de dicho análisis se muestran al finalizar cada ejecución del programa.
+    \newline \par
+    \textbf{T-invariantes: } el análisis de las invariantes de transicion consiste en 
     observar el log de transiciones e ir remplazando las invariantes que van coincidiendo.
     Como se dijo anteriormente, éste análisis se realizó en Python haciendo uso de la 
     librería de regex. \par
-    El programa que realiza dicho análisis consta de dos funciones de interés: \par
+    Se tuvieron en cuenta dos métodos distintos de análisis. Debido a esto, el programa 
+    consta de dos funciones de interés: \par
     \begin{itemize}
         \item test\_colectivo\_4inv(): Se realiza el análisis con las invariantes obtenidas 
         por Pipe. Se hace un reemplazo recursivo hasta que no haya más coincidencias.
@@ -242,7 +247,7 @@
             \caption{Regex utilizado en la función de 2 invariantes}
         \end{figure}
     \end{itemize} \par
-    Cabe destacar que las letras \{\textbf{A, B, C, D, E}\}, en éstas últimas imágenes, 
+    Recordar que las letras \{\textbf{A, B, C, D, E}\}, en éstas últimas imágenes, 
     equivalen a las transiciones \{\textbf{10, 11, 12, 13, 14}\}. \newline \newline
     \textbf{Resultados}
     \begin{center}
@@ -268,6 +273,7 @@
             \caption{Resultados de análisis de T-Invariantes}
         \end{table}
     \end{center} \par
+    Cabe destacar que para éste análisis se tuvo SERVICERATE = ARRIVALRATE = 10 [ms]. \par
     Como se puede ver, en ambos casos \textbf{hay transiciones restantes}. Obviamente no es
     lo deseado. \par
     En el caso del método de \textbf{2 invariantes}, las transiciones restantes son muchas.
@@ -282,7 +288,7 @@
     sección, se demuestra el correcto funcionamiento del programa.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Tiempos}
-    A continuación, en la \emph{tabla 2}, se describen los tiempos que lleva el programa en 
+    A continuación, en el \emph{cuadro 2}, se describen los tiempos que lleva el programa en 
     ejecutarse. Los tiempos de la red son los siguientes: \par
     \begin{itemize}
         \item \emph{ArrivalRate} = 10 [ms]
@@ -377,7 +383,7 @@
     T-Invariantes. Las transiciones disparadas en éste caso, son: \newline 
     \begin{center}
         078901B2C35A6401072801079BCBE07E07E356D5CBCB64CA 
-    \end{center}
+    \end{center} \par
     Se invita al lector, interesado, en chequear que dichas transiciones sean válidas para 
     nuestra red de Petri. Para ésto, se debe simular la anterior secuencia de transiciones
     en algún \emph{software} como Pipe.
