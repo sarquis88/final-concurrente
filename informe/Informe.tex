@@ -62,6 +62,7 @@
         \item Concurrencia y manejo de hilos en \emph{Java}
         \item Redes de Petri: propiedades y ventajas
         \item \emph{UML}\footnote{\fnuml}: diagramas para modelar
+        \item Expresiones regulares
     \end{itemize}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Enunciado}
@@ -225,7 +226,11 @@
     No hubo mayor problema con las mismas, comprobándose que el análisis siempre indica que
     las invariantes de plaza se llevan a cabo correctamente. \par
     Los resultados de dicho análisis se muestran al finalizar cada ejecución del programa.
-    \newline \par
+    Como se muestra en la siguiente imágen:
+    \begin{figure}[H]
+        \includegraphics[width=0.4\textwidth, center]{analisis-invariantes-ej.png}
+        \caption{Salida resultante del análisis de P-Invariantes}
+    \end{figure}
     \textbf{T-invariantes: } el análisis de las invariantes de transicion consiste en 
     observar el log de transiciones e ir remplazando las invariantes que van coincidiendo.
     Como se dijo anteriormente, éste análisis se realizó en Python haciendo uso de la 
@@ -285,7 +290,9 @@
     mantienen en el mismo rango de valores. \newline \par 
     A pesar de que los análisis indican que el programa funciona de forma incorrecta, se
     invita al lector a leer la sección del apéndice \textbf{Caso de análisis}. En dicha 
-    sección, se demuestra el correcto funcionamiento del programa.
+    sección, se demuestra el correcto funcionamiento del programa. \newline \par
+    También se comprobó que, para una valor de SERVICERATE mucho mayor a ARRIVALRATE, 
+    \textbf{el análisis resulta siempre positivo}.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Tiempos}
     A continuación, en el \emph{cuadro 2}, se describen los tiempos que lleva el programa en 

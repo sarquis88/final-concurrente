@@ -99,8 +99,6 @@ def test_mono(file):
 
 def __main__():
     file = open("./src/files/transiciones.txt")
-    fileA = open("./src/files/transicionesA.txt")
-    fileB = open("./src/files/transicionesB.txt")
 
     line1 = file.readline()
     line1 = re.sub("\s", "", line1)

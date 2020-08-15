@@ -7,10 +7,10 @@ import static java.lang.Thread.currentThread;
 
 public class Main {
 
-    private static final int CANTIDADPROCESOS = 8;          // cantidad de procesos a generar
+    private static final int CANTIDADPROCESOS = 250;          // cantidad de procesos a generar
 
     private static final long ARRIVALRATE = 10;             // tiempo promedio entre generacion de procesos
-    private static final long SERVICERATE = 10;             // tiempo promedio de procesamiento
+    private static final long SERVICERATE = 25;             // tiempo promedio de procesamiento
     private static final int FACTORA = 1;                   // factor de multiplicacion para serviceRate de A
     private static final int FACTORB = 1;                   // factor de multiplicacion para serviceRate de B
     private static final long STANDBYDELAY = 30;            // tiempo promedio de encendido
@@ -22,8 +22,6 @@ public class Main {
     private static final boolean REALBUFFER = true;         // creacion de objetos Process en ProcessBuffer
 
     private static final String transicionesFile = "./src/files/transiciones.txt";
-    private static final String transicionesFileA = "./src/files/transicionesA.txt";
-    private static final String transicionesFileB = "./src/files/transicionesB.txt";
 
 
     private static long inicio;
@@ -58,26 +56,10 @@ public class Main {
             if (GARBAGECOLLECTION)
             {
                 petriNetFile = "./src/files/petri-net.xml";
-                /*
-                invariantes = new int[][]{
-                        {0, 7, 8, 9, 11, 12, 10},
-                        {0, 7, 14, 11, 12, -1, -1},
-                        {0, 1, 2, 3, 5, 6, 4},
-                        {0, 1, 13, 5, 6, -1, -1}
-                };
-                 */
-                // TRANSICIONES          0,  1, 2, 3, 4, 5, 6,  7, 8, 9,10,11,12, 13, 14
                 prioridades = new int[]{10, 11, 6, 8, 4, 2, 0, 12, 7, 9, 5, 3, 1, 13, 14};
             } else
             {
                 petriNetFile = "./src/files/petri-net-nogarbagecollector.xml";
-                /*
-                invariantes = new int[][]{
-                        {0, 7, 8, 9, 11, 12, 10},
-                        {0, 1, 2, 3, 5, 6, 4}
-                };
-                */
-                // TRANSICIONES          0,  1, 2, 3, 4, 5, 6,  7, 8, 9,10,11,12
                 prioridades = new int[]{10, 11, 6, 8, 4, 2, 0, 12, 7, 9, 5, 3, 1};
             }
         } else
@@ -87,23 +69,10 @@ public class Main {
             if (GARBAGECOLLECTION)
             {
                 petriNetFile = "./src/files/petri-net-mono.xml";
-                /*
-                invariantes = new int[][]{
-                        {0, 1, 2, 3, 5, 6, 4},
-                        {0, 1, 7, 5, 6, -1, -1}
-                };
-                */
-                // TRANSICIONES          0, 1, 2, 3, 4, 5, 6, 7
                 prioridades = new int[]{5, 6, 3, 4, 2, 1, 0, 7};
             } else
             {
                 petriNetFile = "./src/files/petri-net-mono-nogarbagecollector.xml";
-                /*
-                invariantes = new int[][]{
-                        {0, 1, 2, 3, 5, 6, 4}
-                };
-                */
-                // TRANSICIONES          0, 1, 2, 3, 4, 5, 6
                 prioridades = new int[]{5, 6, 3, 4, 2, 1, 0};
             }
         }
@@ -238,23 +207,7 @@ public class Main {
             TInvariantesFile.createNewFile();
             BufferedWriter bufferedWriter;
             bufferedWriter = new BufferedWriter(new FileWriter(TInvariantesFile, false));
-            bufferedWriter.write(redDePetri.getOrdenTransicionesDisparadas('c'));
-            bufferedWriter.flush();
-            bufferedWriter.close();
-
-            TInvariantesFile = new File( transicionesFileA );
-            TInvariantesFile.delete();
-            TInvariantesFile.createNewFile();
-            bufferedWriter = new BufferedWriter(new FileWriter(TInvariantesFile, false));
-            bufferedWriter.write(redDePetri.getOrdenTransicionesDisparadas('a'));
-            bufferedWriter.flush();
-            bufferedWriter.close();
-
-            TInvariantesFile = new File( transicionesFileB );
-            TInvariantesFile.delete();
-            TInvariantesFile.createNewFile();
-            bufferedWriter = new BufferedWriter(new FileWriter(TInvariantesFile, false));
-            bufferedWriter.write(redDePetri.getOrdenTransicionesDisparadas('b'));
+            bufferedWriter.write(redDePetri.getOrdenTransicionesDisparadas());
             bufferedWriter.flush();
             bufferedWriter.close();
 
@@ -273,15 +226,6 @@ public class Main {
         else
             pInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
 
-        /*
-        String tInvariantes;
-        InvarianteTest invarianteTest = new InvarianteTest(invariantesFile);
-        if(invarianteTest.checkInvariantes(invariantes))
-            tInvariantes = Colors.GREEN_BOLD + "CORRECTO" + Colors.RESET;
-        else
-            tInvariantes = Colors.RED_BOLD + "INCORRECTO" + Colors.RESET;
-         */
-
         System.out.println(Colors.BLUE_BOLD + "\n--> TIEMPO: " + String.format("%.2f", tiempoEjecucion) + " [seg]" + Colors.RESET);
         if( LOGGING )
         {
@@ -289,7 +233,6 @@ public class Main {
             if( DUALCORE )
                 System.out.println(Colors.BLUE_BOLD + "--> PROCESOS TERMINADOS POR CPU B: " + cpuProcessingB.getProcesados() + Colors.RESET);
             System.out.println(Colors.BLUE_BOLD + "\n--> ANALISIS DE P-INVARIANTES: " + pInvariantes + Colors.RESET);
-            //System.out.println(Colors.BLUE_BOLD + "--> ANALISIS DE T-INVARIANTES: " + tInvariantes + Colors.RESET);
         }
 
         System.exit(0);
