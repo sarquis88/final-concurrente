@@ -393,6 +393,28 @@
     \end{center} \par
     Se invita al lector, interesado, en chequear que dichas transiciones sean válidas para 
     nuestra red de Petri. Para ésto, se debe simular la anterior secuencia de transiciones
-    en algún \emph{software} como Pipe.
+    en algún \emph{software} como Pipe. \newline \par
+    A continuación, se detalla el reemplazo de las invariantes, realizado manualmente. 
+    Se recuerda, además, las secuencias de invariantes: \par
+    \begin{itemize}
+        \item 0789BCA
+        \item 0123564
+        \item 01D56
+        \item 07EBC 
+    \end{itemize} \par
+    \begin{center}
+        \underline{\textbf{0789}}01\underline{\textbf{B}}2\underline{\textbf{C}}35\underline{\textbf{A}}6401072801079BCBE07E07E356D5CBCB64CA \\
+        \underline{\textbf{0123564}}01072801079BCBE07E07E356D5CBCB64CA \\
+        \underline{\textbf{01}}07\underline{\textbf{2}}801079BCBE07E07E\underline{\textbf{356}}D5CBCB6\underline{\textbf{4}}CA \\
+        \underline{\textbf{078}}0107\underline{\textbf{9BC}}BE07E07ED5CBCB6C\underline{\textbf{A}} \\
+        \underline{\textbf{01}}07BE07E07E\underline{\textbf{D5}}CBCB\underline{\textbf{6}}C \\
+        B\underline{\textbf{07E}}07EC\underline{\textbf{BC}} \\
+        B07EC \\
+    \end{center} \par
+    Se realizó el análisis mediante el script en Python, llegándose al mismo resultado.
+    \begin{figure}[H]
+        \includegraphics[width=0.35\textwidth, center]{caso-de-analisis.png}
+        \caption{Análisis en Python}
+    \end{figure}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
