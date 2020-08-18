@@ -17,7 +17,7 @@
 
 \newcommand{\fnuml}{\emph{Unified Modeling Language}, \url{en.wikipedia.org/wiki/Unified_Modeling_Language}}
 \newcommand{\fnpipe}{\url{http://pipe2.sourceforge.net}}
-\newcommand{\fndoc}{La documentación se encuentra en el archivo \emph{html} "documentacion/html/index.html"}
+\newcommand{\fndoc}{La documentación se encuentra en el archivo \emph{html} ''documentacion/html/index.html''}
 \newcommand{\fndoxy}{\url{www.doxygen.nl}}
 \newcommand{\fninv}{src/T-Invariantes.txt}
 \newcommand{\fninverr}{src/T-InvariantesErr.txt}
@@ -108,7 +108,7 @@
     2, 3 y 4 o 8, 9 y A. \newline \newline
     \textbf{CPUProcessing:} Procesa las tareas de cada CPU. Dispara las transiciones
     5 y 6 o B y C. \newline \newline
-    \textbf{CPUGarbageCollector:} Previene que no se junten \emph{tokens} "basura". 
+    \textbf{CPUGarbageCollector:} Previene que no se junten \emph{tokens} ''basura''. 
     Dispara las transiciones E o D.\newline \par
     Cabe destacar que las letras \{\textbf{A, B, C, D, E}\}, en éstas últimas entradas, 
     equivalen a las transiciones \{\textbf{10, 11, 12, 13, 14}\}. 
@@ -290,9 +290,7 @@
     mantienen en el mismo rango de valores. \newline \par 
     A pesar de que los análisis indican que el programa funciona de forma incorrecta, se
     invita al lector a leer la sección del apéndice \textbf{Caso de análisis}. En dicha 
-    sección, se demuestra el correcto funcionamiento del programa. \newline \par
-    También se comprobó que, para una valor de SERVICERATE mucho mayor a ARRIVALRATE, 
-    \textbf{el análisis resulta siempre positivo}.
+    sección, se demuestra el correcto funcionamiento del programa.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Tiempos}
     A continuación, en el \emph{cuadro 2}, se describen los tiempos que lleva el programa en 
@@ -346,7 +344,20 @@
     Si bien me he encontrado con problemas (sección Resultados - Invariantes), se pudo 
     comprobar, por otros medios, que el sistema de verdad funciona de forma correcta. \par
     Dichos problemas se han intentado de resolver desde distintos frentes, no pudiéndose 
-    lograr.
+    lograr. \newline \par
+    Los motivos de los errores anteriormente mencionados los asocio a cuestiones complejas
+    de \emph{interleaving}. \par 
+    Esta red cuenta con la particularidad de contener invariantes que comparten transiciones 
+    y, debido a ésto, cuando uno analiza el log de transiciones, se puede encontrar con un 
+    fenómeno llamado \emph{inversión de orden}. Éste fenómeno se da cuando asociamos una 
+    transicion (compartida) a una invariante en particular y luego nos damos cuenta de que esa
+    transición en realidad ''pertenece'' a otra invariante. El fenómeno anterior podría ocurrir 
+    más de una vez al analizar una secuencia de transiciones y con más de una transicion. \par
+    Lo anterior se resume diciendo que la red poseé invariantes \emph{linealmente independientes}
+    y que el método utilizado (ésto es, \emph{regex} en Python) no contempla la solución para
+    éstos casos en particular. He sido informado de ciertos algoritmos que sí son capaces de
+    afrontar esta particularidad, pero no los he implementado ya que, al hacerlo, no adquiriría
+    más conocimientos de los que ya tengo. \par
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \newpage 
     \section{Apéndice}

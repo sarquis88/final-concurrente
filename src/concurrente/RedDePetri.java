@@ -92,33 +92,39 @@ public class RedDePetri {
      * @param transicion la transicion a disparar
      * @return true si pudo disparar, false en caso contrario.
      */
-    public boolean disparoTemporal(int transicion) {
+    public boolean disparoTemporal(int transicion) 
+    {
         boolean k = true;
-        if (isSensibilizada(transicion)) {
-            if (testVentanaTiempo(transicion)) {
+
+        if ( isSensibilizada( transicion ) ) 
+        {
+            if ( testVentanaTiempo( transicion ) )
                 timeStamp[transicion] = System.currentTimeMillis();
-            }
-            else {
+            else 
+            {
                 long ultimoDisparo = System.currentTimeMillis() - timeStamp[transicion];
-                if(ultimoDisparo < alfa[transicion]) {   // falta esperar mas tiempo
-                    try {
+                if(ultimoDisparo < alfa[transicion]) 
+                {   // falta esperar mas tiempo
+                    try 
+                    {
                         this.monitor.getMutex().unlock();
-                        Thread.sleep(alfa[transicion] - ultimoDisparo);
+                        Thread.sleep( alfa[transicion] - ultimoDisparo );
                         this.monitor.getMutex().lock();
-                    } catch (Exception e) {
+                    } catch (Exception e) 
+                    {
                         e.printStackTrace();
                     }
                 }
-                else {
+                else 
+                {   // beta es maximo - nunca va a llegar acá
                     k = false;
                 }
             }
             if (k)
                 disparar(transicion);
             return k;
-        } else {
+        } else 
             return false;
-        }
     }
 
     /**
