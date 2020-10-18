@@ -1,7 +1,5 @@
-# final-concurrente
+# petrinet_cpu
 
-#### Trabajo final Programacion Concurrente 2019
-Simulacion de procesador/es mediante red de Petri\
-Imágen de la red (mono-nucleo):\
+Net image (mono-core):\
 ![Red](https://github.com/sarquis88/final-concurrente/blob/master/informe/rdp_enun.png)
 
